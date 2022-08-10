@@ -1,0 +1,989 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "",
+    "version": ""
+  },
+  "host": "zupyakapi.iir.ac.cn",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/posts": {
+      "post": {
+        "operationId": "createPost",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreatePostResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PostInfo"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/fans": {
+      "post": {
+        "operationId": "getFansBatch",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetFansBatchResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetFansBatchReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/featured": {
+      "get": {
+        "operationId": "getFeaturedPosts",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetPostsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/like": {
+      "delete": {
+        "operationId": "unlike",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/LikeResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LikeReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      },
+      "post": {
+        "operationId": "like",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/LikeResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LikeReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/like/exist": {
+      "post": {
+        "operationId": "checkLikeExist",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CheckLikeExistResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CheckLikeExistReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/recent": {
+      "get": {
+        "operationId": "getRecentPosts",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetPostsResp"
+            }
+          }
+        },
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/tags": {
+      "get": {
+        "operationId": "getTags",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetTagsResp"
+            }
+          }
+        },
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/user/{id}": {
+      "get": {
+        "operationId": "getPostsByUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetPostsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "published",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/user/{id}/likes": {
+      "get": {
+        "operationId": "getPostsByUserLikes",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetPostsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "published",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/{id}": {
+      "get": {
+        "operationId": "getPost",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/PostInfo"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      },
+      "delete": {
+        "operationId": "deletePost",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeletePostResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeletePostReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      },
+      "put": {
+        "operationId": "updatePost",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreatePostResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PostInfo"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/{id}/fans": {
+      "get": {
+        "operationId": "getUsersByPost",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetUsersResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "CheckLikeExistReq": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "post_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uint"
+          }
+        }
+      },
+      "title": "CheckLikeExistReq",
+      "required": [
+        "user_id",
+        "post_ids"
+      ]
+    },
+    "CheckLikeExistResp": {
+      "type": "object",
+      "properties": {
+        "exists": {
+          "$ref": "#/definitions/mapuintbool"
+        }
+      },
+      "title": "CheckLikeExistResp",
+      "required": [
+        "exists"
+      ]
+    },
+    "CreatePostResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "CreatePostResp",
+      "required": [
+        "id"
+      ]
+    },
+    "DeletePostReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "DeletePostReq",
+      "required": [
+        "id"
+      ]
+    },
+    "DeletePostResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "DeletePostResp",
+      "required": [
+        "id"
+      ]
+    },
+    "GetFansBatchReq": {
+      "type": "object",
+      "properties": {
+        "post_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uint"
+          }
+        }
+      },
+      "title": "GetFansBatchReq",
+      "required": [
+        "post_ids"
+      ]
+    },
+    "GetFansBatchResp": {
+      "type": "object",
+      "properties": {
+        "posts": {
+          "$ref": "#/definitions/mapuintPostFans"
+        }
+      },
+      "title": "GetFansBatchResp",
+      "required": [
+        "posts"
+      ]
+    },
+    "GetFeaturedPostsReq": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "GetFeaturedPostsReq"
+    },
+    "GetPostReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "GetPostReq",
+      "required": [
+        "id"
+      ]
+    },
+    "GetPostsByUserReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "published": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "GetPostsByUserReq",
+      "required": [
+        "id"
+      ]
+    },
+    "GetPostsResp": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "posts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PostInfo"
+          }
+        }
+      },
+      "title": "GetPostsResp",
+      "required": [
+        "count",
+        "from",
+        "size",
+        "posts"
+      ]
+    },
+    "GetRecentPostsReq": {
+      "type": "object",
+      "title": "GetRecentPostsReq"
+    },
+    "GetTagsReq": {
+      "type": "object",
+      "title": "GetTagsReq"
+    },
+    "GetTagsResp": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TagInfo"
+          }
+        }
+      },
+      "title": "GetTagsResp",
+      "required": [
+        "count",
+        "from",
+        "size",
+        "tags"
+      ]
+    },
+    "GetUsersByPostReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "GetUsersByPostReq",
+      "required": [
+        "id"
+      ]
+    },
+    "GetUsersResp": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserInfo"
+          }
+        }
+      },
+      "title": "GetUsersResp",
+      "required": [
+        "count",
+        "from",
+        "size",
+        "users"
+      ]
+    },
+    "Industry": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "sub_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "sub_name": {
+          "type": "string"
+        }
+      },
+      "title": "Industry"
+    },
+    "LikeReq": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "post_id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "LikeReq",
+      "required": [
+        "user_id",
+        "post_id"
+      ]
+    },
+    "LikeResp": {
+      "type": "object",
+      "title": "LikeResp"
+    },
+    "PostFans": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "fans": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserInfo"
+          }
+        }
+      },
+      "title": "PostFans",
+      "required": [
+        "count",
+        "fans"
+      ]
+    },
+    "PostInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "title": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "display_source_name": {
+          "type": "string"
+        },
+        "favicon": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "category": {
+          "type": "string"
+        },
+        "story_type": {
+          "type": "string"
+        },
+        "posted_by": {
+          "$ref": "#/definitions/uint"
+        },
+        "author_full_name": {
+          "type": "string"
+        },
+        "author_user_name": {
+          "type": "string"
+        },
+        "industry": {
+          "$ref": "#/definitions/Industry"
+        },
+        "product_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "first_user_engaged": {
+          "$ref": "#/definitions/uint"
+        },
+        "display_in_country": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "display_in_category": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "is_profanity": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "published_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "pin_status": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "pinned_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "PostInfo"
+    },
+    "TagInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "tag": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "TagInfo",
+      "required": [
+        "id",
+        "tag",
+        "slug",
+        "created_at"
+      ]
+    },
+    "UserInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "userRole": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "isActivated": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "isBlocked": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "channel": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "aboutYou": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "website": {
+          "type": "string"
+        },
+        "full_name": {
+          "type": "string"
+        },
+        "twitter": {
+          "type": "string"
+        },
+        "facebook": {
+          "type": "string"
+        },
+        "linkedin": {
+          "type": "string"
+        },
+        "interest": {
+          "type": "string"
+        }
+      },
+      "title": "UserInfo",
+      "required": [
+        "id",
+        "-",
+        "-",
+        "-",
+        "username",
+        "-",
+        "-",
+        "-",
+        "-",
+        "avatar",
+        "-",
+        "-",
+        "-",
+        "full_name",
+        "-",
+        "-",
+        "-",
+        "-"
+      ]
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "description": "Enter JWT Bearer token **_only_**",
+      "name": "Authorization",
+      "in": "header"
+    }
+  }
+}

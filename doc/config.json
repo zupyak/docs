@@ -1,0 +1,398 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "",
+    "version": ""
+  },
+  "host": "zupyakapi.iir.ac.cn",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/config/communities": {
+      "get": {
+        "operationId": "getCommunities",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetCommunitiesResp"
+            }
+          }
+        },
+        "tags": [
+          "config-api"
+        ]
+      }
+    },
+    "/config/industries": {
+      "get": {
+        "operationId": "getIndustries",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetIndustriesResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "pid",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "industry_id",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "url",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "config-api"
+        ]
+      }
+    },
+    "/config/industries/featured": {
+      "get": {
+        "operationId": "getFeaturedIndustries",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetIndustriesResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "config-api"
+        ]
+      }
+    },
+    "/config/locations": {
+      "get": {
+        "operationId": "getLocations",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetLocationsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "config-api"
+        ]
+      }
+    },
+    "/config/words": {
+      "get": {
+        "operationId": "getWords",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetWordsResp"
+            }
+          }
+        },
+        "tags": [
+          "config-api"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "Community": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "logo": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "search_terms": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "topics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Topic"
+          }
+        }
+      },
+      "title": "Community",
+      "required": [
+        "name",
+        "logo",
+        "url",
+        "description",
+        "search_terms",
+        "topics"
+      ]
+    },
+    "GetCommunitiesReq": {
+      "type": "object",
+      "title": "GetCommunitiesReq"
+    },
+    "GetCommunitiesResp": {
+      "type": "object",
+      "properties": {
+        "communities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Community"
+          }
+        }
+      },
+      "title": "GetCommunitiesResp",
+      "required": [
+        "communities"
+      ]
+    },
+    "GetFeaturedIndustriesReq": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "GetFeaturedIndustriesReq"
+    },
+    "GetIndustriesReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "pid": {
+          "$ref": "#/definitions/uint"
+        },
+        "industry_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "url": {
+          "type": "string"
+        },
+        "keyword": {
+          "type": "string"
+        }
+      },
+      "title": "GetIndustriesReq"
+    },
+    "GetIndustriesResp": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "industries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Industry"
+          }
+        }
+      },
+      "title": "GetIndustriesResp",
+      "required": [
+        "count",
+        "from",
+        "size",
+        "industries"
+      ]
+    },
+    "GetLocationsReq": {
+      "type": "object",
+      "properties": {
+        "country": {
+          "type": "string"
+        },
+        "keyword": {
+          "type": "string"
+        }
+      },
+      "title": "GetLocationsReq"
+    },
+    "GetLocationsResp": {
+      "type": "object",
+      "properties": {
+        "countries": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "cities": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "GetLocationsResp",
+      "required": [
+        "countries",
+        "cities"
+      ]
+    },
+    "GetWordsReq": {
+      "type": "object",
+      "title": "GetWordsReq"
+    },
+    "GetWordsResp": {
+      "type": "object",
+      "title": "GetWordsResp"
+    },
+    "Industry": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "pid": {
+          "$ref": "#/definitions/uint"
+        },
+        "name": {
+          "type": "string"
+        },
+        "logo": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "search_terms": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "Industry",
+      "required": [
+        "id",
+        "pid",
+        "name",
+        "logo",
+        "url",
+        "description",
+        "search_terms"
+      ]
+    },
+    "Topic": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "title": "Topic",
+      "required": [
+        "name",
+        "url",
+        "description"
+      ]
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "description": "Enter JWT Bearer token **_only_**",
+      "name": "Authorization",
+      "in": "header"
+    }
+  }
+}

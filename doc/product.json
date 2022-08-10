@@ -1,0 +1,761 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "",
+    "version": ""
+  },
+  "host": "zupyakapi.iir.ac.cn",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/products": {
+      "post": {
+        "operationId": "createProduct",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreateProductResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProductInfo"
+            }
+          }
+        ],
+        "tags": [
+          "product-api"
+        ]
+      }
+    },
+    "/products/fans": {
+      "post": {
+        "operationId": "getFansBatch",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetFansBatchResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetFansBatchReq"
+            }
+          }
+        ],
+        "tags": [
+          "product-api"
+        ]
+      }
+    },
+    "/products/like": {
+      "delete": {
+        "operationId": "unlike",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/LikeResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LikeReq"
+            }
+          }
+        ],
+        "tags": [
+          "product-api"
+        ]
+      },
+      "post": {
+        "operationId": "like",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/LikeResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LikeReq"
+            }
+          }
+        ],
+        "tags": [
+          "product-api"
+        ]
+      }
+    },
+    "/products/like/exist": {
+      "post": {
+        "operationId": "checkLikeExist",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CheckLikeExistResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CheckLikeExistReq"
+            }
+          }
+        ],
+        "tags": [
+          "product-api"
+        ]
+      }
+    },
+    "/products/user/{id}": {
+      "get": {
+        "operationId": "getProductsByUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetProductsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "published",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "product_type",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "default": "1"
+          }
+        ],
+        "tags": [
+          "product-api"
+        ]
+      }
+    },
+    "/products/user/{id}/likes": {
+      "get": {
+        "operationId": "getProductsByUserLikes",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetProductsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "published",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "product_type",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "default": "1"
+          }
+        ],
+        "tags": [
+          "product-api"
+        ]
+      }
+    },
+    "/products/{id}": {
+      "get": {
+        "operationId": "getProduct",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ProductInfo"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "product-api"
+        ]
+      },
+      "delete": {
+        "operationId": "deleteProduct",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeleteProductResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteProductReq"
+            }
+          }
+        ],
+        "tags": [
+          "product-api"
+        ]
+      },
+      "put": {
+        "operationId": "updateProduct",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreateProductResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProductInfo"
+            }
+          }
+        ],
+        "tags": [
+          "product-api"
+        ]
+      }
+    },
+    "/products/{id}/fans": {
+      "get": {
+        "operationId": "getUsersByProduct",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetUsersResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "product-api"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "CheckLikeExistReq": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "product_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uint"
+          }
+        }
+      },
+      "title": "CheckLikeExistReq",
+      "required": [
+        "user_id",
+        "product_ids"
+      ]
+    },
+    "CheckLikeExistResp": {
+      "type": "object",
+      "properties": {
+        "exists": {
+          "$ref": "#/definitions/mapuintbool"
+        }
+      },
+      "title": "CheckLikeExistResp",
+      "required": [
+        "exists"
+      ]
+    },
+    "CreateProductResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "CreateProductResp",
+      "required": [
+        "id"
+      ]
+    },
+    "DeleteProductReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "DeleteProductReq",
+      "required": [
+        "id"
+      ]
+    },
+    "DeleteProductResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "DeleteProductResp",
+      "required": [
+        "id"
+      ]
+    },
+    "FanInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "username": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "full_name": {
+          "type": "string"
+        }
+      },
+      "title": "FanInfo",
+      "required": [
+        "id",
+        "username",
+        "avatar",
+        "full_name"
+      ]
+    },
+    "GetFansBatchReq": {
+      "type": "object",
+      "properties": {
+        "product_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uint"
+          }
+        }
+      },
+      "title": "GetFansBatchReq",
+      "required": [
+        "product_ids"
+      ]
+    },
+    "GetFansBatchResp": {
+      "type": "object",
+      "properties": {
+        "products": {
+          "$ref": "#/definitions/mapuintProductFans"
+        }
+      },
+      "title": "GetFansBatchResp",
+      "required": [
+        "products"
+      ]
+    },
+    "GetProductReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "GetProductReq",
+      "required": [
+        "id"
+      ]
+    },
+    "GetProductsByUserReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "published": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "product_type": {
+          "type": "integer",
+          "format": "int32",
+          "default": "1"
+        }
+      },
+      "title": "GetProductsByUserReq",
+      "required": [
+        "id",
+        "product_type"
+      ]
+    },
+    "GetProductsResp": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "products": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductInfo"
+          }
+        }
+      },
+      "title": "GetProductsResp",
+      "required": [
+        "count",
+        "from",
+        "size",
+        "products"
+      ]
+    },
+    "GetUsersByProductReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "GetUsersByProductReq",
+      "required": [
+        "id"
+      ]
+    },
+    "GetUsersResp": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FanInfo"
+          }
+        }
+      },
+      "title": "GetUsersResp",
+      "required": [
+        "count",
+        "from",
+        "size",
+        "users"
+      ]
+    },
+    "LikeReq": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "product_id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "LikeReq",
+      "required": [
+        "user_id",
+        "product_id"
+      ]
+    },
+    "LikeResp": {
+      "type": "object",
+      "title": "LikeResp"
+    },
+    "Price": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "currency_code": {
+          "type": "string"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "billing_period": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Price"
+    },
+    "ProductFans": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "fans": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FanInfo"
+          }
+        }
+      },
+      "title": "ProductFans",
+      "required": [
+        "count",
+        "fans"
+      ]
+    },
+    "ProductInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "name": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string"
+        },
+        "price": {
+          "$ref": "#/definitions/Price"
+        },
+        "product_type": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "category": {
+          "type": "string"
+        },
+        "logo": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "author_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "author_user_name": {
+          "type": "string"
+        },
+        "author_full_name": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "is_profanity": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "published_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ProductInfo"
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "description": "Enter JWT Bearer token **_only_**",
+      "name": "Authorization",
+      "in": "header"
+    }
+  }
+}

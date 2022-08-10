@@ -1,0 +1,983 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "用户相关操作接口",
+    "version": ""
+  },
+  "host": "zupyakapi.iir.ac.cn",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/users": {
+      "get": {
+        "operationId": "getUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetUserResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "username",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      },
+      "post": {
+        "summary": "注册",
+        "operationId": "signup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SignupReply"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SignupReq"
+            }
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      }
+    },
+    "/users/activate": {
+      "get": {
+        "operationId": "activate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ActivateResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "code",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      }
+    },
+    "/users/email": {
+      "get": {
+        "operationId": "getEmail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetUserEmailResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "username",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      }
+    },
+    "/users/featured": {
+      "get": {
+        "operationId": "getFeaturedUsers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetFeaturedUsersResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      }
+    },
+    "/users/forgot": {
+      "post": {
+        "operationId": "forgotPass",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ForgotPassResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ForgotPassReq"
+            }
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      }
+    },
+    "/users/resend": {
+      "post": {
+        "operationId": "resendEmail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ResendEmailResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ResendEmailReq"
+            }
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      }
+    },
+    "/users/reset": {
+      "put": {
+        "operationId": "resetPass",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ResetPassResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ResetPassReq"
+            }
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      }
+    },
+    "/users/session": {
+      "get": {
+        "operationId": "getSession",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetUserResp"
+            }
+          }
+        },
+        "tags": [
+          "user-api"
+        ]
+      },
+      "delete": {
+        "operationId": "logout",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/LogoutResp"
+            }
+          }
+        },
+        "tags": [
+          "user-api"
+        ]
+      },
+      "post": {
+        "operationId": "login",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetUserResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginReq"
+            }
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      }
+    },
+    "/users/token": {
+      "get": {
+        "operationId": "getToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetTokenResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "usage",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "mode",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      }
+    },
+    "/users/{id}": {
+      "delete": {
+        "operationId": "deleteUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeleteUserResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteUserReq"
+            }
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      },
+      "put": {
+        "operationId": "updateUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateUserResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateUserReq"
+            }
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "ActivateReq": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        }
+      },
+      "title": "ActivateReq",
+      "required": [
+        "code"
+      ]
+    },
+    "ActivateResp": {
+      "type": "object",
+      "title": "ActivateResp"
+    },
+    "DeleteUserReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "DeleteUserReq",
+      "required": [
+        "id"
+      ]
+    },
+    "DeleteUserResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "DeleteUserResp",
+      "required": [
+        "id"
+      ]
+    },
+    "ForgotPassReq": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        }
+      },
+      "title": "ForgotPassReq",
+      "required": [
+        "email"
+      ]
+    },
+    "ForgotPassResp": {
+      "type": "object",
+      "title": "ForgotPassResp"
+    },
+    "GetFeaturedUsersReq": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "GetFeaturedUsersReq"
+    },
+    "GetFeaturedUsersResp": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GetUserResp"
+          }
+        }
+      },
+      "title": "GetFeaturedUsersResp",
+      "required": [
+        "count",
+        "from",
+        "size",
+        "users"
+      ]
+    },
+    "GetTokenReq": {
+      "type": "object",
+      "properties": {
+        "usage": {
+          "type": "string"
+        },
+        "mode": {
+          "type": "string"
+        }
+      },
+      "title": "GetTokenReq",
+      "required": [
+        "usage",
+        "mode"
+      ]
+    },
+    "GetTokenResp": {
+      "type": "object",
+      "properties": {
+        "region": {
+          "type": "string"
+        },
+        "bucket_name": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "access_key_id": {
+          "type": "string"
+        },
+        "secret_access_key": {
+          "type": "string"
+        },
+        "session_token": {
+          "type": "string"
+        },
+        "expiration": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetTokenResp",
+      "required": [
+        "region",
+        "bucket_name",
+        "path",
+        "access_key_id",
+        "secret_access_key",
+        "session_token",
+        "expiration"
+      ]
+    },
+    "GetUserEmailResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "email": {
+          "type": "string"
+        }
+      },
+      "title": "GetUserEmailResp",
+      "required": [
+        "id",
+        "email"
+      ]
+    },
+    "GetUserReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "title": "GetUserReq"
+    },
+    "GetUserResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "hash": {
+          "type": "string"
+        },
+        "user_type": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "email": {
+          "type": "string"
+        },
+        "userRole": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "channel": {
+          "type": "string"
+        },
+        "is_activated": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "isBlocked": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "isDeleted": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "isBot": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "about_you": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "website": {
+          "type": "string"
+        },
+        "full_name": {
+          "type": "string"
+        },
+        "twitter": {
+          "type": "string"
+        },
+        "facebook": {
+          "type": "string"
+        },
+        "linkedin": {
+          "type": "string"
+        },
+        "whatsapp": {
+          "type": "string"
+        },
+        "interest": {
+          "type": "string"
+        },
+        "company": {
+          "type": "string"
+        },
+        "industry": {
+          "$ref": "#/definitions/mapstringstring"
+        },
+        "last_login_time": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "follower_cnt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "followee_cnt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "createdAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "premium": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      },
+      "title": "GetUserResp",
+      "required": [
+        "id",
+        "hash",
+        "user_type",
+        "email",
+        "-",
+        "-",
+        "is_activated",
+        "-",
+        "-",
+        "-",
+        "first_name",
+        "last_name",
+        "avatar",
+        "username",
+        "about_you",
+        "location",
+        "website",
+        "full_name",
+        "twitter",
+        "facebook",
+        "linkedin",
+        "whatsapp",
+        "interest",
+        "company",
+        "industry",
+        "last_login_time",
+        "follower_cnt",
+        "followee_cnt",
+        "-",
+        "premium"
+      ]
+    },
+    "LoginReq": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "title": "LoginReq",
+      "required": [
+        "email",
+        "required",
+        "password"
+      ]
+    },
+    "LogoutResp": {
+      "type": "object",
+      "title": "LogoutResp"
+    },
+    "ResendEmailReq": {
+      "type": "object",
+      "properties": {
+        "userid": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ResendEmailReq"
+    },
+    "ResendEmailResp": {
+      "type": "object",
+      "title": "ResendEmailResp"
+    },
+    "ResetPassReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "token": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "title": "ResetPassReq",
+      "required": [
+        "id",
+        "token",
+        "password",
+        "max=20"
+      ]
+    },
+    "ResetPassResp": {
+      "type": "object",
+      "title": "ResetPassResp"
+    },
+    "SignupReply": {
+      "type": "object",
+      "properties": {
+        "userid": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "SignupReply",
+      "required": [
+        "userid"
+      ]
+    },
+    "SignupReq": {
+      "type": "object",
+      "properties": {
+        "full_name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "user_type": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "company": {
+          "type": "string"
+        }
+      },
+      "title": "SignupReq",
+      "required": [
+        "full_name",
+        "required",
+        "email",
+        "password",
+        "user_type",
+        "required_if=UserType 2"
+      ]
+    },
+    "UpdateUserReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "user_type": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "email": {
+          "type": "string"
+        },
+        "old_password": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "user_role": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "channel": {
+          "type": "string"
+        },
+        "is_activated": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "is_blocked": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "is_deleted": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "is_bot": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "about_you": {
+          "type": "string",
+          "default": "zupyak_default_string_values"
+        },
+        "location": {
+          "type": "string",
+          "default": "zupyak_default_string_values"
+        },
+        "website": {
+          "type": "string",
+          "default": "zupyak_default_string_values"
+        },
+        "full_name": {
+          "type": "string"
+        },
+        "twitter": {
+          "type": "string",
+          "default": "zupyak_default_string_values"
+        },
+        "facebook": {
+          "type": "string",
+          "default": "zupyak_default_string_values"
+        },
+        "linkedin": {
+          "type": "string",
+          "default": "zupyak_default_string_values"
+        },
+        "whatsapp": {
+          "type": "string",
+          "default": "zupyak_default_string_values"
+        },
+        "interest": {
+          "type": "string",
+          "default": "zupyak_default_string_values"
+        },
+        "company": {
+          "type": "string",
+          "default": "zupyak_default_string_values"
+        },
+        "industry": {
+          "$ref": "#/definitions/mapstringstring"
+        },
+        "list_me": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "UpdateUserReq",
+      "required": [
+        "id",
+        "id",
+        "-",
+        "email",
+        "-",
+        "max=20",
+        "password",
+        "user_role",
+        "channel",
+        "is_activated",
+        "is_blocked",
+        "is_deleted",
+        "is_bot",
+        "first_name",
+        "last_name",
+        "avatar",
+        "username",
+        "about_you",
+        "about_you",
+        "location",
+        "location",
+        "website",
+        "website",
+        "full_name",
+        "twitter",
+        "twitter",
+        "facebook",
+        "facebook",
+        "linkedin",
+        "linkedin",
+        "whatsapp",
+        "whatsapp",
+        "interest",
+        "interest",
+        "company",
+        "-",
+        "-",
+        "-"
+      ]
+    },
+    "UpdateUserResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "UpdateUserResp",
+      "required": [
+        "id"
+      ]
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "description": "Enter JWT Bearer token **_only_**",
+      "name": "Authorization",
+      "in": "header"
+    }
+  }
+}

@@ -1,0 +1,301 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "",
+    "version": ""
+  },
+  "host": "zupyakapi.iir.ac.cn",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/messages": {
+      "get": {
+        "operationId": "getMessages",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetMessagesResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "sender",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "receiver",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "msg-api"
+        ]
+      }
+    },
+    "/messages/unread": {
+      "get": {
+        "operationId": "checkUnread",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CheckUnreadResp"
+            }
+          }
+        },
+        "tags": [
+          "msg-api"
+        ]
+      }
+    },
+    "/messages/{id}": {
+      "put": {
+        "operationId": "updateMessage",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateMessagesResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateMessagesReq"
+            }
+          }
+        ],
+        "tags": [
+          "msg-api"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "CheckUnreadReq": {
+      "type": "object",
+      "title": "CheckUnreadReq"
+    },
+    "CheckUnreadResp": {
+      "type": "object",
+      "properties": {
+        "exists": {
+          "type": "boolean",
+          "format": "boolean"
+        }
+      },
+      "title": "CheckUnreadResp",
+      "required": [
+        "exists"
+      ]
+    },
+    "GetMessagesReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "uuid": {
+          "type": "string"
+        },
+        "sender": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "receiver": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "GetMessagesReq"
+    },
+    "GetMessagesResp": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "messages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Message"
+          }
+        }
+      },
+      "title": "GetMessagesResp",
+      "required": [
+        "count",
+        "from",
+        "size",
+        "messages"
+      ]
+    },
+    "Message": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "uuid": {
+          "type": "string"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "sender": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "receiver": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "body": {
+          "type": "string"
+        },
+        "ref_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "Message",
+      "required": [
+        "id",
+        "uuid",
+        "type",
+        "sender",
+        "receiver",
+        "status",
+        "body",
+        "ref_id",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    "UpdateMessagesReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "UpdateMessagesReq",
+      "required": [
+        "id",
+        "status"
+      ]
+    },
+    "UpdateMessagesResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "UpdateMessagesResp",
+      "required": [
+        "id"
+      ]
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "description": "Enter JWT Bearer token **_only_**",
+      "name": "Authorization",
+      "in": "header"
+    }
+  }
+}

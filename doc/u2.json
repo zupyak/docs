@@ -1,0 +1,368 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "",
+    "version": ""
+  },
+  "host": "zupyakapi.iir.ac.cn",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/followings": {
+      "delete": {
+        "operationId": "unfollow",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/FollowingResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FollowingReq"
+            }
+          }
+        ],
+        "tags": [
+          "follow-api"
+        ]
+      },
+      "post": {
+        "operationId": "follow",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/FollowingResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FollowingReq"
+            }
+          }
+        ],
+        "tags": [
+          "follow-api"
+        ]
+      }
+    },
+    "/followings/exist": {
+      "post": {
+        "operationId": "checkExist",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CheckExistResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CheckExistReq"
+            }
+          }
+        ],
+        "tags": [
+          "follow-api"
+        ]
+      }
+    },
+    "/followings/{id}/followees": {
+      "get": {
+        "operationId": "getFollowees",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/FollowingUserResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "follow-api"
+        ]
+      }
+    },
+    "/followings/{id}/followers": {
+      "get": {
+        "operationId": "getFollowers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/FollowingUserResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "follow-api"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "CheckExistReq": {
+      "type": "object",
+      "properties": {
+        "follower": {
+          "$ref": "#/definitions/uint"
+        },
+        "followees": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uint"
+          }
+        }
+      },
+      "title": "CheckExistReq",
+      "required": [
+        "follower",
+        "followees"
+      ]
+    },
+    "CheckExistResp": {
+      "type": "object",
+      "properties": {
+        "exists": {
+          "$ref": "#/definitions/mapuintbool"
+        }
+      },
+      "title": "CheckExistResp",
+      "required": [
+        "exists"
+      ]
+    },
+    "FollowingReq": {
+      "type": "object",
+      "properties": {
+        "follower": {
+          "$ref": "#/definitions/uint"
+        },
+        "followee": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "FollowingReq",
+      "required": [
+        "follower",
+        "required",
+        "followee",
+        "required"
+      ]
+    },
+    "FollowingResp": {
+      "type": "object",
+      "title": "FollowingResp"
+    },
+    "FollowingUserReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "FollowingUserReq",
+      "required": [
+        "id"
+      ]
+    },
+    "FollowingUserResp": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserInfo"
+          }
+        }
+      },
+      "title": "FollowingUserResp",
+      "required": [
+        "count",
+        "from",
+        "size",
+        "users"
+      ]
+    },
+    "UserInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "userRole": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "isActivated": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "isBlocked": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "channel": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "about_you": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "website": {
+          "type": "string"
+        },
+        "full_name": {
+          "type": "string"
+        },
+        "twitter": {
+          "type": "string"
+        },
+        "facebook": {
+          "type": "string"
+        },
+        "linkedin": {
+          "type": "string"
+        },
+        "interest": {
+          "type": "string"
+        }
+      },
+      "title": "UserInfo",
+      "required": [
+        "id",
+        "-",
+        "-",
+        "-",
+        "username",
+        "-",
+        "-",
+        "-",
+        "-",
+        "avatar",
+        "about_you",
+        "location",
+        "website",
+        "full_name",
+        "twitter",
+        "facebook",
+        "linkedin",
+        "interest"
+      ]
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "description": "Enter JWT Bearer token **_only_**",
+      "name": "Authorization",
+      "in": "header"
+    }
+  }
+}

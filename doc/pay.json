@@ -1,0 +1,736 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "",
+    "version": ""
+  },
+  "host": "zupyakapi.iir.ac.cn",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/pay/callback/stripe": {
+      "post": {
+        "operationId": "stripeCallback",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/StripeResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StripeEvent"
+            }
+          }
+        ],
+        "tags": [
+          "pay-api"
+        ]
+      }
+    },
+    "/pay/invoices": {
+      "get": {
+        "operationId": "getInvoices",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetInvoicesResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "pay-api"
+        ]
+      }
+    },
+    "/pay/orders": {
+      "get": {
+        "operationId": "getOrder",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetOrderResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "post_id",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          }
+        ],
+        "tags": [
+          "pay-api"
+        ]
+      },
+      "post": {
+        "operationId": "createOrder",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreateOrderResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateOrderReq"
+            }
+          }
+        ],
+        "tags": [
+          "pay-api"
+        ]
+      }
+    },
+    "/pay/plans": {
+      "get": {
+        "operationId": "getPlans",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetPlansResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          }
+        ],
+        "tags": [
+          "pay-api"
+        ]
+      }
+    },
+    "/pay/products": {
+      "get": {
+        "operationId": "getProducts",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetProductsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "post_id",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          }
+        ],
+        "tags": [
+          "pay-api"
+        ]
+      }
+    },
+    "/pay/subscriptions": {
+      "get": {
+        "operationId": "getSubscription",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetSubscriptionResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          }
+        ],
+        "tags": [
+          "pay-api"
+        ]
+      },
+      "post": {
+        "operationId": "createSubscription",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreateSubscriptionResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateSubscriptionReq"
+            }
+          }
+        ],
+        "tags": [
+          "pay-api"
+        ]
+      }
+    },
+    "/pay/subscriptions/{uuid}": {
+      "put": {
+        "operationId": "cancelSubscription",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CancelSubscriptionResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CancelSubscriptionReq"
+            }
+          }
+        ],
+        "tags": [
+          "pay-api"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "CancelSubscriptionReq": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "title": "CancelSubscriptionReq",
+      "required": [
+        "uuid"
+      ]
+    },
+    "CancelSubscriptionResp": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "title": "CancelSubscriptionResp",
+      "required": [
+        "uuid"
+      ]
+    },
+    "CreateOrderReq": {
+      "type": "object",
+      "properties": {
+        "post_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "user_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "product_id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "CreateOrderReq",
+      "required": [
+        "post_id",
+        "user_id",
+        "product_id"
+      ]
+    },
+    "CreateOrderResp": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string"
+        },
+        "redirect_url": {
+          "type": "string"
+        },
+        "client_secret": {
+          "type": "string"
+        }
+      },
+      "title": "CreateOrderResp",
+      "required": [
+        "uuid",
+        "redirect_url",
+        "client_secret"
+      ]
+    },
+    "CreateSubscriptionReq": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "plan_id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "CreateSubscriptionReq",
+      "required": [
+        "user_id",
+        "plan_id"
+      ]
+    },
+    "CreateSubscriptionResp": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string"
+        },
+        "redirect_url": {
+          "type": "string"
+        }
+      },
+      "title": "CreateSubscriptionResp",
+      "required": [
+        "uuid",
+        "redirect_url"
+      ]
+    },
+    "CreditCard": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "country": {
+          "type": "string"
+        },
+        "card_association": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "card_holder_first_name": {
+          "type": "string"
+        },
+        "card_holder_last_name": {
+          "type": "string"
+        },
+        "card_number": {
+          "type": "string"
+        },
+        "card_expiry_year": {
+          "type": "string"
+        },
+        "card_expiry_month": {
+          "type": "string"
+        },
+        "ccv": {
+          "type": "string"
+        }
+      },
+      "title": "CreditCard",
+      "required": [
+        "country",
+        "card_association",
+        "card_holder_first_name",
+        "card_holder_last_name",
+        "card_number",
+        "card_expiry_year",
+        "card_expiry_month",
+        "ccv"
+      ]
+    },
+    "GetInvoicesReq": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "GetInvoicesReq"
+    },
+    "GetInvoicesResp": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "invoices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Invoice"
+          }
+        }
+      },
+      "title": "GetInvoicesResp",
+      "required": [
+        "count",
+        "from",
+        "size",
+        "invoices"
+      ]
+    },
+    "GetOrderReq": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string"
+        },
+        "post_id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "GetOrderReq"
+    },
+    "GetOrderResp": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string"
+        },
+        "post_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "product": {
+          "$ref": "#/definitions/Product"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "audit_status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "redirect_url": {
+          "type": "string"
+        },
+        "client_secret": {
+          "type": "string"
+        }
+      },
+      "title": "GetOrderResp",
+      "required": [
+        "uuid",
+        "post_id",
+        "product",
+        "status",
+        "audit_status",
+        "redirect_url",
+        "client_secret"
+      ]
+    },
+    "GetPlansReq": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "GetPlansReq"
+    },
+    "GetPlansResp": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "plans": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Plan"
+          }
+        }
+      },
+      "title": "GetPlansResp",
+      "required": [
+        "count",
+        "from",
+        "size",
+        "plans"
+      ]
+    },
+    "GetProductsReq": {
+      "type": "object",
+      "properties": {
+        "post_id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "GetProductsReq"
+    },
+    "GetProductsResp": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "products": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Product"
+          }
+        }
+      },
+      "title": "GetProductsResp",
+      "required": [
+        "count",
+        "from",
+        "size",
+        "products"
+      ]
+    },
+    "GetSubscriptionReq": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string"
+        },
+        "user_id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "GetSubscriptionReq"
+    },
+    "GetSubscriptionResp": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string"
+        },
+        "user_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "plan": {
+          "$ref": "#/definitions/Plan"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "closed_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "redirect_url": {
+          "type": "string"
+        }
+      },
+      "title": "GetSubscriptionResp",
+      "required": [
+        "uuid",
+        "user_id",
+        "plan",
+        "status",
+        "closed_at",
+        "redirect_url"
+      ]
+    },
+    "Invoice": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "title": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "Invoice",
+      "required": [
+        "id",
+        "title",
+        "url",
+        "amount",
+        "created_at"
+      ]
+    },
+    "Plan": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Plan",
+      "required": [
+        "id",
+        "name",
+        "description",
+        "price"
+      ]
+    },
+    "Product": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Product",
+      "required": [
+        "id",
+        "name",
+        "description",
+        "price"
+      ]
+    },
+    "StripeEvent": {
+      "type": "object",
+      "title": "StripeEvent"
+    },
+    "StripeResp": {
+      "type": "object",
+      "title": "StripeResp"
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "description": "Enter JWT Bearer token **_only_**",
+      "name": "Authorization",
+      "in": "header"
+    }
+  }
+}

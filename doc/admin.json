@@ -1,0 +1,1463 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "",
+    "version": ""
+  },
+  "host": "zupyakapi.iir.ac.cn",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/admin/config/industries": {
+      "get": {
+        "operationId": "getIndustries",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetIndustriesResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "industry_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "cfg"
+        ]
+      },
+      "post": {
+        "operationId": "createIndustry",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreateIndustryResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateIndustryReq"
+            }
+          }
+        ],
+        "tags": [
+          "cfg"
+        ]
+      }
+    },
+    "/admin/config/industries/{id}": {
+      "delete": {
+        "operationId": "deleteIndustry",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeleteIndustryResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteIndustryReq"
+            }
+          }
+        ],
+        "tags": [
+          "cfg"
+        ]
+      },
+      "put": {
+        "operationId": "updateIndustry",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateIndustryResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateIndustryReq"
+            }
+          }
+        ],
+        "tags": [
+          "cfg"
+        ]
+      }
+    },
+    "/admin/orders": {
+      "get": {
+        "operationId": "getOrders",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetOrdersResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "post_id",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "product_id",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "audit_status",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "order"
+        ]
+      }
+    },
+    "/admin/orders/{id}": {
+      "put": {
+        "operationId": "updateOrder",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateOrderResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderInfo"
+            }
+          }
+        ],
+        "tags": [
+          "order"
+        ]
+      }
+    },
+    "/admin/posts": {
+      "get": {
+        "operationId": "getPosts",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetPostsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "post_id",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "is_deleted",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "default": "2"
+          },
+          {
+            "name": "is_published",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "default": "2"
+          },
+          {
+            "name": "is_pinned",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "default": "2"
+          },
+          {
+            "name": "has_image",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "default": "0"
+          },
+          {
+            "name": "in_english",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "default": "0"
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "post"
+        ]
+      },
+      "delete": {
+        "operationId": "deletePosts",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeletePostsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeletePostsReq"
+            }
+          }
+        ],
+        "tags": [
+          "post"
+        ]
+      }
+    },
+    "/admin/posts/{id}": {
+      "delete": {
+        "operationId": "deletePost",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeletePostResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeletePostReq"
+            }
+          }
+        ],
+        "tags": [
+          "post"
+        ]
+      },
+      "put": {
+        "operationId": "updatePost",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdatePostResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PostInfo"
+            }
+          }
+        ],
+        "tags": [
+          "post"
+        ]
+      }
+    },
+    "/admin/session": {
+      "delete": {
+        "operationId": "logout",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/LogoutResp"
+            }
+          }
+        },
+        "tags": [
+          "session"
+        ]
+      },
+      "post": {
+        "operationId": "login",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/LoginResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginReq"
+            }
+          }
+        ],
+        "tags": [
+          "session"
+        ]
+      }
+    },
+    "/admin/token": {
+      "get": {
+        "operationId": "getToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetTokenResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "usage",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "mode",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "session"
+        ]
+      }
+    },
+    "/admin/users": {
+      "get": {
+        "operationId": "getUsers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetUsersResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "username",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "user"
+        ]
+      }
+    },
+    "/admin/users/{id}": {
+      "delete": {
+        "operationId": "deleteUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeleteUserResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteUserReq"
+            }
+          }
+        ],
+        "tags": [
+          "user"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "CreateIndustryReq": {
+      "type": "object",
+      "properties": {
+        "industry_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "logo": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "search_terms": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "CreateIndustryReq",
+      "required": [
+        "name",
+        "logo",
+        "url",
+        "description",
+        "search_terms"
+      ]
+    },
+    "CreateIndustryResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "CreateIndustryResp",
+      "required": [
+        "id"
+      ]
+    },
+    "DeleteIndustryReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "DeleteIndustryReq",
+      "required": [
+        "id"
+      ]
+    },
+    "DeleteIndustryResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "DeleteIndustryResp",
+      "required": [
+        "id"
+      ]
+    },
+    "DeletePostReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "DeletePostReq",
+      "required": [
+        "id"
+      ]
+    },
+    "DeletePostResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "DeletePostResp",
+      "required": [
+        "id"
+      ]
+    },
+    "DeletePostsReq": {
+      "type": "object",
+      "properties": {
+        "post_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uint"
+          }
+        }
+      },
+      "title": "DeletePostsReq",
+      "required": [
+        "post_ids"
+      ]
+    },
+    "DeletePostsResp": {
+      "type": "object",
+      "title": "DeletePostsResp"
+    },
+    "DeleteUserReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "DeleteUserReq",
+      "required": [
+        "id"
+      ]
+    },
+    "DeleteUserResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "DeleteUserResp",
+      "required": [
+        "id"
+      ]
+    },
+    "GetIndustriesReq": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "industry_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "keyword": {
+          "type": "string"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetIndustriesReq"
+    },
+    "GetIndustriesResp": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "industries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IndustryInfo"
+          }
+        }
+      },
+      "title": "GetIndustriesResp",
+      "required": [
+        "count",
+        "from",
+        "size",
+        "industries"
+      ]
+    },
+    "GetOrdersReq": {
+      "type": "object",
+      "properties": {
+        "order_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "post_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "user_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "product_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "audit_status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "GetOrdersReq"
+    },
+    "GetOrdersResp": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "orders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OrderInfo"
+          }
+        }
+      },
+      "title": "GetOrdersResp",
+      "required": [
+        "count",
+        "from",
+        "size",
+        "orders"
+      ]
+    },
+    "GetPostsReq": {
+      "type": "object",
+      "properties": {
+        "post_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "user_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "is_deleted": {
+          "type": "integer",
+          "format": "int32",
+          "default": "2"
+        },
+        "is_published": {
+          "type": "integer",
+          "format": "int32",
+          "default": "2"
+        },
+        "is_pinned": {
+          "type": "integer",
+          "format": "int32",
+          "default": "2"
+        },
+        "has_image": {
+          "type": "integer",
+          "format": "int32",
+          "default": "0"
+        },
+        "in_english": {
+          "type": "integer",
+          "format": "int32",
+          "default": "0"
+        },
+        "query": {
+          "type": "string"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "GetPostsReq",
+      "required": [
+        "is_deleted",
+        "is_published",
+        "is_pinned",
+        "has_image",
+        "in_english"
+      ]
+    },
+    "GetPostsResp": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "posts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PostInfo"
+          }
+        }
+      },
+      "title": "GetPostsResp",
+      "required": [
+        "count",
+        "from",
+        "size",
+        "posts"
+      ]
+    },
+    "GetTokenReq": {
+      "type": "object",
+      "properties": {
+        "usage": {
+          "type": "string"
+        },
+        "mode": {
+          "type": "string"
+        }
+      },
+      "title": "GetTokenReq",
+      "required": [
+        "usage",
+        "mode"
+      ]
+    },
+    "GetTokenResp": {
+      "type": "object",
+      "properties": {
+        "region": {
+          "type": "string"
+        },
+        "bucket_name": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "access_key_id": {
+          "type": "string"
+        },
+        "secret_access_key": {
+          "type": "string"
+        },
+        "session_token": {
+          "type": "string"
+        },
+        "expiration": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetTokenResp",
+      "required": [
+        "region",
+        "bucket_name",
+        "path",
+        "access_key_id",
+        "secret_access_key",
+        "session_token",
+        "expiration"
+      ]
+    },
+    "GetUsersReq": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "username": {
+          "type": "string"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "GetUsersReq"
+    },
+    "GetUsersResp": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserInfo"
+          }
+        }
+      },
+      "title": "GetUsersResp",
+      "required": [
+        "count",
+        "from",
+        "size",
+        "users"
+      ]
+    },
+    "IndustryInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "logo": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "search_terms": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "IndustryInfo",
+      "required": [
+        "id",
+        "name",
+        "logo",
+        "url",
+        "description",
+        "search_terms"
+      ]
+    },
+    "LoginReq": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "title": "LoginReq",
+      "required": [
+        "email",
+        "required",
+        "password"
+      ]
+    },
+    "LoginResp": {
+      "type": "object",
+      "properties": {
+        "adminid": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "role": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "LoginResp",
+      "required": [
+        "adminid",
+        "-"
+      ]
+    },
+    "LogoutResp": {
+      "type": "object",
+      "title": "LogoutResp"
+    },
+    "OrderInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "uuid": {
+          "type": "string"
+        },
+        "post_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "post_title": {
+          "type": "string"
+        },
+        "post_slug": {
+          "type": "string"
+        },
+        "user_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "product_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "product_name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "audit_status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "paid_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "OrderInfo"
+    },
+    "PostInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "title": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "display_source_name": {
+          "type": "string"
+        },
+        "favicon": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "category": {
+          "type": "string"
+        },
+        "story_type": {
+          "type": "string"
+        },
+        "posted_by": {
+          "$ref": "#/definitions/uint"
+        },
+        "author_full_name": {
+          "type": "string"
+        },
+        "author_user_name": {
+          "type": "string"
+        },
+        "industry_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "product_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "first_user_engaged": {
+          "$ref": "#/definitions/uint"
+        },
+        "display_in_country": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "display_in_category": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "is_profanity": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "pin_status": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "deleted_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "published_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "pinned_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "PostInfo"
+    },
+    "UpdateIndustryReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "pid": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "logo": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "search_terms": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "UpdateIndustryReq"
+    },
+    "UpdateIndustryResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "UpdateIndustryResp",
+      "required": [
+        "id"
+      ]
+    },
+    "UpdateOrderResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "UpdateOrderResp",
+      "required": [
+        "id"
+      ]
+    },
+    "UpdatePostResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "UpdatePostResp",
+      "required": [
+        "id"
+      ]
+    },
+    "UserInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "email": {
+          "type": "string"
+        },
+        "userRole": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "channel": {
+          "type": "string"
+        },
+        "is_activated": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "is_blocked": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "is_deleted": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "is_bot": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "about_you": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "website": {
+          "type": "string"
+        },
+        "full_name": {
+          "type": "string"
+        },
+        "twitter": {
+          "type": "string"
+        },
+        "facebook": {
+          "type": "string"
+        },
+        "linkedin": {
+          "type": "string"
+        },
+        "interest": {
+          "type": "string"
+        },
+        "last_login_time": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "UserInfo",
+      "required": [
+        "id",
+        "email",
+        "-",
+        "-",
+        "is_activated",
+        "is_blocked",
+        "is_deleted",
+        "is_bot",
+        "-",
+        "-",
+        "avatar",
+        "username",
+        "about_you",
+        "location",
+        "website",
+        "full_name",
+        "twitter",
+        "facebook",
+        "linkedin",
+        "interest",
+        "last_login_time",
+        "created_at"
+      ]
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "description": "Enter JWT Bearer token **_only_**",
+      "name": "Authorization",
+      "in": "header"
+    }
+  }
+}
