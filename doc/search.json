@@ -41,6 +41,13 @@
             "type": "string"
           },
           {
+            "name": "industry_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
             "name": "from",
             "in": "query",
             "required": false,
@@ -531,6 +538,10 @@
         },
         "tag": {
           "type": "string"
+        },
+        "industry_id": {
+          "type": "integer",
+          "format": "int32"
         },
         "from": {
           "type": "integer",

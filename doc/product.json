@@ -614,6 +614,32 @@
         "users"
       ]
     },
+    "Industry": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "sub_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "sub_name": {
+          "type": "string"
+        },
+        "sub_url": {
+          "type": "string"
+        }
+      },
+      "title": "Industry"
+    },
     "LikeReq": {
       "type": "object",
       "properties": {
@@ -711,6 +737,9 @@
         },
         "author_full_name": {
           "type": "string"
+        },
+        "industry": {
+          "$ref": "#/definitions/Industry"
         },
         "content": {
           "type": "string"

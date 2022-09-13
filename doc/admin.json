@@ -36,7 +36,7 @@
             "format": "int64"
           },
           {
-            "name": "industry_id",
+            "name": "pid",
             "in": "query",
             "required": false,
             "type": "integer",
@@ -551,9 +551,7 @@
         "tags": [
           "user"
         ]
-      }
-    },
-    "/admin/users/{id}": {
+      },
       "delete": {
         "operationId": "deleteUser",
         "responses": {
@@ -565,12 +563,6 @@
           }
         },
         "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
           {
             "name": "body",
             "in": "body",
@@ -590,7 +582,7 @@
     "CreateIndustryReq": {
       "type": "object",
       "properties": {
-        "industry_id": {
+        "pid": {
           "type": "integer",
           "format": "int64"
         },
@@ -707,25 +699,33 @@
     "DeleteUserReq": {
       "type": "object",
       "properties": {
-        "id": {
-          "$ref": "#/definitions/uint"
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
         }
       },
       "title": "DeleteUserReq",
       "required": [
-        "id"
+        "ids"
       ]
     },
     "DeleteUserResp": {
       "type": "object",
       "properties": {
-        "id": {
-          "$ref": "#/definitions/uint"
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
         }
       },
       "title": "DeleteUserResp",
       "required": [
-        "id"
+        "ids"
       ]
     },
     "GetIndustriesReq": {
@@ -738,7 +738,7 @@
             "format": "int64"
           }
         },
-        "industry_id": {
+        "pid": {
           "type": "integer",
           "format": "int64"
         },
@@ -1045,6 +1045,10 @@
           "type": "integer",
           "format": "int64"
         },
+        "pid": {
+          "type": "integer",
+          "format": "int64"
+        },
         "name": {
           "type": "string"
         },
@@ -1067,6 +1071,7 @@
       "title": "IndustryInfo",
       "required": [
         "id",
+        "pid",
         "name",
         "logo",
         "url",
@@ -1308,7 +1313,10 @@
           }
         }
       },
-      "title": "UpdateIndustryReq"
+      "title": "UpdateIndustryReq",
+      "required": [
+        "id"
+      ]
     },
     "UpdateIndustryResp": {
       "type": "object",

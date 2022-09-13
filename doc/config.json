@@ -16,22 +16,6 @@
     "application/json"
   ],
   "paths": {
-    "/config/communities": {
-      "get": {
-        "operationId": "getCommunities",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/GetCommunitiesResp"
-            }
-          }
-        },
-        "tags": [
-          "config-api"
-        ]
-      }
-    },
     "/config/industries": {
       "get": {
         "operationId": "getIndustries",
@@ -163,63 +147,6 @@
     }
   },
   "definitions": {
-    "Community": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "logo": {
-          "type": "string"
-        },
-        "url": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "search_terms": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "topics": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Topic"
-          }
-        }
-      },
-      "title": "Community",
-      "required": [
-        "name",
-        "logo",
-        "url",
-        "description",
-        "search_terms",
-        "topics"
-      ]
-    },
-    "GetCommunitiesReq": {
-      "type": "object",
-      "title": "GetCommunitiesReq"
-    },
-    "GetCommunitiesResp": {
-      "type": "object",
-      "properties": {
-        "communities": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Community"
-          }
-        }
-      },
-      "title": "GetCommunitiesResp",
-      "required": [
-        "communities"
-      ]
-    },
     "GetFeaturedIndustriesReq": {
       "type": "object",
       "properties": {
@@ -364,26 +291,6 @@
         "url",
         "description",
         "search_terms"
-      ]
-    },
-    "Topic": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "url": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        }
-      },
-      "title": "Topic",
-      "required": [
-        "name",
-        "url",
-        "description"
       ]
     }
   },

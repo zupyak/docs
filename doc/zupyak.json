@@ -29,7 +29,7 @@
           {
             "type": "integer",
             "format": "int64",
-            "name": "industry_id",
+            "name": "pid",
             "in": "query"
           },
           {
@@ -521,21 +521,13 @@
             }
           }
         }
-      }
-    },
-    "/admin/users/{id}": {
+      },
       "delete": {
         "tags": [
           "user"
         ],
         "operationId": "deleteUser",
         "parameters": [
-          {
-            "type": "string",
-            "name": "id",
-            "in": "path",
-            "required": true
-          },
           {
             "name": "body",
             "in": "body",
@@ -550,22 +542,6 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/DeleteUserResp"
-            }
-          }
-        }
-      }
-    },
-    "/config/communities": {
-      "get": {
-        "tags": [
-          "config-api"
-        ],
-        "operationId": "getCommunities",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/GetCommunitiesResp"
             }
           }
         }
@@ -1210,6 +1186,32 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/CreatePostResp"
+            }
+          }
+        }
+      }
+    },
+    "/posts/callback/implio": {
+      "post": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "implioCallback",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ImplioEvent"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ImplioCallbackResp"
             }
           }
         }
@@ -2094,6 +2096,12 @@
           {
             "type": "integer",
             "format": "int32",
+            "name": "industry_id",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
             "name": "from",
             "in": "query"
           },
@@ -2693,44 +2701,6 @@
         }
       }
     },
-    "Community": {
-      "type": "object",
-      "title": "Community",
-      "required": [
-        "name",
-        "logo",
-        "url",
-        "description",
-        "search_terms",
-        "topics"
-      ],
-      "properties": {
-        "description": {
-          "type": "string"
-        },
-        "logo": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "search_terms": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "topics": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Topic"
-          }
-        },
-        "url": {
-          "type": "string"
-        }
-      }
-    },
     "CreateIndustryReq": {
       "type": "object",
       "title": "CreateIndustryReq",
@@ -2745,15 +2715,15 @@
         "description": {
           "type": "string"
         },
-        "industry_id": {
-          "type": "integer",
-          "format": "int64"
-        },
         "logo": {
           "type": "string"
         },
         "name": {
           "type": "string"
+        },
+        "pid": {
+          "type": "integer",
+          "format": "int64"
         },
         "search_terms": {
           "type": "array",
@@ -3016,11 +2986,15 @@
       "type": "object",
       "title": "DeleteUserReq",
       "required": [
-        "id"
+        "ids"
       ],
       "properties": {
-        "id": {
-          "$ref": "#/definitions/uint"
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
         }
       }
     },
@@ -3028,11 +3002,15 @@
       "type": "object",
       "title": "DeleteUserResp",
       "required": [
-        "id"
+        "ids"
       ],
       "properties": {
-        "id": {
-          "$ref": "#/definitions/uint"
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
         }
       }
     },
@@ -3147,25 +3125,6 @@
     "ForgotPassResp": {
       "type": "object",
       "title": "ForgotPassResp"
-    },
-    "GetCommunitiesReq": {
-      "type": "object",
-      "title": "GetCommunitiesReq"
-    },
-    "GetCommunitiesResp": {
-      "type": "object",
-      "title": "GetCommunitiesResp",
-      "required": [
-        "communities"
-      ],
-      "properties": {
-        "communities": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Community"
-          }
-        }
-      }
     },
     "GetFansBatchReq": {
       "type": "object",
@@ -3285,12 +3244,12 @@
             "format": "int64"
           }
         },
-        "industry_id": {
-          "type": "integer",
-          "format": "int64"
-        },
         "keyword": {
           "type": "string"
+        },
+        "pid": {
+          "type": "integer",
+          "format": "int64"
         },
         "size": {
           "type": "integer",
@@ -4022,11 +3981,13 @@
         "interest",
         "company",
         "industry",
+        "industry2",
         "last_login_time",
         "follower_cnt",
         "followee_cnt",
         "-",
-        "premium"
+        "premium",
+        "session"
       ],
       "properties": {
         "about_you": {
@@ -4075,6 +4036,9 @@
         "industry": {
           "$ref": "#/definitions/mapstringstring"
         },
+        "industry2": {
+          "$ref": "#/definitions/Industry"
+        },
         "interest": {
           "type": "string"
         },
@@ -4110,6 +4074,9 @@
         "premium": {
           "type": "boolean",
           "format": "boolean"
+        },
+        "session": {
+          "type": "string"
         },
         "twitter": {
           "type": "string"
@@ -4231,6 +4198,58 @@
       "type": "object",
       "title": "GetWordsResp"
     },
+    "ImplioAd": {
+      "type": "object",
+      "title": "ImplioAd",
+      "required": [
+        "id",
+        "batchId",
+        "taskId"
+      ],
+      "properties": {
+        "batchId": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "taskId": {
+          "type": "string"
+        }
+      }
+    },
+    "ImplioCallbackResp": {
+      "type": "object",
+      "title": "ImplioCallbackResp"
+    },
+    "ImplioEvent": {
+      "type": "object",
+      "title": "ImplioEvent",
+      "required": [
+        "ad",
+        "result"
+      ],
+      "properties": {
+        "ad": {
+          "$ref": "#/definitions/ImplioAd"
+        },
+        "result": {
+          "$ref": "#/definitions/ImplioResult"
+        }
+      }
+    },
+    "ImplioResult": {
+      "type": "object",
+      "title": "ImplioResult",
+      "required": [
+        "outcome"
+      ],
+      "properties": {
+        "outcome": {
+          "type": "string"
+        }
+      }
+    },
     "Industry": {
       "type": "object",
       "title": "Industry",
@@ -4275,6 +4294,7 @@
       "title": "IndustryInfo",
       "required": [
         "id",
+        "pid",
         "name",
         "logo",
         "url",
@@ -4294,6 +4314,10 @@
         },
         "name": {
           "type": "string"
+        },
+        "pid": {
+          "type": "integer",
+          "format": "int64"
         },
         "search_terms": {
           "type": "array",
@@ -4774,6 +4798,9 @@
             "type": "string"
           }
         },
+        "industry": {
+          "$ref": "#/definitions/Industry"
+        },
         "is_profanity": {
           "type": "integer",
           "format": "int64"
@@ -5082,6 +5109,10 @@
           "type": "integer",
           "format": "int32"
         },
+        "industry_id": {
+          "type": "integer",
+          "format": "int32"
+        },
         "query": {
           "type": "string"
         },
@@ -5259,29 +5290,12 @@
         }
       }
     },
-    "Topic": {
-      "type": "object",
-      "title": "Topic",
-      "required": [
-        "name",
-        "url",
-        "description"
-      ],
-      "properties": {
-        "description": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "url": {
-          "type": "string"
-        }
-      }
-    },
     "UpdateIndustryReq": {
       "type": "object",
       "title": "UpdateIndustryReq",
+      "required": [
+        "id"
+      ],
       "properties": {
         "description": {
           "type": "string"
@@ -5418,6 +5432,7 @@
         "company",
         "-",
         "-",
+        "-",
         "-"
       ],
       "properties": {
@@ -5454,6 +5469,9 @@
         },
         "industry": {
           "$ref": "#/definitions/mapstringstring"
+        },
+        "industry2": {
+          "$ref": "#/definitions/Industry"
         },
         "interest": {
           "type": "string",

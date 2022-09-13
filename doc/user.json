@@ -655,6 +655,9 @@
         "industry": {
           "$ref": "#/definitions/mapstringstring"
         },
+        "industry2": {
+          "$ref": "#/definitions/Industry"
+        },
         "last_login_time": {
           "type": "integer",
           "format": "int64"
@@ -674,6 +677,9 @@
         "premium": {
           "type": "boolean",
           "format": "boolean"
+        },
+        "session": {
+          "type": "string"
         }
       },
       "title": "GetUserResp",
@@ -703,12 +709,40 @@
         "interest",
         "company",
         "industry",
+        "industry2",
         "last_login_time",
         "follower_cnt",
         "followee_cnt",
         "-",
-        "premium"
+        "premium",
+        "session"
       ]
+    },
+    "Industry": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "sub_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "sub_name": {
+          "type": "string"
+        },
+        "sub_url": {
+          "type": "string"
+        }
+      },
+      "title": "Industry"
     },
     "LoginReq": {
       "type": "object",
@@ -911,6 +945,9 @@
         "industry": {
           "$ref": "#/definitions/mapstringstring"
         },
+        "industry2": {
+          "$ref": "#/definitions/Industry"
+        },
         "list_me": {
           "type": "integer",
           "format": "int64"
@@ -953,6 +990,7 @@
         "interest",
         "interest",
         "company",
+        "-",
         "-",
         "-",
         "-"

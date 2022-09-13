@@ -42,6 +42,32 @@
         ]
       }
     },
+    "/posts/callback/implio": {
+      "post": {
+        "operationId": "implioCallback",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ImplioCallbackResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ImplioEvent"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
     "/posts/fans": {
       "post": {
         "operationId": "getFansBatch",
@@ -695,6 +721,58 @@
         "users"
       ]
     },
+    "ImplioAd": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "batchId": {
+          "type": "string"
+        },
+        "taskId": {
+          "type": "string"
+        }
+      },
+      "title": "ImplioAd",
+      "required": [
+        "id",
+        "batchId",
+        "taskId"
+      ]
+    },
+    "ImplioCallbackResp": {
+      "type": "object",
+      "title": "ImplioCallbackResp"
+    },
+    "ImplioEvent": {
+      "type": "object",
+      "properties": {
+        "ad": {
+          "$ref": "#/definitions/ImplioAd"
+        },
+        "result": {
+          "$ref": "#/definitions/ImplioResult"
+        }
+      },
+      "title": "ImplioEvent",
+      "required": [
+        "ad",
+        "result"
+      ]
+    },
+    "ImplioResult": {
+      "type": "object",
+      "properties": {
+        "outcome": {
+          "type": "string"
+        }
+      },
+      "title": "ImplioResult",
+      "required": [
+        "outcome"
+      ]
+    },
     "Industry": {
       "type": "object",
       "properties": {
@@ -705,11 +783,17 @@
         "name": {
           "type": "string"
         },
+        "url": {
+          "type": "string"
+        },
         "sub_id": {
           "type": "integer",
           "format": "int64"
         },
         "sub_name": {
+          "type": "string"
+        },
+        "sub_url": {
           "type": "string"
         }
       },
