@@ -96,6 +96,32 @@
         ]
       }
     },
+    "/users/business": {
+      "post": {
+        "operationId": "signupBusinessDirectory",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SignupBusinessDirectoryResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SignupBusinessDirectoryReq"
+            }
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      }
+    },
     "/users/email": {
       "get": {
         "operationId": "getEmail",
@@ -804,6 +830,36 @@
     "ResetPassResp": {
       "type": "object",
       "title": "ResetPassResp"
+    },
+    "SignupBusinessDirectoryReq": {
+      "type": "object",
+      "properties": {
+        "userid": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "category_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "skills": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "title": "SignupBusinessDirectoryReq",
+      "required": [
+        "userid",
+        "category_id",
+        "skills"
+      ]
+    },
+    "SignupBusinessDirectoryResp": {
+      "type": "object",
+      "title": "SignupBusinessDirectoryResp"
     },
     "SignupReply": {
       "type": "object",

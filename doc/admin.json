@@ -576,6 +576,77 @@
           "user"
         ]
       }
+    },
+    "/admin/users/business": {
+      "get": {
+        "operationId": "getApplies",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetApplyResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "user"
+        ]
+      }
+    },
+    "/admin/users/business/{id}": {
+      "put": {
+        "operationId": "updateApply",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateApplyResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateApplyReq"
+            }
+          }
+        ],
+        "tags": [
+          "user"
+        ]
+      }
     }
   },
   "definitions": {
@@ -726,6 +797,53 @@
       "title": "DeleteUserResp",
       "required": [
         "ids"
+      ]
+    },
+    "GetApplyReq": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "GetApplyReq"
+    },
+    "GetApplyResp": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "applies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserBusinessApply"
+          }
+        }
+      },
+      "title": "GetApplyResp",
+      "required": [
+        "count",
+        "from",
+        "size",
+        "applies"
       ]
     },
     "GetIndustriesReq": {
@@ -1283,6 +1401,32 @@
       },
       "title": "PostInfo"
     },
+    "UpdateApplyReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "user_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "UpdateApplyReq",
+      "required": [
+        "id",
+        "user_id",
+        "status"
+      ]
+    },
+    "UpdateApplyResp": {
+      "type": "object",
+      "title": "UpdateApplyResp"
+    },
     "UpdateIndustryReq": {
       "type": "object",
       "properties": {
@@ -1353,6 +1497,40 @@
       "title": "UpdatePostResp",
       "required": [
         "id"
+      ]
+    },
+    "UserBusinessApply": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "user_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "business_type": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "UserBusinessApply",
+      "required": [
+        "id",
+        "user_id",
+        "username",
+        "email",
+        "business_type",
+        "status"
       ]
     },
     "UserInfo": {

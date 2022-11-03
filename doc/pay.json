@@ -672,6 +672,10 @@
         "id": {
           "$ref": "#/definitions/uint"
         },
+        "sub_type": {
+          "type": "integer",
+          "format": "int32"
+        },
         "name": {
           "type": "string"
         },
@@ -686,6 +690,7 @@
       "title": "Plan",
       "required": [
         "id",
+        "sub_type",
         "name",
         "description",
         "price"

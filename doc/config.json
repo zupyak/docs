@@ -16,6 +16,38 @@
     "application/json"
   ],
   "paths": {
+    "/config/categories": {
+      "get": {
+        "operationId": "getCategories",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetBusinessCategoriesResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "pid",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          }
+        ],
+        "tags": [
+          "config-api"
+        ]
+      }
+    },
     "/config/industries": {
       "get": {
         "operationId": "getIndustries",
@@ -147,6 +179,80 @@
     }
   },
   "definitions": {
+    "BusinessCategory": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "pid": {
+          "$ref": "#/definitions/uint"
+        },
+        "name": {
+          "type": "string"
+        },
+        "logo": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "title": "BusinessCategory",
+      "required": [
+        "id",
+        "pid",
+        "name",
+        "logo",
+        "url",
+        "description"
+      ]
+    },
+    "GetBusinessCategoriesReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "pid": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "GetBusinessCategoriesReq"
+    },
+    "GetBusinessCategoriesResp": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "categories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BusinessCategory"
+          }
+        }
+      },
+      "title": "GetBusinessCategoriesResp",
+      "required": [
+        "count",
+        "from",
+        "size",
+        "categories"
+      ]
+    },
     "GetFeaturedIndustriesReq": {
       "type": "object",
       "properties": {
