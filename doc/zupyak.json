@@ -1236,7 +1236,7 @@
         "tags": [
           "pay-api"
         ],
-        "operationId": "cancelSubscription",
+        "operationId": "updateSubscription",
         "parameters": [
           {
             "type": "string",
@@ -1249,7 +1249,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/CancelSubscriptionReq"
+              "$ref": "#/definitions/UpdateSubscriptionReq"
             }
           }
         ],
@@ -1257,7 +1257,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/CancelSubscriptionResp"
+              "$ref": "#/definitions/UpdateSubscriptionResp"
             }
           }
         }
@@ -1284,6 +1284,56 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/CreatePostResp"
+            }
+          }
+        }
+      }
+    },
+    "/posts/aigc": {
+      "post": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "generatePost",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GeneratePostReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GeneratePostResp"
+            }
+          }
+        }
+      }
+    },
+    "/posts/aigc/{id}": {
+      "get": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "getGeneratedPost",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetGeneratedPostResp"
             }
           }
         }
@@ -2275,6 +2325,18 @@
             "in": "query"
           },
           {
+            "type": "integer",
+            "format": "int32",
+            "name": "category_id",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "industry_id",
+            "in": "query"
+          },
+          {
             "type": "string",
             "name": "industry",
             "in": "query"
@@ -2750,30 +2812,6 @@
           "$ref": "#/definitions/uint"
         },
         "url": {
-          "type": "string"
-        }
-      }
-    },
-    "CancelSubscriptionReq": {
-      "type": "object",
-      "title": "CancelSubscriptionReq",
-      "required": [
-        "uuid"
-      ],
-      "properties": {
-        "uuid": {
-          "type": "string"
-        }
-      }
-    },
-    "CancelSubscriptionResp": {
-      "type": "object",
-      "title": "CancelSubscriptionResp",
-      "required": [
-        "uuid"
-      ],
-      "properties": {
-        "uuid": {
           "type": "string"
         }
       }
@@ -3282,6 +3320,91 @@
       "type": "object",
       "title": "ForgotPassResp"
     },
+    "GeneratePostReq": {
+      "type": "object",
+      "title": "GeneratePostReq",
+      "required": [
+        "type",
+        "topic",
+        "keywords",
+        "style",
+        "model",
+        "temperature",
+        "max_tokens",
+        "top_p",
+        "best_of",
+        "frequency_penalty",
+        "presence_penalty"
+      ],
+      "properties": {
+        "best_of": {
+          "type": "integer",
+          "format": "int32",
+          "default": "1"
+        },
+        "frequency_penalty": {
+          "type": "number",
+          "format": "float",
+          "default": "0"
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "max_tokens": {
+          "type": "integer",
+          "format": "int32",
+          "default": "1500"
+        },
+        "model": {
+          "type": "string",
+          "default": "text-davinci-003"
+        },
+        "presence_penalty": {
+          "type": "number",
+          "format": "float",
+          "default": "0"
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "style": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "temperature": {
+          "type": "number",
+          "format": "float",
+          "default": "0.7"
+        },
+        "top_p": {
+          "type": "number",
+          "format": "float",
+          "default": "1"
+        },
+        "topic": {
+          "type": "string"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "GeneratePostResp": {
+      "type": "object",
+      "title": "GeneratePostResp",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
+    },
     "GetApplyReq": {
       "type": "object",
       "title": "GetApplyReq",
@@ -3471,6 +3594,43 @@
           "items": {
             "$ref": "#/definitions/GetUserResp"
           }
+        }
+      }
+    },
+    "GetGeneratedPostReq": {
+      "type": "object",
+      "title": "GetGeneratedPostReq",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
+    },
+    "GetGeneratedPostResp": {
+      "type": "object",
+      "title": "GetGeneratedPostResp",
+      "required": [
+        "id",
+        "status",
+        "title",
+        "content"
+      ],
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "title": {
+          "type": "string"
         }
       }
     },
@@ -5409,6 +5569,10 @@
       "type": "object",
       "title": "SearchUserReq",
       "properties": {
+        "category_id": {
+          "type": "integer",
+          "format": "int32"
+        },
         "city": {
           "type": "string"
         },
@@ -5421,6 +5585,10 @@
         },
         "industry": {
           "type": "string"
+        },
+        "industry_id": {
+          "type": "integer",
+          "format": "int32"
         },
         "query": {
           "type": "string"
@@ -5469,13 +5637,16 @@
       "title": "SignupBusinessDirectoryReq",
       "required": [
         "userid",
-        "category_id",
+        "categories",
         "skills"
       ],
       "properties": {
-        "category_id": {
-          "type": "integer",
-          "format": "int64"
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
         },
         "skills": {
           "type": "array",
@@ -5697,6 +5868,33 @@
         }
       }
     },
+    "UpdateSubscriptionReq": {
+      "type": "object",
+      "title": "UpdateSubscriptionReq",
+      "required": [
+        "uuid"
+      ],
+      "properties": {
+        "plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "uuid": {
+          "type": "string"
+        }
+      }
+    },
+    "UpdateSubscriptionResp": {
+      "type": "object",
+      "title": "UpdateSubscriptionResp",
+      "required": [
+        "uuid"
+      ],
+      "properties": {
+        "uuid": {
+          "type": "string"
+        }
+      }
+    },
     "UpdateUserReq": {
       "type": "object",
       "title": "UpdateUserReq",
@@ -5867,11 +6065,16 @@
         "username",
         "email",
         "business_type",
-        "status"
+        "status",
+        "created_at"
       ],
       "properties": {
         "business_type": {
           "type": "string"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
         },
         "email": {
           "type": "string"

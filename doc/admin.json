@@ -1521,6 +1521,10 @@
         "status": {
           "type": "integer",
           "format": "int32"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
         }
       },
       "title": "UserBusinessApply",
@@ -1530,7 +1534,8 @@
         "username",
         "email",
         "business_type",
-        "status"
+        "status",
+        "created_at"
       ]
     },
     "UserInfo": {

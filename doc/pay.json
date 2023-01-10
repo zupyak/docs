@@ -243,12 +243,12 @@
     },
     "/pay/subscriptions/{uuid}": {
       "put": {
-        "operationId": "cancelSubscription",
+        "operationId": "updateSubscription",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/CancelSubscriptionResp"
+              "$ref": "#/definitions/UpdateSubscriptionResp"
             }
           }
         },
@@ -264,7 +264,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/CancelSubscriptionReq"
+              "$ref": "#/definitions/UpdateSubscriptionReq"
             }
           }
         ],
@@ -275,30 +275,6 @@
     }
   },
   "definitions": {
-    "CancelSubscriptionReq": {
-      "type": "object",
-      "properties": {
-        "uuid": {
-          "type": "string"
-        }
-      },
-      "title": "CancelSubscriptionReq",
-      "required": [
-        "uuid"
-      ]
-    },
-    "CancelSubscriptionResp": {
-      "type": "object",
-      "properties": {
-        "uuid": {
-          "type": "string"
-        }
-      },
-      "title": "CancelSubscriptionResp",
-      "required": [
-        "uuid"
-      ]
-    },
     "CreateOrderReq": {
       "type": "object",
       "properties": {
@@ -728,6 +704,33 @@
     "StripeResp": {
       "type": "object",
       "title": "StripeResp"
+    },
+    "UpdateSubscriptionReq": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string"
+        },
+        "plan_id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "UpdateSubscriptionReq",
+      "required": [
+        "uuid"
+      ]
+    },
+    "UpdateSubscriptionResp": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "title": "UpdateSubscriptionResp",
+      "required": [
+        "uuid"
+      ]
     }
   },
   "securityDefinitions": {

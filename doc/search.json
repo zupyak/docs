@@ -132,6 +132,20 @@
             "type": "string"
           },
           {
+            "name": "category_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "industry_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
             "name": "industry",
             "in": "query",
             "required": false,
@@ -589,6 +603,14 @@
       "properties": {
         "query": {
           "type": "string"
+        },
+        "category_id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "industry_id": {
+          "type": "integer",
+          "format": "int32"
         },
         "industry": {
           "type": "string"

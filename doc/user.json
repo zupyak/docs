@@ -838,9 +838,12 @@
           "type": "integer",
           "format": "int64"
         },
-        "category_id": {
-          "type": "integer",
-          "format": "int64"
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
         },
         "skills": {
           "type": "array",
@@ -853,7 +856,7 @@
       "title": "SignupBusinessDirectoryReq",
       "required": [
         "userid",
-        "category_id",
+        "categories",
         "skills"
       ]
     },

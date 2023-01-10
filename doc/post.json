@@ -42,6 +42,56 @@
         ]
       }
     },
+    "/posts/aigc": {
+      "post": {
+        "operationId": "generatePost",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GeneratePostResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GeneratePostReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/{id}": {
+      "get": {
+        "operationId": "getGeneratedPost",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetGeneratedPostResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
     "/posts/callback/implio": {
       "post": {
         "operationId": "implioCallback",
@@ -522,6 +572,91 @@
         "id"
       ]
     },
+    "GeneratePostReq": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "topic": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "style": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "model": {
+          "type": "string",
+          "default": "text-davinci-003"
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "temperature": {
+          "type": "number",
+          "format": "float",
+          "default": "0.7"
+        },
+        "max_tokens": {
+          "type": "integer",
+          "format": "int32",
+          "default": "1500"
+        },
+        "top_p": {
+          "type": "number",
+          "format": "float",
+          "default": "1"
+        },
+        "best_of": {
+          "type": "integer",
+          "format": "int32",
+          "default": "1"
+        },
+        "frequency_penalty": {
+          "type": "number",
+          "format": "float",
+          "default": "0"
+        },
+        "presence_penalty": {
+          "type": "number",
+          "format": "float",
+          "default": "0"
+        }
+      },
+      "title": "GeneratePostReq",
+      "required": [
+        "type",
+        "topic",
+        "keywords",
+        "style",
+        "model",
+        "temperature",
+        "max_tokens",
+        "top_p",
+        "best_of",
+        "frequency_penalty",
+        "presence_penalty"
+      ]
+    },
+    "GeneratePostResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "GeneratePostResp",
+      "required": [
+        "id"
+      ]
+    },
     "GetFansBatchReq": {
       "type": "object",
       "properties": {
@@ -566,6 +701,43 @@
         }
       },
       "title": "GetFeaturedPostsReq"
+    },
+    "GetGeneratedPostReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "GetGeneratedPostReq",
+      "required": [
+        "id"
+      ]
+    },
+    "GetGeneratedPostResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "title": "GetGeneratedPostResp",
+      "required": [
+        "id",
+        "status",
+        "title",
+        "content"
+      ]
     },
     "GetPostReq": {
       "type": "object",
