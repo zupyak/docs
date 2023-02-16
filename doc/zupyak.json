@@ -1315,6 +1315,106 @@
         }
       }
     },
+    "/posts/aigc/keywords": {
+      "post": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "SuggestKeyword",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SuggestKeywordReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SuggestKeywordResp"
+            }
+          }
+        }
+      }
+    },
+    "/posts/aigc/keywords/{id}": {
+      "get": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "GetSuggestedKeywords",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetSuggestedKeywordsResp"
+            }
+          }
+        }
+      }
+    },
+    "/posts/aigc/topics": {
+      "post": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "suggestTopic",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SuggestTopicReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SuggestTopicResp"
+            }
+          }
+        }
+      }
+    },
+    "/posts/aigc/topics/{id}": {
+      "get": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "getSuggestedTopics",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetSuggestedTopicsResp"
+            }
+          }
+        }
+      }
+    },
     "/posts/aigc/{id}": {
       "get": {
         "tags": [
@@ -1326,6 +1426,12 @@
             "type": "string",
             "name": "id",
             "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "language",
+            "in": "query",
             "required": true
           }
         ],
@@ -3601,11 +3707,15 @@
       "type": "object",
       "title": "GetGeneratedPostReq",
       "required": [
-        "id"
+        "id",
+        "language"
       ],
       "properties": {
         "id": {
           "$ref": "#/definitions/uint"
+        },
+        "language": {
+          "type": "string"
         }
       }
     },
@@ -4240,6 +4350,78 @@
         }
       }
     },
+    "GetSuggestedKeywordsReq": {
+      "type": "object",
+      "title": "GetSuggestedKeywordsReq",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
+    },
+    "GetSuggestedKeywordsResp": {
+      "type": "object",
+      "title": "GetSuggestedKeywordsResp",
+      "required": [
+        "id",
+        "status",
+        "keywords"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Keyword"
+          }
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "GetSuggestedTopicsReq": {
+      "type": "object",
+      "title": "GetSuggestedTopicsReq",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
+    },
+    "GetSuggestedTopicsResp": {
+      "type": "object",
+      "title": "GetSuggestedTopicsResp",
+      "required": [
+        "id",
+        "status",
+        "topics"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "topics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "GetTagsReq": {
       "type": "object",
       "title": "GetTagsReq"
@@ -4761,6 +4943,28 @@
           "type": "string"
         },
         "url": {
+          "type": "string"
+        }
+      }
+    },
+    "Keyword": {
+      "type": "object",
+      "title": "Keyword",
+      "required": [
+        "text",
+        "search_volume",
+        "difficulty"
+      ],
+      "properties": {
+        "difficulty": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "search_volume": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "text": {
           "type": "string"
         }
       }
@@ -5715,6 +5919,68 @@
     "StripeResp": {
       "type": "object",
       "title": "StripeResp"
+    },
+    "SuggestKeywordReq": {
+      "type": "object",
+      "title": "SuggestKeywordReq",
+      "required": [
+        "type",
+        "topic",
+        "language"
+      ],
+      "properties": {
+        "language": {
+          "type": "string"
+        },
+        "topic": {
+          "type": "string"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "SuggestKeywordResp": {
+      "type": "object",
+      "title": "SuggestKeywordResp",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
+    },
+    "SuggestTopicReq": {
+      "type": "object",
+      "title": "SuggestTopicReq",
+      "required": [
+        "type",
+        "topic"
+      ],
+      "properties": {
+        "topic": {
+          "type": "string"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "SuggestTopicResp": {
+      "type": "object",
+      "title": "SuggestTopicResp",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
     },
     "TagInfo": {
       "type": "object",

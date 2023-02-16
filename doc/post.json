@@ -68,6 +68,106 @@
         ]
       }
     },
+    "/posts/aigc/keywords": {
+      "post": {
+        "operationId": "SuggestKeyword",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SuggestKeywordResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SuggestKeywordReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/keywords/{id}": {
+      "get": {
+        "operationId": "GetSuggestedKeywords",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetSuggestedKeywordsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/topics": {
+      "post": {
+        "operationId": "suggestTopic",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SuggestTopicResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SuggestTopicReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/topics/{id}": {
+      "get": {
+        "operationId": "getSuggestedTopics",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetSuggestedTopicsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
     "/posts/aigc/{id}": {
       "get": {
         "operationId": "getGeneratedPost",
@@ -83,6 +183,12 @@
           {
             "name": "id",
             "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "language",
+            "in": "query",
             "required": true,
             "type": "string"
           }
@@ -707,11 +813,15 @@
       "properties": {
         "id": {
           "$ref": "#/definitions/uint"
+        },
+        "language": {
+          "type": "string"
         }
       },
       "title": "GetGeneratedPostReq",
       "required": [
-        "id"
+        "id",
+        "language"
       ]
     },
     "GetGeneratedPostResp": {
@@ -808,6 +918,78 @@
     "GetRecentPostsReq": {
       "type": "object",
       "title": "GetRecentPostsReq"
+    },
+    "GetSuggestedKeywordsReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "GetSuggestedKeywordsReq",
+      "required": [
+        "id"
+      ]
+    },
+    "GetSuggestedKeywordsResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Keyword"
+          }
+        }
+      },
+      "title": "GetSuggestedKeywordsResp",
+      "required": [
+        "id",
+        "status",
+        "keywords"
+      ]
+    },
+    "GetSuggestedTopicsReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "GetSuggestedTopicsReq",
+      "required": [
+        "id"
+      ]
+    },
+    "GetSuggestedTopicsResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "topics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "GetSuggestedTopicsResp",
+      "required": [
+        "id",
+        "status",
+        "topics"
+      ]
     },
     "GetTagsReq": {
       "type": "object",
@@ -971,6 +1153,28 @@
       },
       "title": "Industry"
     },
+    "Keyword": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "search_volume": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "difficulty": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Keyword",
+      "required": [
+        "text",
+        "search_volume",
+        "difficulty"
+      ]
+    },
     "LikeReq": {
       "type": "object",
       "properties": {
@@ -1124,6 +1328,68 @@
         }
       },
       "title": "PostInfo"
+    },
+    "SuggestKeywordReq": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "topic": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        }
+      },
+      "title": "SuggestKeywordReq",
+      "required": [
+        "type",
+        "topic",
+        "language"
+      ]
+    },
+    "SuggestKeywordResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "SuggestKeywordResp",
+      "required": [
+        "id"
+      ]
+    },
+    "SuggestTopicReq": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "topic": {
+          "type": "string"
+        }
+      },
+      "title": "SuggestTopicReq",
+      "required": [
+        "type",
+        "topic"
+      ]
+    },
+    "SuggestTopicResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "SuggestTopicResp",
+      "required": [
+        "id"
+      ]
     },
     "TagInfo": {
       "type": "object",
