@@ -1353,6 +1353,12 @@
             "name": "id",
             "in": "path",
             "required": true
+          },
+          {
+            "type": "string",
+            "name": "region",
+            "in": "query",
+            "required": true
           }
         ],
         "responses": {
@@ -1360,6 +1366,62 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/GetSuggestedKeywordsResp"
+            }
+          }
+        }
+      }
+    },
+    "/posts/aigc/mindmaps": {
+      "post": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "SuggestMindMap",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SuggestMindMapReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SuggestMindMapResp"
+            }
+          }
+        }
+      }
+    },
+    "/posts/aigc/mindmaps/{id}": {
+      "get": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "GetSuggestedMindMaps",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "region",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetSuggestedMindMapResp"
             }
           }
         }
@@ -1431,8 +1493,7 @@
           {
             "type": "string",
             "name": "language",
-            "in": "query",
-            "required": true
+            "in": "query"
           }
         ],
         "responses": {
@@ -3707,8 +3768,7 @@
       "type": "object",
       "title": "GetGeneratedPostReq",
       "required": [
-        "id",
-        "language"
+        "id"
       ],
       "properties": {
         "id": {
@@ -4354,11 +4414,15 @@
       "type": "object",
       "title": "GetSuggestedKeywordsReq",
       "required": [
-        "id"
+        "id",
+        "region"
       ],
       "properties": {
         "id": {
           "$ref": "#/definitions/uint"
+        },
+        "region": {
+          "type": "string"
         }
       }
     },
@@ -4379,6 +4443,46 @@
           "items": {
             "$ref": "#/definitions/Keyword"
           }
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "GetSuggestedMindMapReq": {
+      "type": "object",
+      "title": "GetSuggestedMindMapReq",
+      "required": [
+        "id",
+        "region"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "region": {
+          "type": "string"
+        }
+      }
+    },
+    "GetSuggestedMindMapResp": {
+      "type": "object",
+      "title": "GetSuggestedMindMapResp",
+      "required": [
+        "id",
+        "status",
+        "groups"
+      ],
+      "properties": {
+        "groups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Group"
+          }
+        },
+        "id": {
+          "$ref": "#/definitions/uint"
         },
         "status": {
           "type": "integer",
@@ -4784,6 +4888,25 @@
     "GetWordsResp": {
       "type": "object",
       "title": "GetWordsResp"
+    },
+    "Group": {
+      "type": "object",
+      "title": "Group",
+      "required": [
+        "text",
+        "keywords"
+      ],
+      "properties": {
+        "keywords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Keyword"
+          }
+        },
+        "text": {
+          "type": "string"
+        }
+      }
     },
     "ImplioAd": {
       "type": "object",
@@ -5953,14 +6076,51 @@
         }
       }
     },
+    "SuggestMindMapReq": {
+      "type": "object",
+      "title": "SuggestMindMapReq",
+      "required": [
+        "topic",
+        "language"
+      ],
+      "properties": {
+        "language": {
+          "type": "string"
+        },
+        "topic": {
+          "type": "string"
+        }
+      }
+    },
+    "SuggestMindMapResp": {
+      "type": "object",
+      "title": "SuggestMindMapResp",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
+    },
     "SuggestTopicReq": {
       "type": "object",
       "title": "SuggestTopicReq",
       "required": [
         "type",
-        "topic"
+        "style",
+        "topic",
+        "language"
       ],
       "properties": {
+        "language": {
+          "type": "string"
+        },
+        "style": {
+          "type": "integer",
+          "format": "int32"
+        },
         "topic": {
           "type": "string"
         },

@@ -111,6 +111,68 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/mindmaps": {
+      "post": {
+        "operationId": "SuggestMindMap",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SuggestMindMapResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SuggestMindMapReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/mindmaps/{id}": {
+      "get": {
+        "operationId": "GetSuggestedMindMaps",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetSuggestedMindMapResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": true,
+            "type": "string"
           }
         ],
         "tags": [
@@ -189,7 +251,7 @@
           {
             "name": "language",
             "in": "query",
-            "required": true,
+            "required": false,
             "type": "string"
           }
         ],
@@ -820,8 +882,7 @@
       },
       "title": "GetGeneratedPostReq",
       "required": [
-        "id",
-        "language"
+        "id"
       ]
     },
     "GetGeneratedPostResp": {
@@ -924,11 +985,15 @@
       "properties": {
         "id": {
           "$ref": "#/definitions/uint"
+        },
+        "region": {
+          "type": "string"
         }
       },
       "title": "GetSuggestedKeywordsReq",
       "required": [
-        "id"
+        "id",
+        "region"
       ]
     },
     "GetSuggestedKeywordsResp": {
@@ -953,6 +1018,46 @@
         "id",
         "status",
         "keywords"
+      ]
+    },
+    "GetSuggestedMindMapReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "region": {
+          "type": "string"
+        }
+      },
+      "title": "GetSuggestedMindMapReq",
+      "required": [
+        "id",
+        "region"
+      ]
+    },
+    "GetSuggestedMindMapResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Group"
+          }
+        }
+      },
+      "title": "GetSuggestedMindMapResp",
+      "required": [
+        "id",
+        "status",
+        "groups"
       ]
     },
     "GetSuggestedTopicsReq": {
@@ -1073,6 +1178,25 @@
         "from",
         "size",
         "users"
+      ]
+    },
+    "Group": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Keyword"
+          }
+        }
+      },
+      "title": "Group",
+      "required": [
+        "text",
+        "keywords"
       ]
     },
     "ImplioAd": {
@@ -1362,6 +1486,34 @@
         "id"
       ]
     },
+    "SuggestMindMapReq": {
+      "type": "object",
+      "properties": {
+        "topic": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        }
+      },
+      "title": "SuggestMindMapReq",
+      "required": [
+        "topic",
+        "language"
+      ]
+    },
+    "SuggestMindMapResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "SuggestMindMapResp",
+      "required": [
+        "id"
+      ]
+    },
     "SuggestTopicReq": {
       "type": "object",
       "properties": {
@@ -1369,14 +1521,23 @@
           "type": "integer",
           "format": "int32"
         },
+        "style": {
+          "type": "integer",
+          "format": "int32"
+        },
         "topic": {
+          "type": "string"
+        },
+        "language": {
           "type": "string"
         }
       },
       "title": "SuggestTopicReq",
       "required": [
         "type",
-        "topic"
+        "style",
+        "topic",
+        "language"
       ]
     },
     "SuggestTopicResp": {
