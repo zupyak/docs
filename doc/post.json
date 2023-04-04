@@ -750,6 +750,9 @@
         "topic": {
           "type": "string"
         },
+        "audience": {
+          "type": "string"
+        },
         "keywords": {
           "type": "array",
           "items": {
@@ -760,41 +763,9 @@
           "type": "integer",
           "format": "int32"
         },
-        "model": {
-          "type": "string",
-          "default": "text-davinci-003"
-        },
-        "prompt": {
-          "type": "string"
-        },
-        "temperature": {
-          "type": "number",
-          "format": "float",
-          "default": "0.7"
-        },
-        "max_tokens": {
+        "length": {
           "type": "integer",
           "format": "int32",
-          "default": "1500"
-        },
-        "top_p": {
-          "type": "number",
-          "format": "float",
-          "default": "1"
-        },
-        "best_of": {
-          "type": "integer",
-          "format": "int32",
-          "default": "1"
-        },
-        "frequency_penalty": {
-          "type": "number",
-          "format": "float",
-          "default": "0"
-        },
-        "presence_penalty": {
-          "type": "number",
-          "format": "float",
           "default": "0"
         }
       },
@@ -804,13 +775,7 @@
         "topic",
         "keywords",
         "style",
-        "model",
-        "temperature",
-        "max_tokens",
-        "top_p",
-        "best_of",
-        "frequency_penalty",
-        "presence_penalty"
+        "length"
       ]
     },
     "GeneratePostResp": {
@@ -1415,7 +1380,7 @@
           "type": "integer",
           "format": "int64"
         },
-        "first_user_engaged": {
+        "aigc_id": {
           "$ref": "#/definitions/uint"
         },
         "display_in_country": {

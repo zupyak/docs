@@ -248,7 +248,7 @@
           "type": "integer",
           "format": "int64"
         },
-        "firstUserEngaged": {
+        "aigcId": {
           "$ref": "#/definitions/uint"
         },
         "displayInCountry": {

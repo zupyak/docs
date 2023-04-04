@@ -3495,24 +3495,11 @@
         "topic",
         "keywords",
         "style",
-        "model",
-        "temperature",
-        "max_tokens",
-        "top_p",
-        "best_of",
-        "frequency_penalty",
-        "presence_penalty"
+        "length"
       ],
       "properties": {
-        "best_of": {
-          "type": "integer",
-          "format": "int32",
-          "default": "1"
-        },
-        "frequency_penalty": {
-          "type": "number",
-          "format": "float",
-          "default": "0"
+        "audience": {
+          "type": "string"
         },
         "keywords": {
           "type": "array",
@@ -3520,36 +3507,14 @@
             "type": "string"
           }
         },
-        "max_tokens": {
+        "length": {
           "type": "integer",
           "format": "int32",
-          "default": "1500"
-        },
-        "model": {
-          "type": "string",
-          "default": "text-davinci-003"
-        },
-        "presence_penalty": {
-          "type": "number",
-          "format": "float",
           "default": "0"
-        },
-        "prompt": {
-          "type": "string"
         },
         "style": {
           "type": "integer",
           "format": "int32"
-        },
-        "temperature": {
-          "type": "number",
-          "format": "float",
-          "default": "0.7"
-        },
-        "top_p": {
-          "type": "number",
-          "format": "float",
-          "default": "1"
         },
         "topic": {
           "type": "string"
@@ -5322,6 +5287,9 @@
       "type": "object",
       "title": "PostInfo",
       "properties": {
+        "aigc_id": {
+          "$ref": "#/definitions/uint"
+        },
         "author_full_name": {
           "type": "string"
         },
@@ -5358,9 +5326,6 @@
         },
         "favicon": {
           "type": "string"
-        },
-        "first_user_engaged": {
-          "$ref": "#/definitions/uint"
         },
         "id": {
           "$ref": "#/definitions/uint"

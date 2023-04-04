@@ -1359,7 +1359,7 @@
           "type": "integer",
           "format": "int64"
         },
-        "first_user_engaged": {
+        "aigc_id": {
           "$ref": "#/definitions/uint"
         },
         "display_in_country": {
