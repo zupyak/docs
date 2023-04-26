@@ -1309,7 +1309,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/GeneratePostResp"
+              "$ref": "#/definitions/GenerateContentResp"
             }
           }
         }
@@ -1320,7 +1320,7 @@
         "tags": [
           "post-api"
         ],
-        "operationId": "SuggestKeyword",
+        "operationId": "suggestKeyword",
         "parameters": [
           {
             "name": "body",
@@ -1335,7 +1335,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/SuggestKeywordResp"
+              "$ref": "#/definitions/GenerateContentResp"
             }
           }
         }
@@ -1346,7 +1346,7 @@
         "tags": [
           "post-api"
         ],
-        "operationId": "GetSuggestedKeywords",
+        "operationId": "getSuggestedKeywords",
         "parameters": [
           {
             "type": "string",
@@ -1376,7 +1376,7 @@
         "tags": [
           "post-api"
         ],
-        "operationId": "SuggestMindMap",
+        "operationId": "suggestMindMap",
         "parameters": [
           {
             "name": "body",
@@ -1391,7 +1391,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/SuggestMindMapResp"
+              "$ref": "#/definitions/GenerateContentResp"
             }
           }
         }
@@ -1402,7 +1402,7 @@
         "tags": [
           "post-api"
         ],
-        "operationId": "GetSuggestedMindMaps",
+        "operationId": "getSuggestedMindMaps",
         "parameters": [
           {
             "type": "string",
@@ -1422,6 +1422,106 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/GetSuggestedMindMapResp"
+            }
+          }
+        }
+      }
+    },
+    "/posts/aigc/paragraphs": {
+      "post": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "generateParagraph",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GenerateParagraphReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GenerateContentResp"
+            }
+          }
+        }
+      }
+    },
+    "/posts/aigc/paragraphs/{id}": {
+      "get": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "getGeneratedParagraphs",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetGeneratedParagraphResp"
+            }
+          }
+        }
+      }
+    },
+    "/posts/aigc/summaries": {
+      "post": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "generateSummary",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GenerateSummaryReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GenerateContentResp"
+            }
+          }
+        }
+      }
+    },
+    "/posts/aigc/summaries/{id}": {
+      "get": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "getGeneratedSummaries",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetGeneratedSummaryResp"
             }
           }
         }
@@ -1447,7 +1547,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/SuggestTopicResp"
+              "$ref": "#/definitions/GenerateContentResp"
             }
           }
         }
@@ -1589,6 +1689,99 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/GetPostsResp"
+            }
+          }
+        }
+      }
+    },
+    "/posts/keywords": {
+      "get": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "getKeywordsByUser",
+        "parameters": [
+          {
+            "type": "invalid",
+            "format": "UNKNOWN",
+            "name": "user_id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "from",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "size",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetKeywordsByUserResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "createKeyword",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SaveKeywordReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SaveKeywordResp"
+            }
+          }
+        }
+      }
+    },
+    "/posts/keywords/{id}": {
+      "delete": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "deleteKeyword",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteKeywordReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeleteKeywordResp"
             }
           }
         }
@@ -3276,6 +3469,30 @@
         }
       }
     },
+    "DeleteKeywordReq": {
+      "type": "object",
+      "title": "DeleteKeywordReq",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
+    },
+    "DeleteKeywordResp": {
+      "type": "object",
+      "title": "DeleteKeywordResp",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
+    },
     "DeletePostReq": {
       "type": "object",
       "title": "DeletePostReq",
@@ -3487,6 +3704,30 @@
       "type": "object",
       "title": "ForgotPassResp"
     },
+    "GenerateContentResp": {
+      "type": "object",
+      "title": "GenerateContentResp",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
+    },
+    "GenerateParagraphReq": {
+      "type": "object",
+      "title": "GenerateParagraphReq",
+      "required": [
+        "topic"
+      ],
+      "properties": {
+        "topic": {
+          "type": "string"
+        }
+      }
+    },
     "GeneratePostReq": {
       "type": "object",
       "title": "GeneratePostReq",
@@ -3525,15 +3766,15 @@
         }
       }
     },
-    "GeneratePostResp": {
+    "GenerateSummaryReq": {
       "type": "object",
-      "title": "GeneratePostResp",
+      "title": "GenerateSummaryReq",
       "required": [
-        "id"
+        "content"
       ],
       "properties": {
-        "id": {
-          "$ref": "#/definitions/uint"
+        "content": {
+          "type": "string"
         }
       }
     },
@@ -3729,6 +3970,39 @@
         }
       }
     },
+    "GetGeneratedContentReq": {
+      "type": "object",
+      "title": "GetGeneratedContentReq",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
+    },
+    "GetGeneratedParagraphResp": {
+      "type": "object",
+      "title": "GetGeneratedParagraphResp",
+      "required": [
+        "id",
+        "status",
+        "content"
+      ],
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
     "GetGeneratedPostReq": {
       "type": "object",
       "title": "GetGeneratedPostReq",
@@ -3766,6 +4040,27 @@
         },
         "title": {
           "type": "string"
+        }
+      }
+    },
+    "GetGeneratedSummaryResp": {
+      "type": "object",
+      "title": "GetGeneratedSummaryResp",
+      "required": [
+        "id",
+        "status",
+        "content"
+      ],
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -3871,6 +4166,56 @@
         "size": {
           "type": "integer",
           "format": "int32"
+        }
+      }
+    },
+    "GetKeywordsByUserReq": {
+      "type": "object",
+      "title": "GetKeywordsByUserReq",
+      "required": [
+        "user_id"
+      ],
+      "properties": {
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "user_id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
+    },
+    "GetKeywordsByUserResp": {
+      "type": "object",
+      "title": "GetKeywordsByUserResp",
+      "required": [
+        "count",
+        "from",
+        "size",
+        "topics"
+      ],
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "topics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Group"
+          }
         }
       }
     },
@@ -5748,6 +6093,48 @@
       "type": "object",
       "title": "ResetPassResp"
     },
+    "SaveKeywordReq": {
+      "type": "object",
+      "title": "SaveKeywordReq",
+      "required": [
+        "aigc_id",
+        "topic",
+        "keyword",
+        "search_volume",
+        "difficulty"
+      ],
+      "properties": {
+        "aigc_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "difficulty": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keyword": {
+          "type": "string"
+        },
+        "search_volume": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "topic": {
+          "type": "string"
+        }
+      }
+    },
+    "SaveKeywordResp": {
+      "type": "object",
+      "title": "SaveKeywordResp",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
+    },
     "SearchProductReq": {
       "type": "object",
       "title": "SearchProductReq",
@@ -6029,18 +6416,6 @@
         }
       }
     },
-    "SuggestKeywordResp": {
-      "type": "object",
-      "title": "SuggestKeywordResp",
-      "required": [
-        "id"
-      ],
-      "properties": {
-        "id": {
-          "$ref": "#/definitions/uint"
-        }
-      }
-    },
     "SuggestMindMapReq": {
       "type": "object",
       "title": "SuggestMindMapReq",
@@ -6054,18 +6429,6 @@
         },
         "topic": {
           "type": "string"
-        }
-      }
-    },
-    "SuggestMindMapResp": {
-      "type": "object",
-      "title": "SuggestMindMapResp",
-      "required": [
-        "id"
-      ],
-      "properties": {
-        "id": {
-          "$ref": "#/definitions/uint"
         }
       }
     },
@@ -6092,18 +6455,6 @@
         "type": {
           "type": "integer",
           "format": "int32"
-        }
-      }
-    },
-    "SuggestTopicResp": {
-      "type": "object",
-      "title": "SuggestTopicResp",
-      "required": [
-        "id"
-      ],
-      "properties": {
-        "id": {
-          "$ref": "#/definitions/uint"
         }
       }
     },
