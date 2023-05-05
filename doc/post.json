@@ -1592,6 +1592,9 @@
     "Keyword": {
       "type": "object",
       "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
         "text": {
           "type": "string"
         },
@@ -1602,13 +1605,19 @@
         "difficulty": {
           "type": "integer",
           "format": "int32"
+        },
+        "updatedAt": {
+          "type": "integer",
+          "format": "int32"
         }
       },
       "title": "Keyword",
       "required": [
+        "id",
         "text",
         "search_volume",
-        "difficulty"
+        "difficulty",
+        "-"
       ]
     },
     "LikeReq": {
