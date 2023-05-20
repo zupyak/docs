@@ -16,6 +16,58 @@
     "application/json"
   ],
   "paths": {
+    "/pay/appsumo/token": {
+      "post": {
+        "operationId": "appsumoLogin",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AppsumoLoginResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AppsumoLoginReq"
+            }
+          }
+        ],
+        "tags": [
+          "pay-api"
+        ]
+      }
+    },
+    "/pay/callback/appsumo": {
+      "post": {
+        "operationId": "appsumoCallback",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/AppsumoResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AppsumoEvent"
+            }
+          }
+        ],
+        "tags": [
+          "pay-api"
+        ]
+      }
+    },
     "/pay/callback/stripe": {
       "post": {
         "operationId": "stripeCallback",
@@ -149,11 +201,12 @@
         },
         "parameters": [
           {
-            "name": "user_id",
+            "name": "type",
             "in": "query",
             "required": false,
-            "type": "invalid",
-            "format": "UNKNOWN"
+            "type": "integer",
+            "format": "int32",
+            "default": "2"
           }
         ],
         "tags": [
@@ -275,6 +328,77 @@
     }
   },
   "definitions": {
+    "AppsumoEvent": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string"
+        },
+        "plan_id": {
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string"
+        },
+        "activation_email": {
+          "type": "string"
+        },
+        "invoice_item_uuid": {
+          "type": "string"
+        }
+      },
+      "title": "AppsumoEvent",
+      "required": [
+        "action",
+        "plan_id",
+        "uuid",
+        "activation_email"
+      ]
+    },
+    "AppsumoLoginReq": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "title": "AppsumoLoginReq",
+      "required": [
+        "username",
+        "password"
+      ]
+    },
+    "AppsumoLoginResp": {
+      "type": "object",
+      "properties": {
+        "access": {
+          "type": "string"
+        }
+      },
+      "title": "AppsumoLoginResp",
+      "required": [
+        "access"
+      ]
+    },
+    "AppsumoResp": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "redirect_url": {
+          "type": "string"
+        }
+      },
+      "title": "AppsumoResp",
+      "required": [
+        "message",
+        "redirect_url"
+      ]
+    },
     "CreateOrderReq": {
       "type": "object",
       "properties": {
@@ -491,11 +615,16 @@
     "GetPlansReq": {
       "type": "object",
       "properties": {
-        "user_id": {
-          "$ref": "#/definitions/uint"
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "default": "2"
         }
       },
-      "title": "GetPlansReq"
+      "title": "GetPlansReq",
+      "required": [
+        "type"
+      ]
     },
     "GetPlansResp": {
       "type": "object",
@@ -648,6 +777,10 @@
         "id": {
           "$ref": "#/definitions/uint"
         },
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        },
         "sub_type": {
           "type": "integer",
           "format": "int32"
@@ -666,6 +799,7 @@
       "title": "Plan",
       "required": [
         "id",
+        "type",
         "sub_type",
         "name",
         "description",
