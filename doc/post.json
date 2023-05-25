@@ -347,12 +347,6 @@
             "in": "path",
             "required": true,
             "type": "string"
-          },
-          {
-            "name": "language",
-            "in": "query",
-            "required": false,
-            "type": "string"
           }
         ],
         "tags": [
@@ -1010,6 +1004,9 @@
           "type": "integer",
           "format": "int32",
           "default": "0"
+        },
+        "language": {
+          "type": "string"
         }
       },
       "title": "GeneratePostReq",
@@ -1116,9 +1113,6 @@
       "properties": {
         "id": {
           "$ref": "#/definitions/uint"
-        },
-        "language": {
-          "type": "string"
         }
       },
       "title": "GetGeneratedPostReq",
