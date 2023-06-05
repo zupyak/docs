@@ -68,6 +68,32 @@
         ]
       }
     },
+    "/posts/aigc/ideas": {
+      "post": {
+        "operationId": "suggestIdea",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GenerateContentResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SuggestIdeaReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
     "/posts/aigc/keywords": {
       "post": {
         "operationId": "suggestKeyword",
@@ -648,6 +674,101 @@
         ]
       }
     },
+    "/posts/topics": {
+      "get": {
+        "operationId": "getTopicsByUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetTopicsByUserResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": true,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      },
+      "post": {
+        "operationId": "createTopic",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SaveTopicResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SaveTopicReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/topics/{id}": {
+      "delete": {
+        "operationId": "deleteTopic",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeleteTopicResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteTopicReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
     "/posts/user/{id}": {
       "get": {
         "operationId": "getPostsByUser",
@@ -949,6 +1070,30 @@
         }
       },
       "title": "DeletePostResp",
+      "required": [
+        "id"
+      ]
+    },
+    "DeleteTopicReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "DeleteTopicReq",
+      "required": [
+        "id"
+      ]
+    },
+    "DeleteTopicResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "DeleteTopicResp",
       "required": [
         "id"
       ]
@@ -1436,6 +1581,56 @@
         "tags"
       ]
     },
+    "GetTopicsByUserReq": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "GetTopicsByUserReq",
+      "required": [
+        "user_id"
+      ]
+    },
+    "GetTopicsByUserResp": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "topics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Topic"
+          }
+        }
+      },
+      "title": "GetTopicsByUserResp",
+      "required": [
+        "count",
+        "from",
+        "size",
+        "topics"
+      ]
+    },
     "GetUsersByPostReq": {
       "type": "object",
       "properties": {
@@ -1810,6 +2005,60 @@
         "id"
       ]
     },
+    "SaveTopicReq": {
+      "type": "object",
+      "properties": {
+        "aigc_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "topic": {
+          "type": "string"
+        }
+      },
+      "title": "SaveTopicReq",
+      "required": [
+        "aigc_id",
+        "topic"
+      ]
+    },
+    "SaveTopicResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "SaveTopicResp",
+      "required": [
+        "id"
+      ]
+    },
+    "SuggestIdeaReq": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "style": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "topic": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        }
+      },
+      "title": "SuggestIdeaReq",
+      "required": [
+        "type",
+        "style",
+        "topic",
+        "language"
+      ]
+    },
     "SuggestKeywordReq": {
       "type": "object",
       "properties": {
@@ -1896,6 +2145,22 @@
         "tag",
         "slug",
         "created_at"
+      ]
+    },
+    "Topic": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "title": "Topic",
+      "required": [
+        "id",
+        "text"
       ]
     },
     "UserInfo": {
