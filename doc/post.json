@@ -143,6 +143,12 @@
             "in": "query",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "extra",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [
@@ -1115,19 +1121,22 @@
       "properties": {
         "topic": {
           "type": "string"
+        },
+        "language": {
+          "type": "string"
         }
       },
       "title": "GenerateParagraphReq",
       "required": [
-        "topic"
+        "topic",
+        "language"
       ]
     },
     "GeneratePostReq": {
       "type": "object",
       "properties": {
         "type": {
-          "type": "integer",
-          "format": "int32"
+          "type": "string"
         },
         "topic": {
           "type": "string"
@@ -1168,11 +1177,20 @@
       "properties": {
         "content": {
           "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32"
         }
       },
       "title": "GenerateSummaryReq",
       "required": [
-        "content"
+        "content",
+        "language",
+        "type"
       ]
     },
     "GetFansBatchReq": {
@@ -1439,6 +1457,9 @@
         },
         "region": {
           "type": "string"
+        },
+        "extra": {
+          "type": "string"
         }
       },
       "title": "GetSuggestedKeywordsReq",
@@ -1462,13 +1483,17 @@
           "items": {
             "$ref": "#/definitions/Keyword"
           }
+        },
+        "extra": {
+          "$ref": "#/definitions/Keyword"
         }
       },
       "title": "GetSuggestedKeywordsResp",
       "required": [
         "id",
         "status",
-        "keywords"
+        "keywords",
+        "extra"
       ]
     },
     "GetSuggestedMindMapReq": {
@@ -2063,10 +2088,12 @@
       "type": "object",
       "properties": {
         "type": {
-          "type": "integer",
-          "format": "int32"
+          "type": "string"
         },
         "topic": {
+          "type": "string"
+        },
+        "keyword": {
           "type": "string"
         },
         "language": {
@@ -2075,8 +2102,6 @@
       },
       "title": "SuggestKeywordReq",
       "required": [
-        "type",
-        "topic",
         "language"
       ]
     },
@@ -2100,8 +2125,7 @@
       "type": "object",
       "properties": {
         "type": {
-          "type": "integer",
-          "format": "int32"
+          "type": "string"
         },
         "style": {
           "type": "integer",

@@ -1438,6 +1438,11 @@
             "name": "region",
             "in": "query",
             "required": true
+          },
+          {
+            "type": "string",
+            "name": "extra",
+            "in": "query"
           }
         ],
         "responses": {
@@ -3982,9 +3987,13 @@
       "type": "object",
       "title": "GenerateParagraphReq",
       "required": [
-        "topic"
+        "topic",
+        "language"
       ],
       "properties": {
+        "language": {
+          "type": "string"
+        },
         "topic": {
           "type": "string"
         }
@@ -4026,8 +4035,7 @@
           "type": "string"
         },
         "type": {
-          "type": "integer",
-          "format": "int32"
+          "type": "string"
         }
       }
     },
@@ -4035,11 +4043,20 @@
       "type": "object",
       "title": "GenerateSummaryReq",
       "required": [
-        "content"
+        "content",
+        "language",
+        "type"
       ],
       "properties": {
         "content": {
           "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -4995,6 +5012,9 @@
         "region"
       ],
       "properties": {
+        "extra": {
+          "type": "string"
+        },
         "id": {
           "$ref": "#/definitions/uint"
         },
@@ -5009,9 +5029,13 @@
       "required": [
         "id",
         "status",
-        "keywords"
+        "keywords",
+        "extra"
       ],
       "properties": {
+        "extra": {
+          "$ref": "#/definitions/Keyword"
+        },
         "id": {
           "$ref": "#/definitions/uint"
         },
@@ -6784,11 +6808,12 @@
       "type": "object",
       "title": "SuggestKeywordReq",
       "required": [
-        "type",
-        "topic",
         "language"
       ],
       "properties": {
+        "keyword": {
+          "type": "string"
+        },
         "language": {
           "type": "string"
         },
@@ -6796,8 +6821,7 @@
           "type": "string"
         },
         "type": {
-          "type": "integer",
-          "format": "int32"
+          "type": "string"
         }
       }
     },
@@ -6838,8 +6862,7 @@
           "type": "string"
         },
         "type": {
-          "type": "integer",
-          "format": "int32"
+          "type": "string"
         }
       }
     },
