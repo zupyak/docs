@@ -6809,6 +6809,15 @@
         "language"
       ],
       "properties": {
+        "exclude": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "from": {
+          "type": "string"
+        },
         "keyword": {
           "type": "string"
         },
@@ -6831,6 +6840,12 @@
         "language"
       ],
       "properties": {
+        "exclude": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "language": {
           "type": "string"
         },

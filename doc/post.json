@@ -2096,6 +2096,15 @@
         },
         "language": {
           "type": "string"
+        },
+        "from": {
+          "type": "string"
+        },
+        "exclude": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "title": "SuggestKeywordReq",
@@ -2111,6 +2120,12 @@
         },
         "language": {
           "type": "string"
+        },
+        "exclude": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "title": "SuggestMindMapReq",
