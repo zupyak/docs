@@ -2097,7 +2097,7 @@
         "language": {
           "type": "string"
         },
-        "from": {
+        "src": {
           "type": "string"
         },
         "exclude": {

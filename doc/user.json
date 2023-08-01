@@ -317,6 +317,32 @@
         ]
       }
     },
+    "/users/session/google": {
+      "post": {
+        "operationId": "loginWithGoogle",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetUserResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginWithGoogleReq"
+            }
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      }
+    },
     "/users/token": {
       "get": {
         "operationId": "getToken",
@@ -785,6 +811,18 @@
         "email",
         "required",
         "password"
+      ]
+    },
+    "LoginWithGoogleReq": {
+      "type": "object",
+      "properties": {
+        "id_token": {
+          "type": "string"
+        }
+      },
+      "title": "LoginWithGoogleReq",
+      "required": [
+        "id_token"
       ]
     },
     "LogoutResp": {

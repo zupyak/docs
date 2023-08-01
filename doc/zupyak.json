@@ -3206,6 +3206,32 @@
         }
       }
     },
+    "/users/session/google": {
+      "post": {
+        "tags": [
+          "user-api"
+        ],
+        "operationId": "loginWithGoogle",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginWithGoogleReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetUserResp"
+            }
+          }
+        }
+      }
+    },
     "/users/token": {
       "get": {
         "tags": [
@@ -5822,6 +5848,18 @@
         }
       }
     },
+    "LoginWithGoogleReq": {
+      "type": "object",
+      "title": "LoginWithGoogleReq",
+      "required": [
+        "id_token"
+      ],
+      "properties": {
+        "id_token": {
+          "type": "string"
+        }
+      }
+    },
     "LogoutResp": {
       "type": "object",
       "title": "LogoutResp"
@@ -6815,13 +6853,13 @@
             "type": "string"
           }
         },
-        "from": {
-          "type": "string"
-        },
         "keyword": {
           "type": "string"
         },
         "language": {
+          "type": "string"
+        },
+        "src": {
           "type": "string"
         },
         "topic": {
