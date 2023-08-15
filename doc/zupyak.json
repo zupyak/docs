@@ -1958,6 +1958,48 @@
         }
       }
     },
+    "/posts/semrush/keywords": {
+      "get": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "getRelatedKeywords",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "keyword",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "region",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "from",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "size",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetSuggestedKeywordsResp"
+            }
+          }
+        }
+      }
+    },
     "/posts/tags": {
       "get": {
         "tags": [
@@ -4983,6 +5025,30 @@
       "type": "object",
       "title": "GetRecentPostsReq"
     },
+    "GetRelatedKeywordsReq": {
+      "type": "object",
+      "title": "GetRelatedKeywordsReq",
+      "required": [
+        "keyword",
+        "region"
+      ],
+      "properties": {
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keyword": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
     "GetSubscriptionReq": {
       "type": "object",
       "title": "GetSubscriptionReq",
@@ -5972,11 +6038,16 @@
         "id",
         "type",
         "sub_type",
+        "billing_period",
         "name",
         "description",
         "price"
       ],
       "properties": {
+        "billing_period": {
+          "type": "integer",
+          "format": "int32"
+        },
         "description": {
           "type": "string"
         },
