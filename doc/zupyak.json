@@ -1988,6 +1988,12 @@
             "format": "int32",
             "name": "size",
             "in": "query"
+          },
+          {
+            "type": "string",
+            "default": "KR",
+            "name": "src",
+            "in": "query"
           }
         ],
         "responses": {
@@ -4119,6 +4125,12 @@
         "content": {
           "type": "string"
         },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "language": {
           "type": "string"
         },
@@ -5030,7 +5042,8 @@
       "title": "GetRelatedKeywordsReq",
       "required": [
         "keyword",
-        "region"
+        "region",
+        "src"
       ],
       "properties": {
         "from": {
@@ -5046,6 +5059,10 @@
         "size": {
           "type": "integer",
           "format": "int32"
+        },
+        "src": {
+          "type": "string",
+          "default": "KR"
         }
       }
     },
