@@ -1394,6 +1394,56 @@
         }
       }
     },
+    "/posts/aigc/insights": {
+      "post": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "generateInsight",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GenerateInsightReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GenerateContentResp"
+            }
+          }
+        }
+      }
+    },
+    "/posts/aigc/insights/{id}": {
+      "get": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "getGeneratedInsights",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetGeneratedInsightResp"
+            }
+          }
+        }
+      }
+    },
     "/posts/aigc/keywords": {
       "post": {
         "tags": [
@@ -4057,6 +4107,28 @@
         }
       }
     },
+    "GenerateInsightReq": {
+      "type": "object",
+      "title": "GenerateInsightReq",
+      "required": [
+        "title",
+        "content"
+      ],
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
     "GenerateParagraphReq": {
       "type": "object",
       "title": "GenerateParagraphReq",
@@ -4340,6 +4412,27 @@
       "properties": {
         "id": {
           "$ref": "#/definitions/uint"
+        }
+      }
+    },
+    "GetGeneratedInsightResp": {
+      "type": "object",
+      "title": "GetGeneratedInsightResp",
+      "required": [
+        "id",
+        "status",
+        "insight"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "insight": {
+          "$ref": "#/definitions/Insight"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -5799,6 +5892,39 @@
         }
       }
     },
+    "Insight": {
+      "type": "object",
+      "title": "Insight",
+      "required": [
+        "score",
+        "word",
+        "language",
+        "paragraph",
+        "heading",
+        "keyword"
+      ],
+      "properties": {
+        "heading": {
+          "$ref": "#/definitions/SubScore"
+        },
+        "keyword": {
+          "$ref": "#/definitions/SubScore"
+        },
+        "language": {
+          "$ref": "#/definitions/SubScore"
+        },
+        "paragraph": {
+          "$ref": "#/definitions/SubScore"
+        },
+        "score": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "word": {
+          "$ref": "#/definitions/SubScore"
+        }
+      }
+    },
     "Invoice": {
       "type": "object",
       "title": "Invoice",
@@ -6902,6 +7028,37 @@
     "StripeResp": {
       "type": "object",
       "title": "StripeResp"
+    },
+    "SubScore": {
+      "type": "object",
+      "title": "SubScore",
+      "required": [
+        "score",
+        "recommend_min",
+        "recommend_max",
+        "recommend_str",
+        "recommend_detail"
+      ],
+      "properties": {
+        "recommend_detail": {
+          "type": "string"
+        },
+        "recommend_max": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "recommend_min": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "recommend_str": {
+          "type": "string"
+        },
+        "score": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
     },
     "SuggestIdeaReq": {
       "type": "object",

@@ -94,6 +94,56 @@
         ]
       }
     },
+    "/posts/aigc/insights": {
+      "post": {
+        "operationId": "generateInsight",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GenerateContentResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GenerateInsightReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/insights/{id}": {
+      "get": {
+        "operationId": "getGeneratedInsights",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetGeneratedInsightResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
     "/posts/aigc/keywords": {
       "post": {
         "operationId": "suggestKeyword",
@@ -1167,6 +1217,28 @@
         "id"
       ]
     },
+    "GenerateInsightReq": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "GenerateInsightReq",
+      "required": [
+        "title",
+        "content"
+      ]
+    },
     "GenerateParagraphReq": {
       "type": "object",
       "properties": {
@@ -1304,6 +1376,27 @@
       "title": "GetGeneratedContentReq",
       "required": [
         "id"
+      ]
+    },
+    "GetGeneratedInsightResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "insight": {
+          "$ref": "#/definitions/Insight"
+        }
+      },
+      "title": "GetGeneratedInsightResp",
+      "required": [
+        "id",
+        "status",
+        "insight"
       ]
     },
     "GetGeneratedParagraphResp": {
@@ -1888,6 +1981,39 @@
       },
       "title": "Industry"
     },
+    "Insight": {
+      "type": "object",
+      "properties": {
+        "score": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "word": {
+          "$ref": "#/definitions/SubScore"
+        },
+        "language": {
+          "$ref": "#/definitions/SubScore"
+        },
+        "paragraph": {
+          "$ref": "#/definitions/SubScore"
+        },
+        "heading": {
+          "$ref": "#/definitions/SubScore"
+        },
+        "keyword": {
+          "$ref": "#/definitions/SubScore"
+        }
+      },
+      "title": "Insight",
+      "required": [
+        "score",
+        "word",
+        "language",
+        "paragraph",
+        "heading",
+        "keyword"
+      ]
+    },
     "Keyword": {
       "type": "object",
       "properties": {
@@ -2141,6 +2267,42 @@
       "title": "SaveTopicResp",
       "required": [
         "id"
+      ]
+    },
+    "SubScore": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "score": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "recommend_min": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "recommend_max": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "recommend_str": {
+          "type": "string"
+        },
+        "recommend_detail": {
+          "type": "string"
+        }
+      },
+      "title": "SubScore",
+      "required": [
+        "count",
+        "score",
+        "recommend_min",
+        "recommend_max",
+        "recommend_str",
+        "recommend_detail"
       ]
     },
     "SuggestIdeaReq": {
