@@ -4159,6 +4159,9 @@
         "audience": {
           "type": "string"
         },
+        "custom_instruction": {
+          "type": "string"
+        },
         "keywords": {
           "type": "array",
           "items": {
@@ -7033,6 +7036,7 @@
       "type": "object",
       "title": "SubScore",
       "required": [
+        "count",
         "score",
         "recommend_min",
         "recommend_max",
@@ -7040,6 +7044,10 @@
         "recommend_detail"
       ],
       "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int32"
+        },
         "recommend_detail": {
           "type": "string"
         },

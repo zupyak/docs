@@ -1284,6 +1284,9 @@
         },
         "language": {
           "type": "string"
+        },
+        "custom_instruction": {
+          "type": "string"
         }
       },
       "title": "GeneratePostReq",
