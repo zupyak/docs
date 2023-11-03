@@ -4137,6 +4137,9 @@
         "language"
       ],
       "properties": {
+        "content": {
+          "type": "string"
+        },
         "language": {
           "type": "string"
         },

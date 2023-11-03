@@ -1245,6 +1245,9 @@
         "topic": {
           "type": "string"
         },
+        "content": {
+          "type": "string"
+        },
         "language": {
           "type": "string"
         }
