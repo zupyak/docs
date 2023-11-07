@@ -1823,6 +1823,30 @@
         }
       }
     },
+    "/posts/import": {
+      "get": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "importContent",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "url",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ImportContentResp"
+            }
+          }
+        }
+      }
+    },
     "/posts/keywords": {
       "get": {
         "tags": [
@@ -5814,6 +5838,38 @@
       ],
       "properties": {
         "outcome": {
+          "type": "string"
+        }
+      }
+    },
+    "ImportContentReq": {
+      "type": "object",
+      "title": "ImportContentReq",
+      "required": [
+        "url"
+      ],
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "ImportContentResp": {
+      "type": "object",
+      "title": "ImportContentResp",
+      "required": [
+        "title",
+        "content",
+        "html"
+      ],
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "html": {
+          "type": "string"
+        },
+        "title": {
           "type": "string"
         }
       }
