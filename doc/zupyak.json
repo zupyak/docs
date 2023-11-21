@@ -1394,6 +1394,56 @@
         }
       }
     },
+    "/posts/aigc/images": {
+      "post": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "generateImage",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GenerateImageReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GenerateContentResp"
+            }
+          }
+        }
+      }
+    },
+    "/posts/aigc/images/{id}": {
+      "get": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "GetGeneratedImages",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetGeneratedImageResp"
+            }
+          }
+        }
+      }
+    },
     "/posts/aigc/insights": {
       "post": {
         "tags": [
@@ -4131,6 +4181,28 @@
         }
       }
     },
+    "GenerateImageReq": {
+      "type": "object",
+      "title": "GenerateImageReq",
+      "required": [
+        "title"
+      ],
+      "properties": {
+        "aspect": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "custom_instruction": {
+          "type": "string"
+        },
+        "style": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
     "GenerateInsightReq": {
       "type": "object",
       "title": "GenerateInsightReq",
@@ -4442,6 +4514,30 @@
       "properties": {
         "id": {
           "$ref": "#/definitions/uint"
+        }
+      }
+    },
+    "GetGeneratedImageResp": {
+      "type": "object",
+      "title": "GetGeneratedImageResp",
+      "required": [
+        "id",
+        "status",
+        "urls"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "urls": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
