@@ -2497,13 +2497,7 @@
         "topic": {
           "type": "string"
         },
-        "keyword": {
-          "type": "string"
-        },
         "language": {
-          "type": "string"
-        },
-        "src": {
           "type": "string"
         },
         "exclude": {
@@ -2555,6 +2549,12 @@
         },
         "language": {
           "type": "string"
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "title": "SuggestTopicReq",

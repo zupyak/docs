@@ -7261,13 +7261,7 @@
             "type": "string"
           }
         },
-        "keyword": {
-          "type": "string"
-        },
         "language": {
-          "type": "string"
-        },
-        "src": {
           "type": "string"
         },
         "topic": {
@@ -7310,6 +7304,12 @@
         "language"
       ],
       "properties": {
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "language": {
           "type": "string"
         },
