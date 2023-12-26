@@ -3272,6 +3272,30 @@
         }
       }
     },
+    "/users/meta": {
+      "get": {
+        "tags": [
+          "user-api"
+        ],
+        "operationId": "getMeta",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "website",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetMetaResp"
+            }
+          }
+        }
+      }
+    },
     "/users/resend": {
       "post": {
         "tags": [
@@ -4892,6 +4916,30 @@
         }
       }
     },
+    "GetMetaReq": {
+      "type": "object",
+      "title": "GetMetaReq",
+      "required": [
+        "website"
+      ],
+      "properties": {
+        "website": {
+          "type": "string"
+        }
+      }
+    },
+    "GetMetaResp": {
+      "type": "object",
+      "title": "GetMetaResp",
+      "required": [
+        "description"
+      ],
+      "properties": {
+        "description": {
+          "type": "string"
+        }
+      }
+    },
     "GetOrderReq": {
       "type": "object",
       "title": "GetOrderReq",
@@ -5649,8 +5697,13 @@
         "whatsapp",
         "interest",
         "company",
+        "company_info",
         "industry",
         "industry2",
+        "customer",
+        "brand",
+        "finished_onboarding",
+        "join_community",
         "last_login_time",
         "follower_cnt",
         "followee_cnt",
@@ -5665,21 +5718,34 @@
         "avatar": {
           "type": "string"
         },
+        "brand": {
+          "$ref": "#/definitions/mapstringstring"
+        },
         "channel": {
           "type": "string"
         },
         "company": {
           "type": "string"
         },
+        "company_info": {
+          "$ref": "#/definitions/mapstringstring"
+        },
         "createdAt": {
           "type": "integer",
           "format": "int64"
+        },
+        "customer": {
+          "$ref": "#/definitions/mapstringstring"
         },
         "email": {
           "type": "string"
         },
         "facebook": {
           "type": "string"
+        },
+        "finished_onboarding": {
+          "type": "boolean",
+          "format": "boolean"
         },
         "first_name": {
           "type": "string"
@@ -5726,6 +5792,10 @@
         "is_activated": {
           "type": "integer",
           "format": "int64"
+        },
+        "join_community": {
+          "type": "boolean",
+          "format": "boolean"
         },
         "last_login_time": {
           "type": "integer",
@@ -7176,6 +7246,9 @@
         "user_type": {
           "type": "integer",
           "format": "int64"
+        },
+        "website": {
+          "type": "string"
         }
       }
     },
@@ -7531,12 +7604,6 @@
         "-",
         "max=20",
         "password",
-        "user_role",
-        "channel",
-        "is_activated",
-        "is_blocked",
-        "is_deleted",
-        "is_bot",
         "first_name",
         "last_name",
         "avatar",
@@ -7562,6 +7629,10 @@
         "-",
         "-",
         "-",
+        "-",
+        "-",
+        "-",
+        "-",
         "-"
       ],
       "properties": {
@@ -7572,12 +7643,18 @@
         "avatar": {
           "type": "string"
         },
-        "channel": {
-          "type": "string"
+        "brand": {
+          "$ref": "#/definitions/mapstringstring"
         },
         "company": {
           "type": "string",
           "default": "zupyak_default_string_values"
+        },
+        "company_info": {
+          "$ref": "#/definitions/mapstringstring"
+        },
+        "customer": {
+          "$ref": "#/definitions/mapstringstring"
         },
         "email": {
           "type": "string"
@@ -7606,19 +7683,7 @@
           "type": "string",
           "default": "zupyak_default_string_values"
         },
-        "is_activated": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "is_blocked": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "is_bot": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "is_deleted": {
+        "join_community": {
           "type": "integer",
           "format": "int64"
         },
@@ -7646,10 +7711,6 @@
         "twitter": {
           "type": "string",
           "default": "zupyak_default_string_values"
-        },
-        "user_role": {
-          "type": "integer",
-          "format": "int64"
         },
         "user_type": {
           "type": "integer",

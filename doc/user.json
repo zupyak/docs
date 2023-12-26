@@ -211,6 +211,30 @@
         ]
       }
     },
+    "/users/meta": {
+      "get": {
+        "operationId": "getMeta",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetMetaResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "website",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      }
+    },
     "/users/resend": {
       "post": {
         "operationId": "resendEmail",
@@ -539,6 +563,30 @@
         "users"
       ]
     },
+    "GetMetaReq": {
+      "type": "object",
+      "properties": {
+        "website": {
+          "type": "string"
+        }
+      },
+      "title": "GetMetaReq",
+      "required": [
+        "website"
+      ]
+    },
+    "GetMetaResp": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        }
+      },
+      "title": "GetMetaResp",
+      "required": [
+        "description"
+      ]
+    },
     "GetTokenReq": {
       "type": "object",
       "properties": {
@@ -704,11 +752,28 @@
         "company": {
           "type": "string"
         },
+        "company_info": {
+          "$ref": "#/definitions/mapstringstring"
+        },
         "industry": {
           "$ref": "#/definitions/mapstringstring"
         },
         "industry2": {
           "$ref": "#/definitions/Industry"
+        },
+        "customer": {
+          "$ref": "#/definitions/mapstringstring"
+        },
+        "brand": {
+          "$ref": "#/definitions/mapstringstring"
+        },
+        "finished_onboarding": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "join_community": {
+          "type": "boolean",
+          "format": "boolean"
         },
         "last_login_time": {
           "type": "integer",
@@ -760,8 +825,13 @@
         "whatsapp",
         "interest",
         "company",
+        "company_info",
         "industry",
         "industry2",
+        "customer",
+        "brand",
+        "finished_onboarding",
+        "join_community",
         "last_login_time",
         "follower_cnt",
         "followee_cnt",
@@ -933,6 +1003,9 @@
         },
         "company": {
           "type": "string"
+        },
+        "website": {
+          "type": "string"
         }
       },
       "title": "SignupReq",
@@ -964,29 +1037,6 @@
         },
         "password": {
           "type": "string"
-        },
-        "user_role": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "channel": {
-          "type": "string"
-        },
-        "is_activated": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "is_blocked": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "is_deleted": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "is_bot": {
-          "type": "integer",
-          "format": "int64"
         },
         "first_name": {
           "type": "string"
@@ -1039,11 +1089,24 @@
           "type": "string",
           "default": "zupyak_default_string_values"
         },
+        "company_info": {
+          "$ref": "#/definitions/mapstringstring"
+        },
         "industry": {
           "$ref": "#/definitions/mapstringstring"
         },
         "industry2": {
           "$ref": "#/definitions/Industry"
+        },
+        "customer": {
+          "$ref": "#/definitions/mapstringstring"
+        },
+        "brand": {
+          "$ref": "#/definitions/mapstringstring"
+        },
+        "join_community": {
+          "type": "integer",
+          "format": "int64"
         },
         "list_me": {
           "type": "integer",
@@ -1059,12 +1122,6 @@
         "-",
         "max=20",
         "password",
-        "user_role",
-        "channel",
-        "is_activated",
-        "is_blocked",
-        "is_deleted",
-        "is_bot",
         "first_name",
         "last_name",
         "avatar",
@@ -1087,6 +1144,10 @@
         "interest",
         "interest",
         "company",
+        "-",
+        "-",
+        "-",
+        "-",
         "-",
         "-",
         "-",
