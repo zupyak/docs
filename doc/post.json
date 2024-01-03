@@ -1372,10 +1372,6 @@
             "type": "string"
           }
         },
-        "style": {
-          "type": "integer",
-          "format": "int32"
-        },
         "length": {
           "type": "integer",
           "format": "int32",
@@ -1386,6 +1382,9 @@
         },
         "custom_instruction": {
           "type": "string"
+        },
+        "tonality": {
+          "$ref": "#/definitions/Tonality"
         }
       },
       "title": "GeneratePostReq",
@@ -1393,7 +1392,6 @@
         "type",
         "topic",
         "keywords",
-        "style",
         "length"
       ]
     },
@@ -2540,10 +2538,6 @@
         "type": {
           "type": "string"
         },
-        "style": {
-          "type": "integer",
-          "format": "int32"
-        },
         "topic": {
           "type": "string"
         },
@@ -2555,12 +2549,14 @@
           "items": {
             "type": "string"
           }
+        },
+        "tonality": {
+          "$ref": "#/definitions/Tonality"
         }
       },
       "title": "SuggestTopicReq",
       "required": [
         "type",
-        "style",
         "topic",
         "language"
       ]
@@ -2588,6 +2584,38 @@
         "tag",
         "slug",
         "created_at"
+      ]
+    },
+    "Tonality": {
+      "type": "object",
+      "properties": {
+        "friendly": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "toned_down": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "for_everyone": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "emotional": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "tone": {
+          "type": "string"
+        }
+      },
+      "title": "Tonality",
+      "required": [
+        "friendly",
+        "toned_down",
+        "for_everyone",
+        "emotional",
+        "tone"
       ]
     },
     "Topic": {

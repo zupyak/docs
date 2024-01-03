@@ -4275,7 +4275,6 @@
         "type",
         "topic",
         "keywords",
-        "style",
         "length"
       ],
       "properties": {
@@ -4299,9 +4298,8 @@
           "format": "int32",
           "default": "0"
         },
-        "style": {
-          "type": "integer",
-          "format": "int32"
+        "tonality": {
+          "$ref": "#/definitions/Tonality"
         },
         "topic": {
           "type": "string"
@@ -7372,7 +7370,6 @@
       "title": "SuggestTopicReq",
       "required": [
         "type",
-        "style",
         "topic",
         "language"
       ],
@@ -7386,9 +7383,8 @@
         "language": {
           "type": "string"
         },
-        "style": {
-          "type": "integer",
-          "format": "int32"
+        "tonality": {
+          "$ref": "#/definitions/Tonality"
         },
         "topic": {
           "type": "string"
@@ -7420,6 +7416,38 @@
         },
         "tag": {
           "type": "string"
+        }
+      }
+    },
+    "Tonality": {
+      "type": "object",
+      "title": "Tonality",
+      "required": [
+        "friendly",
+        "toned_down",
+        "for_everyone",
+        "emotional",
+        "tone"
+      ],
+      "properties": {
+        "emotional": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "for_everyone": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "friendly": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "tone": {
+          "type": "string"
+        },
+        "toned_down": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
