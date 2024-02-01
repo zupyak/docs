@@ -228,6 +228,20 @@
             "in": "query",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "only_meta",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean",
+            "default": "true"
           }
         ],
         "tags": [
@@ -568,11 +582,20 @@
       "properties": {
         "website": {
           "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "only_meta": {
+          "type": "boolean",
+          "format": "boolean",
+          "default": "true"
         }
       },
       "title": "GetMetaReq",
       "required": [
-        "website"
+        "website",
+        "only_meta"
       ]
     },
     "GetMetaResp": {
@@ -580,11 +603,21 @@
       "properties": {
         "description": {
           "type": "string"
+        },
+        "domain_strength": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "organic_traffic": {
+          "type": "integer",
+          "format": "int32"
         }
       },
       "title": "GetMetaResp",
       "required": [
-        "description"
+        "description",
+        "domain_strength",
+        "organic_traffic"
       ]
     },
     "GetTokenReq": {

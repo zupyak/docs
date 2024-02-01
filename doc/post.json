@@ -194,6 +194,262 @@
         ]
       }
     },
+    "/posts/aigc/keywordplans": {
+      "post": {
+        "operationId": "generateKeywordPlan",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GenerateContentResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GenerateKeywordPlanReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/keywordplans/{id}": {
+      "get": {
+        "operationId": "GetGeneratedPlan",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetGeneratedPlanResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "minv",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "maxv",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "mind",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "maxd",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/keywordplans/{id}/keywords": {
+      "get": {
+        "operationId": "GetGeneratedPlanKeywords",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetGeneratedPlanKeywordsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/keywordplans/{plan_id}/group/{group_id}": {
+      "get": {
+        "operationId": "GetGeneratedPlanGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetGeneratedPlanGroupResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "minv",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "maxv",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "mind",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "maxd",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/keywordplans/{plan_id}/group/{group_id}/keyword/{keyword_id}": {
+      "get": {
+        "operationId": "GetGeneratedPlanKeyword",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetGeneratedPlanKeywordResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "keyword_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "minv",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "maxv",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "mind",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "maxd",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/keywordplans/{plan_id}/groups": {
+      "post": {
+        "operationId": "addKeywordPlanGroup",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GenerateContentResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddKeywordPlanGroupReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
     "/posts/aigc/keywords": {
       "post": {
         "operationId": "suggestKeyword",
@@ -1164,6 +1420,27 @@
     }
   },
   "definitions": {
+    "AddKeywordPlanGroupReq": {
+      "type": "object",
+      "properties": {
+        "plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "text": {
+          "type": "string"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "AddKeywordPlanGroupReq",
+      "required": [
+        "plan_id",
+        "text",
+        "type"
+      ]
+    },
     "CheckLikeExistReq": {
       "type": "object",
       "properties": {
@@ -1333,6 +1610,36 @@
       "required": [
         "title",
         "content"
+      ]
+    },
+    "GenerateKeywordPlanReq": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "company_description": {
+          "type": "string"
+        },
+        "products": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "GenerateKeywordPlanReq",
+      "required": [
+        "title",
+        "region",
+        "language",
+        "company_description"
       ]
     },
     "GenerateParagraphReq": {
@@ -1542,6 +1849,230 @@
         "id",
         "status",
         "content"
+      ]
+    },
+    "GetGeneratedPlanGroupReq": {
+      "type": "object",
+      "properties": {
+        "plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "group_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "minv": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "maxv": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "mind": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "maxd": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "GetGeneratedPlanGroupReq",
+      "required": [
+        "plan_id",
+        "group_id"
+      ]
+    },
+    "GetGeneratedPlanGroupResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "total_volume": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "avg_difficulty": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "total_keywords": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/KeywordPlanKeyword"
+          }
+        }
+      },
+      "title": "GetGeneratedPlanGroupResp",
+      "required": [
+        "id",
+        "status",
+        "total_volume",
+        "avg_difficulty",
+        "total_keywords",
+        "keywords"
+      ]
+    },
+    "GetGeneratedPlanKeywordReq": {
+      "type": "object",
+      "properties": {
+        "plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "group_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "keyword_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "minv": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "maxv": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "mind": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "maxd": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "GetGeneratedPlanKeywordReq",
+      "required": [
+        "plan_id",
+        "group_id",
+        "keyword_id"
+      ]
+    },
+    "GetGeneratedPlanKeywordResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "total_volume": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "avg_difficulty": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "total_keywords": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "related_keywords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Keyword"
+          }
+        }
+      },
+      "title": "GetGeneratedPlanKeywordResp",
+      "required": [
+        "id",
+        "status",
+        "total_volume",
+        "avg_difficulty",
+        "total_keywords",
+        "related_keywords"
+      ]
+    },
+    "GetGeneratedPlanKeywordsResp": {
+      "type": "object",
+      "properties": {
+        "main_keywords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HKeyword"
+          }
+        },
+        "longtail_keywords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HKeyword"
+          }
+        }
+      },
+      "title": "GetGeneratedPlanKeywordsResp",
+      "required": [
+        "main_keywords",
+        "longtail_keywords"
+      ]
+    },
+    "GetGeneratedPlanReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "minv": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "maxv": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "mind": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "maxd": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "GetGeneratedPlanReq",
+      "required": [
+        "id"
+      ]
+    },
+    "GetGeneratedPlanResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "user_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/KeywordPlanGroup"
+          }
+        }
+      },
+      "title": "GetGeneratedPlanResp",
+      "required": [
+        "id",
+        "user_id",
+        "status",
+        "groups"
       ]
     },
     "GetGeneratedPostReq": {
@@ -2027,6 +2558,40 @@
         "keywords"
       ]
     },
+    "HKeyword": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "keyword": {
+          "type": "string"
+        },
+        "volume": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "difficulty": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "group_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "group": {
+          "type": "string"
+        }
+      },
+      "title": "HKeyword",
+      "required": [
+        "id",
+        "keyword",
+        "volume",
+        "difficulty",
+        "group_id",
+        "group"
+      ]
+    },
     "ImplioAd": {
       "type": "object",
       "properties": {
@@ -2199,6 +2764,85 @@
         "search_volume",
         "difficulty",
         "-"
+      ]
+    },
+    "KeywordPlanGroup": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "group": {
+          "type": "string"
+        },
+        "total_volume": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "avg_difficulty": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "total_keywords": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "top_keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "KeywordPlanGroup",
+      "required": [
+        "id",
+        "status",
+        "group",
+        "total_volume",
+        "avg_difficulty",
+        "total_keywords",
+        "top_keywords"
+      ]
+    },
+    "KeywordPlanKeyword": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keyword": {
+          "type": "string"
+        },
+        "total_volume": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "avg_difficulty": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "total_keywords": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "KeywordPlanKeyword",
+      "required": [
+        "id",
+        "status",
+        "keyword",
+        "total_volume",
+        "avg_difficulty",
+        "total_keywords"
       ]
     },
     "LikeReq": {
