@@ -1495,6 +1495,41 @@
       }
     },
     "/posts/aigc/keywordplans": {
+      "get": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "GetGeneratedPlans",
+        "parameters": [
+          {
+            "type": "invalid",
+            "format": "UNKNOWN",
+            "name": "user_id",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "from",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "size",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetGeneratedPlansResp"
+            }
+          }
+        }
+      },
       "post": {
         "tags": [
           "post-api"
@@ -1733,6 +1768,60 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/GenerateContentResp"
+            }
+          }
+        }
+      }
+    },
+    "/posts/aigc/keywordplans/{plan_id}/savedkeywords": {
+      "get": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "GetSavedPlanKeywords",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "plan_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "invalid",
+            "format": "UNKNOWN",
+            "name": "group_id",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "minv",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "maxv",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "mind",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "maxd",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetGeneratedPlanKeywordsResp"
             }
           }
         }
@@ -2305,6 +2394,64 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/CheckLikeExistResp"
+            }
+          }
+        }
+      }
+    },
+    "/posts/plankeywords": {
+      "post": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "savePlanKeywords",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SavePlanKeywordsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SavePlanKeywordsResp"
+            }
+          }
+        }
+      }
+    },
+    "/posts/plankeywords/{id}": {
+      "delete": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "deletePlanKeyword",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeletePlanKeywordReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeletePlanKeywordResp"
             }
           }
         }
@@ -4235,6 +4382,30 @@
         }
       }
     },
+    "DeletePlanKeywordReq": {
+      "type": "object",
+      "title": "DeletePlanKeywordReq",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
+    },
+    "DeletePlanKeywordResp": {
+      "type": "object",
+      "title": "DeletePlanKeywordResp",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
+    },
     "DeletePostReq": {
       "type": "object",
       "title": "DeletePostReq",
@@ -4950,6 +5121,7 @@
       "required": [
         "id",
         "status",
+        "text",
         "total_volume",
         "avg_difficulty",
         "total_keywords",
@@ -4972,6 +5144,9 @@
         "status": {
           "type": "integer",
           "format": "int32"
+        },
+        "text": {
+          "type": "string"
         },
         "total_keywords": {
           "type": "integer",
@@ -5025,6 +5200,7 @@
       "required": [
         "id",
         "status",
+        "text",
         "total_volume",
         "avg_difficulty",
         "total_keywords",
@@ -5047,6 +5223,9 @@
         "status": {
           "type": "integer",
           "format": "int32"
+        },
+        "text": {
+          "type": "string"
         },
         "total_keywords": {
           "type": "integer",
@@ -5115,6 +5294,7 @@
         "id",
         "user_id",
         "status",
+        "title",
         "groups"
       ],
       "properties": {
@@ -5131,8 +5311,61 @@
           "type": "integer",
           "format": "int32"
         },
+        "title": {
+          "type": "string"
+        },
         "user_id": {
           "$ref": "#/definitions/uint"
+        }
+      }
+    },
+    "GetGeneratedPlansReq": {
+      "type": "object",
+      "title": "GetGeneratedPlansReq",
+      "required": [
+        "user_id"
+      ],
+      "properties": {
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "user_id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
+    },
+    "GetGeneratedPlansResp": {
+      "type": "object",
+      "title": "GetGeneratedPlansResp",
+      "required": [
+        "count",
+        "from",
+        "size",
+        "plans"
+      ],
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "plans": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/KeywordPlan"
+          }
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -5881,6 +6114,37 @@
         }
       }
     },
+    "GetSavedPlanKeywordsReq": {
+      "type": "object",
+      "title": "GetSavedPlanKeywordsReq",
+      "required": [
+        "plan_id"
+      ],
+      "properties": {
+        "group_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "maxd": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "maxv": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "mind": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "minv": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "plan_id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
+    },
     "GetSubscriptionReq": {
       "type": "object",
       "title": "GetSubscriptionReq",
@@ -6509,9 +6773,11 @@
       "title": "HKeyword",
       "required": [
         "id",
-        "keyword",
+        "text",
         "volume",
         "difficulty",
+        "keyword_id",
+        "keyword",
         "group_id",
         "group"
       ],
@@ -6530,6 +6796,12 @@
           "$ref": "#/definitions/uint"
         },
         "keyword": {
+          "type": "string"
+        },
+        "keyword_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "text": {
           "type": "string"
         },
         "volume": {
@@ -6796,13 +7068,43 @@
         }
       }
     },
+    "KeywordPlan": {
+      "type": "object",
+      "title": "KeywordPlan",
+      "required": [
+        "id",
+        "user_id",
+        "status",
+        "title",
+        "saved"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "saved": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "title": {
+          "type": "string"
+        },
+        "user_id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
+    },
     "KeywordPlanGroup": {
       "type": "object",
       "title": "KeywordPlanGroup",
       "required": [
         "id",
         "status",
-        "group",
+        "text",
         "total_volume",
         "avg_difficulty",
         "total_keywords",
@@ -6813,15 +7115,15 @@
           "type": "integer",
           "format": "int32"
         },
-        "group": {
-          "type": "string"
-        },
         "id": {
           "$ref": "#/definitions/uint"
         },
         "status": {
           "type": "integer",
           "format": "int32"
+        },
+        "text": {
+          "type": "string"
         },
         "top_keywords": {
           "type": "array",
@@ -6845,7 +7147,7 @@
       "required": [
         "id",
         "status",
-        "keyword",
+        "text",
         "total_volume",
         "avg_difficulty",
         "total_keywords"
@@ -6858,12 +7160,12 @@
         "id": {
           "$ref": "#/definitions/uint"
         },
-        "keyword": {
-          "type": "string"
-        },
         "status": {
           "type": "integer",
           "format": "int32"
+        },
+        "text": {
+          "type": "string"
         },
         "total_keywords": {
           "type": "integer",
@@ -7588,6 +7890,32 @@
       "type": "object",
       "title": "ResetPassResp"
     },
+    "SaveKeyword": {
+      "type": "object",
+      "title": "SaveKeyword",
+      "required": [
+        "keyword_id",
+        "text",
+        "volume",
+        "difficulty"
+      ],
+      "properties": {
+        "difficulty": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keyword_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "text": {
+          "type": "string"
+        },
+        "volume": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
     "SaveKeywordReq": {
       "type": "object",
       "title": "SaveKeywordReq",
@@ -7629,6 +7957,33 @@
           "$ref": "#/definitions/uint"
         }
       }
+    },
+    "SavePlanKeywordsReq": {
+      "type": "object",
+      "title": "SavePlanKeywordsReq",
+      "required": [
+        "plan_id",
+        "group_id",
+        "keywords"
+      ],
+      "properties": {
+        "group_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SaveKeyword"
+          }
+        },
+        "plan_id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
+    },
+    "SavePlanKeywordsResp": {
+      "type": "object",
+      "title": "SavePlanKeywordsResp"
     },
     "SaveTopicReq": {
       "type": "object",
