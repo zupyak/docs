@@ -1601,6 +1601,36 @@
             }
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "deleteKeywordPlan",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteKeywordPlanReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeleteKeywordPlanResp"
+            }
+          }
+        }
       }
     },
     "/posts/aigc/keywordplans/{id}/keywords": {
@@ -4358,6 +4388,30 @@
         }
       }
     },
+    "DeleteKeywordPlanReq": {
+      "type": "object",
+      "title": "DeleteKeywordPlanReq",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
+    },
+    "DeleteKeywordPlanResp": {
+      "type": "object",
+      "title": "DeleteKeywordPlanResp",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
+    },
     "DeleteKeywordReq": {
       "type": "object",
       "title": "DeleteKeywordReq",
@@ -5217,7 +5271,7 @@
         "related_keywords": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Keyword"
+            "$ref": "#/definitions/RelatedKeyword"
           }
         },
         "status": {
@@ -7108,7 +7162,8 @@
         "total_volume",
         "avg_difficulty",
         "total_keywords",
-        "top_keywords"
+        "top_keywords",
+        "saved"
       ],
       "properties": {
         "avg_difficulty": {
@@ -7117,6 +7172,10 @@
         },
         "id": {
           "$ref": "#/definitions/uint"
+        },
+        "saved": {
+          "type": "integer",
+          "format": "int32"
         },
         "status": {
           "type": "integer",
@@ -7847,6 +7906,33 @@
           "items": {
             "$ref": "#/definitions/UserInfo"
           }
+        }
+      }
+    },
+    "RelatedKeyword": {
+      "type": "object",
+      "title": "RelatedKeyword",
+      "required": [
+        "text",
+        "search_volume",
+        "difficulty",
+        "saved"
+      ],
+      "properties": {
+        "difficulty": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "saved": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "search_volume": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "text": {
+          "type": "string"
         }
       }
     },
