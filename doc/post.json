@@ -339,30 +339,6 @@
         ]
       }
     },
-    "/posts/aigc/keywordplans/{id}/keywords": {
-      "get": {
-        "operationId": "GetGeneratedPlanKeywords",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/GetGeneratedPlanKeywordsResp"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "post-api"
-        ]
-      }
-    },
     "/posts/aigc/keywordplans/{plan_id}/group/{group_id}": {
       "get": {
         "operationId": "GetGeneratedPlanGroup",
@@ -1856,6 +1832,10 @@
         "language": {
           "type": "string"
         },
+        "domain_rating": {
+          "type": "integer",
+          "format": "int32"
+        },
         "company_description": {
           "type": "string"
         },
@@ -1871,6 +1851,7 @@
         "title",
         "region",
         "language",
+        "domain_rating",
         "company_description"
       ]
     },
@@ -2240,6 +2221,21 @@
     "GetGeneratedPlanKeywordsResp": {
       "type": "object",
       "properties": {
+        "plan": {
+          "$ref": "#/definitions/GetGeneratedPlanResp"
+        },
+        "total_volume": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "avg_difficulty": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "total_keywords": {
+          "type": "integer",
+          "format": "int32"
+        },
         "main_keywords": {
           "type": "array",
           "items": {
@@ -2255,6 +2251,10 @@
       },
       "title": "GetGeneratedPlanKeywordsResp",
       "required": [
+        "plan",
+        "total_volume",
+        "avg_difficulty",
+        "total_keywords",
         "main_keywords",
         "longtail_keywords"
       ]
@@ -2303,6 +2303,14 @@
         "title": {
           "type": "string"
         },
+        "domain_rating": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        },
         "groups": {
           "type": "array",
           "items": {
@@ -2316,6 +2324,9 @@
         "user_id",
         "status",
         "title",
+        "domain_rating",
+        "updated_at",
+        "updated_at",
         "groups"
       ]
     },
@@ -3480,9 +3491,7 @@
       },
       "title": "SavePlanKeywordsReq",
       "required": [
-        "plan_id",
-        "group_id",
-        "keywords"
+        "plan_id"
       ]
     },
     "SavePlanKeywordsResp": {

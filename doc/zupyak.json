@@ -146,10 +146,10 @@
         }
       }
     },
-    "/admin/orders": {
+    "/admin/pay/orders": {
       "get": {
         "tags": [
-          "order"
+          "pay"
         ],
         "operationId": "getOrders",
         "parameters": [
@@ -212,10 +212,10 @@
         }
       }
     },
-    "/admin/orders/{id}": {
+    "/admin/pay/orders/{id}": {
       "put": {
         "tags": [
-          "order"
+          "pay"
         ],
         "operationId": "updateOrder",
         "parameters": [
@@ -239,6 +239,57 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/UpdateOrderResp"
+            }
+          }
+        }
+      }
+    },
+    "/admin/pay/plans": {
+      "get": {
+        "tags": [
+          "pay"
+        ],
+        "operationId": "getPlans",
+        "parameters": [
+          {
+            "type": "integer",
+            "format": "int32",
+            "default": "2",
+            "name": "type",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetPlansResp"
+            }
+          }
+        }
+      }
+    },
+    "/admin/pay/subscriptions": {
+      "put": {
+        "tags": [
+          "pay"
+        ],
+        "operationId": "createSubscription",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateSubscriptionReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreateSubscriptionResp"
             }
           }
         }
@@ -1187,7 +1238,7 @@
         "tags": [
           "pay-api"
         ],
-        "operationId": "getPlans",
+        "operationId": "getPlansMixin2",
         "parameters": [
           {
             "type": "integer",
@@ -1263,7 +1314,7 @@
         "tags": [
           "pay-api"
         ],
-        "operationId": "createSubscription",
+        "operationId": "createSubscriptionMixin2",
         "parameters": [
           {
             "name": "body",
@@ -1628,30 +1679,6 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/DeleteKeywordPlanResp"
-            }
-          }
-        }
-      }
-    },
-    "/posts/aigc/keywordplans/{id}/keywords": {
-      "get": {
-        "tags": [
-          "post-api"
-        ],
-        "operationId": "GetGeneratedPlanKeywords",
-        "parameters": [
-          {
-            "type": "string",
-            "name": "id",
-            "in": "path",
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/GetGeneratedPlanKeywordsResp"
             }
           }
         }
@@ -4291,10 +4318,10 @@
       "title": "CreateSubscriptionReq",
       "required": [
         "user_id",
-        "plan_id"
+        "product_id"
       ],
       "properties": {
-        "plan_id": {
+        "product_id": {
           "$ref": "#/definitions/uint"
         },
         "user_id": {
@@ -4306,14 +4333,10 @@
       "type": "object",
       "title": "CreateSubscriptionResp",
       "required": [
-        "uuid",
         "redirect_url"
       ],
       "properties": {
         "redirect_url": {
-          "type": "string"
-        },
-        "uuid": {
           "type": "string"
         }
       }
@@ -4758,11 +4781,16 @@
         "title",
         "region",
         "language",
+        "domain_rating",
         "company_description"
       ],
       "properties": {
         "company_description": {
           "type": "string"
+        },
+        "domain_rating": {
+          "type": "integer",
+          "format": "int32"
         },
         "language": {
           "type": "string"
@@ -5295,10 +5323,18 @@
       "type": "object",
       "title": "GetGeneratedPlanKeywordsResp",
       "required": [
+        "plan",
+        "total_volume",
+        "avg_difficulty",
+        "total_keywords",
         "main_keywords",
         "longtail_keywords"
       ],
       "properties": {
+        "avg_difficulty": {
+          "type": "integer",
+          "format": "int32"
+        },
         "longtail_keywords": {
           "type": "array",
           "items": {
@@ -5310,6 +5346,17 @@
           "items": {
             "$ref": "#/definitions/HKeyword"
           }
+        },
+        "plan": {
+          "$ref": "#/definitions/GetGeneratedPlanResp"
+        },
+        "total_keywords": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "total_volume": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
@@ -5349,9 +5396,16 @@
         "user_id",
         "status",
         "title",
+        "domain_rating",
+        "updated_at",
+        "updated_at",
         "groups"
       ],
       "properties": {
+        "domain_rating": {
+          "type": "integer",
+          "format": "int32"
+        },
         "groups": {
           "type": "array",
           "items": {
@@ -5367,6 +5421,10 @@
         },
         "title": {
           "type": "string"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
         },
         "user_id": {
           "$ref": "#/definitions/uint"
@@ -8048,9 +8106,7 @@
       "type": "object",
       "title": "SavePlanKeywordsReq",
       "required": [
-        "plan_id",
-        "group_id",
-        "keywords"
+        "plan_id"
       ],
       "properties": {
         "group_id": {
