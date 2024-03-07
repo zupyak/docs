@@ -1738,12 +1738,12 @@
         }
       }
     },
-    "/posts/aigc/keywordplans/{plan_id}/group/{group_id}/keyword/{keyword_id}": {
+    "/posts/aigc/keywordplans/{plan_id}/group/{group_id}/subgroup/{sub_group_id}": {
       "get": {
         "tags": [
           "post-api"
         ],
-        "operationId": "GetGeneratedPlanKeyword",
+        "operationId": "GetGeneratedPlanSubGroup",
         "parameters": [
           {
             "type": "string",
@@ -1759,7 +1759,7 @@
           },
           {
             "type": "string",
-            "name": "keyword_id",
+            "name": "sub_group_id",
             "in": "path",
             "required": true
           },
@@ -1792,7 +1792,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/GetGeneratedPlanKeywordResp"
+              "$ref": "#/definitions/GetGeneratedPlanSubGroupResp"
             }
           }
         }
@@ -5207,7 +5207,7 @@
         "total_volume",
         "avg_difficulty",
         "total_keywords",
-        "keywords"
+        "sub_groups"
       ],
       "properties": {
         "avg_difficulty": {
@@ -5217,94 +5217,15 @@
         "id": {
           "$ref": "#/definitions/uint"
         },
-        "keywords": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/KeywordPlanKeyword"
-          }
-        },
         "status": {
           "type": "integer",
           "format": "int32"
         },
-        "text": {
-          "type": "string"
-        },
-        "total_keywords": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "total_volume": {
-          "type": "integer",
-          "format": "int64"
-        }
-      }
-    },
-    "GetGeneratedPlanKeywordReq": {
-      "type": "object",
-      "title": "GetGeneratedPlanKeywordReq",
-      "required": [
-        "plan_id",
-        "group_id",
-        "keyword_id"
-      ],
-      "properties": {
-        "group_id": {
-          "$ref": "#/definitions/uint"
-        },
-        "keyword_id": {
-          "$ref": "#/definitions/uint"
-        },
-        "maxd": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "maxv": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "mind": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "minv": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "plan_id": {
-          "$ref": "#/definitions/uint"
-        }
-      }
-    },
-    "GetGeneratedPlanKeywordResp": {
-      "type": "object",
-      "title": "GetGeneratedPlanKeywordResp",
-      "required": [
-        "id",
-        "status",
-        "text",
-        "total_volume",
-        "avg_difficulty",
-        "total_keywords",
-        "related_keywords"
-      ],
-      "properties": {
-        "avg_difficulty": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "id": {
-          "$ref": "#/definitions/uint"
-        },
-        "related_keywords": {
+        "sub_groups": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/RelatedKeyword"
+            "$ref": "#/definitions/KeywordPlanSubGroup"
           }
-        },
-        "status": {
-          "type": "integer",
-          "format": "int32"
         },
         "text": {
           "type": "string"
@@ -5428,6 +5349,85 @@
         },
         "user_id": {
           "$ref": "#/definitions/uint"
+        }
+      }
+    },
+    "GetGeneratedPlanSubGroupReq": {
+      "type": "object",
+      "title": "GetGeneratedPlanSubGroupReq",
+      "required": [
+        "plan_id",
+        "group_id",
+        "sub_group_id"
+      ],
+      "properties": {
+        "group_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "maxd": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "maxv": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "mind": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "minv": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "sub_group_id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
+    },
+    "GetGeneratedPlanSubGroupResp": {
+      "type": "object",
+      "title": "GetGeneratedPlanSubGroupResp",
+      "required": [
+        "id",
+        "status",
+        "text",
+        "total_volume",
+        "avg_difficulty",
+        "total_keywords",
+        "keywords"
+      ],
+      "properties": {
+        "avg_difficulty": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RelatedKeyword"
+          }
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "text": {
+          "type": "string"
+        },
+        "total_keywords": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "total_volume": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
@@ -6888,10 +6888,10 @@
         "text",
         "volume",
         "difficulty",
-        "keyword_id",
-        "keyword",
         "group_id",
-        "group"
+        "group",
+        "sub_group_id",
+        "sub_group"
       ],
       "properties": {
         "difficulty": {
@@ -6907,10 +6907,10 @@
         "id": {
           "$ref": "#/definitions/uint"
         },
-        "keyword": {
+        "sub_group": {
           "type": "string"
         },
-        "keyword_id": {
+        "sub_group_id": {
           "$ref": "#/definitions/uint"
         },
         "text": {
@@ -7220,7 +7220,7 @@
         "total_volume",
         "avg_difficulty",
         "total_keywords",
-        "top_keywords",
+        "top_sub_groups",
         "saved"
       ],
       "properties": {
@@ -7242,7 +7242,7 @@
         "text": {
           "type": "string"
         },
-        "top_keywords": {
+        "top_sub_groups": {
           "type": "array",
           "items": {
             "type": "string"
@@ -7258,9 +7258,9 @@
         }
       }
     },
-    "KeywordPlanKeyword": {
+    "KeywordPlanSubGroup": {
       "type": "object",
-      "title": "KeywordPlanKeyword",
+      "title": "KeywordPlanSubGroup",
       "required": [
         "id",
         "status",
@@ -8038,7 +8038,7 @@
       "type": "object",
       "title": "SaveKeyword",
       "required": [
-        "keyword_id",
+        "sub_group_id",
         "text",
         "volume",
         "difficulty"
@@ -8048,7 +8048,7 @@
           "type": "integer",
           "format": "int32"
         },
-        "keyword_id": {
+        "sub_group_id": {
           "$ref": "#/definitions/uint"
         },
         "text": {
