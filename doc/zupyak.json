@@ -1642,6 +1642,18 @@
             "format": "int32",
             "name": "maxd",
             "in": "query"
+          },
+          {
+            "type": "number",
+            "format": "double",
+            "name": "minc",
+            "in": "query"
+          },
+          {
+            "type": "number",
+            "format": "double",
+            "name": "maxc",
+            "in": "query"
           }
         ],
         "responses": {
@@ -1726,6 +1738,18 @@
             "format": "int32",
             "name": "maxd",
             "in": "query"
+          },
+          {
+            "type": "number",
+            "format": "double",
+            "name": "minc",
+            "in": "query"
+          },
+          {
+            "type": "number",
+            "format": "double",
+            "name": "maxc",
+            "in": "query"
           }
         ],
         "responses": {
@@ -1785,6 +1809,18 @@
             "type": "integer",
             "format": "int32",
             "name": "maxd",
+            "in": "query"
+          },
+          {
+            "type": "number",
+            "format": "double",
+            "name": "minc",
+            "in": "query"
+          },
+          {
+            "type": "number",
+            "format": "double",
+            "name": "maxc",
             "in": "query"
           }
         ],
@@ -1871,6 +1907,18 @@
             "type": "integer",
             "format": "int32",
             "name": "maxd",
+            "in": "query"
+          },
+          {
+            "type": "number",
+            "format": "double",
+            "name": "minc",
+            "in": "query"
+          },
+          {
+            "type": "number",
+            "format": "double",
+            "name": "maxc",
             "in": "query"
           }
         ],
@@ -5176,6 +5224,10 @@
         "group_id": {
           "$ref": "#/definitions/uint"
         },
+        "maxc": {
+          "type": "number",
+          "format": "double"
+        },
         "maxd": {
           "type": "integer",
           "format": "int32"
@@ -5183,6 +5235,10 @@
         "maxv": {
           "type": "integer",
           "format": "int32"
+        },
+        "minc": {
+          "type": "number",
+          "format": "double"
         },
         "mind": {
           "type": "integer",
@@ -5204,12 +5260,17 @@
         "id",
         "status",
         "text",
+        "total_keywords",
         "total_volume",
         "avg_difficulty",
-        "total_keywords",
+        "avg_cost",
         "sub_groups"
       ],
       "properties": {
+        "avg_cost": {
+          "type": "number",
+          "format": "double"
+        },
         "avg_difficulty": {
           "type": "integer",
           "format": "int32"
@@ -5245,13 +5306,18 @@
       "title": "GetGeneratedPlanKeywordsResp",
       "required": [
         "plan",
+        "total_keywords",
         "total_volume",
         "avg_difficulty",
-        "total_keywords",
+        "avg_cost",
         "main_keywords",
         "longtail_keywords"
       ],
       "properties": {
+        "avg_cost": {
+          "type": "number",
+          "format": "double"
+        },
         "avg_difficulty": {
           "type": "integer",
           "format": "int32"
@@ -5291,6 +5357,10 @@
         "id": {
           "$ref": "#/definitions/uint"
         },
+        "maxc": {
+          "type": "number",
+          "format": "double"
+        },
         "maxd": {
           "type": "integer",
           "format": "int32"
@@ -5298,6 +5368,10 @@
         "maxv": {
           "type": "integer",
           "format": "int32"
+        },
+        "minc": {
+          "type": "number",
+          "format": "double"
         },
         "mind": {
           "type": "integer",
@@ -5364,6 +5438,10 @@
         "group_id": {
           "$ref": "#/definitions/uint"
         },
+        "maxc": {
+          "type": "number",
+          "format": "double"
+        },
         "maxd": {
           "type": "integer",
           "format": "int32"
@@ -5371,6 +5449,10 @@
         "maxv": {
           "type": "integer",
           "format": "int32"
+        },
+        "minc": {
+          "type": "number",
+          "format": "double"
         },
         "mind": {
           "type": "integer",
@@ -5395,12 +5477,17 @@
         "id",
         "status",
         "text",
+        "total_keywords",
         "total_volume",
         "avg_difficulty",
-        "total_keywords",
+        "avg_cost",
         "keywords"
       ],
       "properties": {
+        "avg_cost": {
+          "type": "number",
+          "format": "double"
+        },
         "avg_difficulty": {
           "type": "integer",
           "format": "int32"
@@ -6236,6 +6323,10 @@
         "group_id": {
           "$ref": "#/definitions/uint"
         },
+        "maxc": {
+          "type": "number",
+          "format": "double"
+        },
         "maxd": {
           "type": "integer",
           "format": "int32"
@@ -6243,6 +6334,10 @@
         "maxv": {
           "type": "integer",
           "format": "int32"
+        },
+        "minc": {
+          "type": "number",
+          "format": "double"
         },
         "mind": {
           "type": "integer",
@@ -6888,12 +6983,17 @@
         "text",
         "volume",
         "difficulty",
+        "cost",
         "group_id",
         "group",
         "sub_group_id",
         "sub_group"
       ],
       "properties": {
+        "cost": {
+          "type": "number",
+          "format": "double"
+        },
         "difficulty": {
           "type": "integer",
           "format": "int32"
@@ -7217,13 +7317,18 @@
         "id",
         "status",
         "text",
+        "total_keywords",
         "total_volume",
         "avg_difficulty",
-        "total_keywords",
+        "avg_cost",
         "top_sub_groups",
         "saved"
       ],
       "properties": {
+        "avg_cost": {
+          "type": "number",
+          "format": "double"
+        },
         "avg_difficulty": {
           "type": "integer",
           "format": "int32"
@@ -7265,11 +7370,16 @@
         "id",
         "status",
         "text",
+        "total_keywords",
         "total_volume",
         "avg_difficulty",
-        "total_keywords"
+        "avg_cost"
       ],
       "properties": {
+        "avg_cost": {
+          "type": "number",
+          "format": "double"
+        },
         "avg_difficulty": {
           "type": "integer",
           "format": "int32"
@@ -7974,9 +8084,14 @@
         "text",
         "search_volume",
         "difficulty",
+        "cost",
         "saved"
       ],
       "properties": {
+        "cost": {
+          "type": "number",
+          "format": "double"
+        },
         "difficulty": {
           "type": "integer",
           "format": "int32"
@@ -8041,9 +8156,14 @@
         "sub_group_id",
         "text",
         "volume",
-        "difficulty"
+        "difficulty",
+        "cost"
       ],
       "properties": {
+        "cost": {
+          "type": "number",
+          "format": "double"
+        },
         "difficulty": {
           "type": "integer",
           "format": "int32"

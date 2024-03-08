@@ -302,6 +302,20 @@
             "required": false,
             "type": "integer",
             "format": "int32"
+          },
+          {
+            "name": "minc",
+            "in": "query",
+            "required": false,
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "name": "maxc",
+            "in": "query",
+            "required": false,
+            "type": "number",
+            "format": "double"
           }
         ],
         "tags": [
@@ -390,6 +404,20 @@
             "required": false,
             "type": "integer",
             "format": "int32"
+          },
+          {
+            "name": "minc",
+            "in": "query",
+            "required": false,
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "name": "maxc",
+            "in": "query",
+            "required": false,
+            "type": "number",
+            "format": "double"
           }
         ],
         "tags": [
@@ -454,6 +482,20 @@
             "required": false,
             "type": "integer",
             "format": "int32"
+          },
+          {
+            "name": "minc",
+            "in": "query",
+            "required": false,
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "name": "maxc",
+            "in": "query",
+            "required": false,
+            "type": "number",
+            "format": "double"
           }
         ],
         "tags": [
@@ -545,6 +587,20 @@
             "required": false,
             "type": "integer",
             "format": "int32"
+          },
+          {
+            "name": "minc",
+            "in": "query",
+            "required": false,
+            "type": "number",
+            "format": "double"
+          },
+          {
+            "name": "maxc",
+            "in": "query",
+            "required": false,
+            "type": "number",
+            "format": "double"
           }
         ],
         "tags": [
@@ -2088,6 +2144,14 @@
         "maxd": {
           "type": "integer",
           "format": "int32"
+        },
+        "minc": {
+          "type": "number",
+          "format": "double"
+        },
+        "maxc": {
+          "type": "number",
+          "format": "double"
         }
       },
       "title": "GetGeneratedPlanGroupReq",
@@ -2109,6 +2173,10 @@
         "text": {
           "type": "string"
         },
+        "total_keywords": {
+          "type": "integer",
+          "format": "int32"
+        },
         "total_volume": {
           "type": "integer",
           "format": "int64"
@@ -2117,9 +2185,9 @@
           "type": "integer",
           "format": "int32"
         },
-        "total_keywords": {
-          "type": "integer",
-          "format": "int32"
+        "avg_cost": {
+          "type": "number",
+          "format": "double"
         },
         "sub_groups": {
           "type": "array",
@@ -2133,9 +2201,10 @@
         "id",
         "status",
         "text",
+        "total_keywords",
         "total_volume",
         "avg_difficulty",
-        "total_keywords",
+        "avg_cost",
         "sub_groups"
       ]
     },
@@ -2145,6 +2214,10 @@
         "plan": {
           "$ref": "#/definitions/GetGeneratedPlanResp"
         },
+        "total_keywords": {
+          "type": "integer",
+          "format": "int32"
+        },
         "total_volume": {
           "type": "integer",
           "format": "int64"
@@ -2153,9 +2226,9 @@
           "type": "integer",
           "format": "int32"
         },
-        "total_keywords": {
-          "type": "integer",
-          "format": "int32"
+        "avg_cost": {
+          "type": "number",
+          "format": "double"
         },
         "main_keywords": {
           "type": "array",
@@ -2173,9 +2246,10 @@
       "title": "GetGeneratedPlanKeywordsResp",
       "required": [
         "plan",
+        "total_keywords",
         "total_volume",
         "avg_difficulty",
-        "total_keywords",
+        "avg_cost",
         "main_keywords",
         "longtail_keywords"
       ]
@@ -2201,6 +2275,14 @@
         "maxd": {
           "type": "integer",
           "format": "int32"
+        },
+        "minc": {
+          "type": "number",
+          "format": "double"
+        },
+        "maxc": {
+          "type": "number",
+          "format": "double"
         }
       },
       "title": "GetGeneratedPlanReq",
@@ -2277,6 +2359,14 @@
         "maxd": {
           "type": "integer",
           "format": "int32"
+        },
+        "minc": {
+          "type": "number",
+          "format": "double"
+        },
+        "maxc": {
+          "type": "number",
+          "format": "double"
         }
       },
       "title": "GetGeneratedPlanSubGroupReq",
@@ -2299,6 +2389,10 @@
         "text": {
           "type": "string"
         },
+        "total_keywords": {
+          "type": "integer",
+          "format": "int32"
+        },
         "total_volume": {
           "type": "integer",
           "format": "int64"
@@ -2307,9 +2401,9 @@
           "type": "integer",
           "format": "int32"
         },
-        "total_keywords": {
-          "type": "integer",
-          "format": "int32"
+        "avg_cost": {
+          "type": "number",
+          "format": "double"
         },
         "keywords": {
           "type": "array",
@@ -2323,9 +2417,10 @@
         "id",
         "status",
         "text",
+        "total_keywords",
         "total_volume",
         "avg_difficulty",
-        "total_keywords",
+        "avg_cost",
         "keywords"
       ]
     },
@@ -2610,6 +2705,14 @@
         "maxd": {
           "type": "integer",
           "format": "int32"
+        },
+        "minc": {
+          "type": "number",
+          "format": "double"
+        },
+        "maxc": {
+          "type": "number",
+          "format": "double"
         }
       },
       "title": "GetSavedPlanKeywordsReq",
@@ -2910,6 +3013,10 @@
           "type": "integer",
           "format": "int32"
         },
+        "cost": {
+          "type": "number",
+          "format": "double"
+        },
         "group_id": {
           "$ref": "#/definitions/uint"
         },
@@ -2929,6 +3036,7 @@
         "text",
         "volume",
         "difficulty",
+        "cost",
         "group_id",
         "group",
         "sub_group_id",
@@ -3152,6 +3260,10 @@
         "text": {
           "type": "string"
         },
+        "total_keywords": {
+          "type": "integer",
+          "format": "int32"
+        },
         "total_volume": {
           "type": "integer",
           "format": "int64"
@@ -3160,9 +3272,9 @@
           "type": "integer",
           "format": "int32"
         },
-        "total_keywords": {
-          "type": "integer",
-          "format": "int32"
+        "avg_cost": {
+          "type": "number",
+          "format": "double"
         },
         "top_sub_groups": {
           "type": "array",
@@ -3180,9 +3292,10 @@
         "id",
         "status",
         "text",
+        "total_keywords",
         "total_volume",
         "avg_difficulty",
-        "total_keywords",
+        "avg_cost",
         "top_sub_groups",
         "saved"
       ]
@@ -3200,6 +3313,10 @@
         "text": {
           "type": "string"
         },
+        "total_keywords": {
+          "type": "integer",
+          "format": "int32"
+        },
         "total_volume": {
           "type": "integer",
           "format": "int64"
@@ -3208,9 +3325,9 @@
           "type": "integer",
           "format": "int32"
         },
-        "total_keywords": {
-          "type": "integer",
-          "format": "int32"
+        "avg_cost": {
+          "type": "number",
+          "format": "double"
         }
       },
       "title": "KeywordPlanSubGroup",
@@ -3218,9 +3335,10 @@
         "id",
         "status",
         "text",
+        "total_keywords",
         "total_volume",
         "avg_difficulty",
-        "total_keywords"
+        "avg_cost"
       ]
     },
     "LikeReq": {
@@ -3391,6 +3509,10 @@
           "type": "integer",
           "format": "int32"
         },
+        "cost": {
+          "type": "number",
+          "format": "double"
+        },
         "saved": {
           "type": "boolean",
           "format": "boolean"
@@ -3401,6 +3523,7 @@
         "text",
         "search_volume",
         "difficulty",
+        "cost",
         "saved"
       ]
     },
@@ -3420,6 +3543,10 @@
         "difficulty": {
           "type": "integer",
           "format": "int32"
+        },
+        "cost": {
+          "type": "number",
+          "format": "double"
         }
       },
       "title": "SaveKeyword",
@@ -3427,7 +3554,8 @@
         "sub_group_id",
         "text",
         "volume",
-        "difficulty"
+        "difficulty",
+        "cost"
       ]
     },
     "SaveKeywordReq": {
