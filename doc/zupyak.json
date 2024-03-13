@@ -2530,6 +2530,30 @@
         }
       }
     },
+    "/posts/plankeywords/saving/{id}": {
+      "get": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "getSavingStatus",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetSavingStatusResp"
+            }
+          }
+        }
+      }
+    },
     "/posts/plankeywords/{id}": {
       "delete": {
         "tags": [
@@ -4827,6 +4851,7 @@
       "title": "GenerateKeywordPlanReq",
       "required": [
         "title",
+        "type",
         "region",
         "language",
         "domain_rating",
@@ -4854,6 +4879,11 @@
         },
         "title": {
           "type": "string"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "default": "1"
         }
       }
     },
@@ -5390,13 +5420,18 @@
         "id",
         "user_id",
         "status",
+        "type",
         "title",
         "domain_rating",
-        "updated_at",
+        "created_at",
         "updated_at",
         "groups"
       ],
       "properties": {
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
         "domain_rating": {
           "type": "integer",
           "format": "int32"
@@ -5416,6 +5451,10 @@
         },
         "title": {
           "type": "string"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32"
         },
         "updated_at": {
           "type": "integer",
@@ -6348,6 +6387,43 @@
           "format": "int32"
         },
         "plan_id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
+    },
+    "GetSavingStatusReq": {
+      "type": "object",
+      "title": "GetSavingStatusReq",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
+    },
+    "GetSavingStatusResp": {
+      "type": "object",
+      "title": "GetSavingStatusResp",
+      "required": [
+        "id",
+        "plan_id",
+        "user_id",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "user_id": {
           "$ref": "#/definitions/uint"
         }
       }
@@ -7287,6 +7363,7 @@
         "id",
         "user_id",
         "status",
+        "type",
         "title",
         "saved"
       ],
@@ -7304,6 +7381,10 @@
         },
         "title": {
           "type": "string"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32"
         },
         "user_id": {
           "$ref": "#/definitions/uint"
@@ -8245,7 +8326,15 @@
     },
     "SavePlanKeywordsResp": {
       "type": "object",
-      "title": "SavePlanKeywordsResp"
+      "title": "SavePlanKeywordsResp",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
     },
     "SaveTopicReq": {
       "type": "object",
