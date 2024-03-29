@@ -1654,6 +1654,20 @@
             "format": "double",
             "name": "maxc",
             "in": "query"
+          },
+          {
+            "type": "string",
+            "default": "v",
+            "name": "sort",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "default": "desc",
+            "name": "order",
+            "in": "query",
+            "required": true
           }
         ],
         "responses": {
@@ -1750,6 +1764,20 @@
             "format": "double",
             "name": "maxc",
             "in": "query"
+          },
+          {
+            "type": "string",
+            "default": "v",
+            "name": "sort",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "default": "desc",
+            "name": "order",
+            "in": "query",
+            "required": true
           }
         ],
         "responses": {
@@ -1822,6 +1850,20 @@
             "format": "double",
             "name": "maxc",
             "in": "query"
+          },
+          {
+            "type": "string",
+            "default": "v",
+            "name": "sort",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "default": "desc",
+            "name": "order",
+            "in": "query",
+            "required": true
           }
         ],
         "responses": {
@@ -1920,6 +1962,20 @@
             "format": "double",
             "name": "maxc",
             "in": "query"
+          },
+          {
+            "type": "string",
+            "default": "v",
+            "name": "sort",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "default": "desc",
+            "name": "order",
+            "in": "query",
+            "required": true
           }
         ],
         "responses": {
@@ -1976,11 +2032,6 @@
             "name": "region",
             "in": "query",
             "required": true
-          },
-          {
-            "type": "string",
-            "name": "extra",
-            "in": "query"
           }
         ],
         "responses": {
@@ -4891,6 +4942,7 @@
       "type": "object",
       "title": "GenerateParagraphReq",
       "required": [
+        "title",
         "topic",
         "language"
       ],
@@ -4899,6 +4951,9 @@
           "type": "string"
         },
         "language": {
+          "type": "string"
+        },
+        "title": {
           "type": "string"
         },
         "topic": {
@@ -5248,7 +5303,9 @@
       "title": "GetGeneratedPlanGroupReq",
       "required": [
         "plan_id",
-        "group_id"
+        "group_id",
+        "sort",
+        "order"
       ],
       "properties": {
         "group_id": {
@@ -5278,8 +5335,16 @@
           "type": "integer",
           "format": "int32"
         },
+        "order": {
+          "type": "string",
+          "default": "desc"
+        },
         "plan_id": {
           "$ref": "#/definitions/uint"
+        },
+        "sort": {
+          "type": "string",
+          "default": "v"
         }
       }
     },
@@ -5340,6 +5405,7 @@
         "total_volume",
         "avg_difficulty",
         "avg_cost",
+        "traffic_potential",
         "main_keywords",
         "longtail_keywords"
       ],
@@ -5374,6 +5440,10 @@
         "total_volume": {
           "type": "integer",
           "format": "int64"
+        },
+        "traffic_potential": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -5381,7 +5451,9 @@
       "type": "object",
       "title": "GetGeneratedPlanReq",
       "required": [
-        "id"
+        "id",
+        "sort",
+        "order"
       ],
       "properties": {
         "id": {
@@ -5410,6 +5482,14 @@
         "minv": {
           "type": "integer",
           "format": "int32"
+        },
+        "order": {
+          "type": "string",
+          "default": "desc"
+        },
+        "sort": {
+          "type": "string",
+          "default": "v"
         }
       }
     },
@@ -5421,6 +5501,7 @@
         "user_id",
         "status",
         "type",
+        "region",
         "title",
         "domain_rating",
         "created_at",
@@ -5444,6 +5525,9 @@
         },
         "id": {
           "$ref": "#/definitions/uint"
+        },
+        "region": {
+          "type": "string"
         },
         "status": {
           "type": "integer",
@@ -5471,7 +5555,9 @@
       "required": [
         "plan_id",
         "group_id",
-        "sub_group_id"
+        "sub_group_id",
+        "sort",
+        "order"
       ],
       "properties": {
         "group_id": {
@@ -5501,8 +5587,16 @@
           "type": "integer",
           "format": "int32"
         },
+        "order": {
+          "type": "string",
+          "default": "desc"
+        },
         "plan_id": {
           "$ref": "#/definitions/uint"
+        },
+        "sort": {
+          "type": "string",
+          "default": "v"
         },
         "sub_group_id": {
           "$ref": "#/definitions/uint"
@@ -6356,7 +6450,9 @@
       "type": "object",
       "title": "GetSavedPlanKeywordsReq",
       "required": [
-        "plan_id"
+        "plan_id",
+        "sort",
+        "order"
       ],
       "properties": {
         "group_id": {
@@ -6386,8 +6482,16 @@
           "type": "integer",
           "format": "int32"
         },
+        "order": {
+          "type": "string",
+          "default": "desc"
+        },
         "plan_id": {
           "$ref": "#/definitions/uint"
+        },
+        "sort": {
+          "type": "string",
+          "default": "v"
         }
       }
     },
@@ -6482,9 +6586,6 @@
         "region"
       ],
       "properties": {
-        "extra": {
-          "type": "string"
-        },
         "id": {
           "$ref": "#/definitions/uint"
         },
@@ -6793,7 +6894,7 @@
         "interest",
         "company",
         "company_info",
-        "industry",
+        "ai_writer_settings",
         "industry2",
         "customer",
         "brand",
@@ -6809,6 +6910,9 @@
       "properties": {
         "about_you": {
           "type": "string"
+        },
+        "ai_writer_settings": {
+          "$ref": "#/definitions/mapstringstring"
         },
         "avatar": {
           "type": "string"
@@ -6862,9 +6966,6 @@
         "id": {
           "type": "integer",
           "format": "int64"
-        },
-        "industry": {
-          "$ref": "#/definitions/mapstringstring"
         },
         "industry2": {
           "$ref": "#/definitions/Industry"
@@ -9037,6 +9138,9 @@
           "type": "string",
           "default": "zupyak_default_string_values"
         },
+        "ai_writer_settings": {
+          "$ref": "#/definitions/mapstringstring"
+        },
         "avatar": {
           "type": "string"
         },
@@ -9069,9 +9173,6 @@
         "id": {
           "type": "integer",
           "format": "int64"
-        },
-        "industry": {
-          "$ref": "#/definitions/mapstringstring"
         },
         "industry2": {
           "$ref": "#/definitions/Industry"

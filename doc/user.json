@@ -788,7 +788,7 @@
         "company_info": {
           "$ref": "#/definitions/mapstringstring"
         },
-        "industry": {
+        "ai_writer_settings": {
           "$ref": "#/definitions/mapstringstring"
         },
         "industry2": {
@@ -859,7 +859,7 @@
         "interest",
         "company",
         "company_info",
-        "industry",
+        "ai_writer_settings",
         "industry2",
         "customer",
         "brand",
@@ -1125,7 +1125,7 @@
         "company_info": {
           "$ref": "#/definitions/mapstringstring"
         },
-        "industry": {
+        "ai_writer_settings": {
           "$ref": "#/definitions/mapstringstring"
         },
         "industry2": {
