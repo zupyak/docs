@@ -4,7 +4,7 @@
     "title": "",
     "version": ""
   },
-  "host": "zupyakapi.iir.ac.cn",
+  "host": "api-staging.zupyak.com",
   "schemes": [
     "http",
     "https"

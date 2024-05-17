@@ -4,7 +4,7 @@
     "title": "",
     "version": ""
   },
-  "host": "zupyakapi.iir.ac.cn",
+  "host": "api-staging.zupyak.com",
   "schemes": [
     "http",
     "https"
@@ -606,10 +606,6 @@
         "id": {
           "$ref": "#/definitions/uint"
         },
-        "userRole": {
-          "type": "integer",
-          "format": "int64"
-        },
         "isActivated": {
           "type": "integer",
           "format": "int64"
@@ -664,7 +660,6 @@
       "title": "UserInfo",
       "required": [
         "id",
-        "-",
         "-",
         "-",
         "username",

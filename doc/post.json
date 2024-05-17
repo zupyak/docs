@@ -4,7 +4,7 @@
     "title": "",
     "version": ""
   },
-  "host": "zupyakapi.iir.ac.cn",
+  "host": "api-staging.zupyak.com",
   "schemes": [
     "http",
     "https"
@@ -367,6 +367,52 @@
         ]
       }
     },
+    "/posts/aigc/keywordplans/{id}/export": {
+      "get": {
+        "operationId": "ExportKeywordPlanKeywords",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ExportKeywordPlanKeywordsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "saved",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "default": "v"
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "default": "desc"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
     "/posts/aigc/keywordplans/{plan_id}/group/{group_id}": {
       "get": {
         "operationId": "GetGeneratedPlanGroup",
@@ -538,6 +584,92 @@
             "required": true,
             "type": "string",
             "default": "desc"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/keywordplans/{plan_id}/group/{group_id}/subgroup/{sub_group_id}/trends": {
+      "post": {
+        "operationId": "GenerateKeywordTrend",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GenerateKeywordTrendResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "sub_group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GenerateKeywordTrendReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/keywordplans/{plan_id}/group/{group_id}/subgroup/{sub_group_id}/trends/{task_id}": {
+      "get": {
+        "operationId": "GetKeywordTrend",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetKeywordTrendResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "sub_group_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "task_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
           }
         ],
         "tags": [
@@ -1894,6 +2026,46 @@
         "id"
       ]
     },
+    "ExportKeywordPlanKeywordsReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "saved": {
+          "type": "boolean",
+          "format": "boolean",
+          "default": "false"
+        },
+        "sort": {
+          "type": "string",
+          "default": "v"
+        },
+        "order": {
+          "type": "string",
+          "default": "desc"
+        }
+      },
+      "title": "ExportKeywordPlanKeywordsReq",
+      "required": [
+        "id",
+        "saved",
+        "sort",
+        "order"
+      ]
+    },
+    "ExportKeywordPlanKeywordsResp": {
+      "type": "object",
+      "properties": {
+        "download_url": {
+          "type": "string"
+        }
+      },
+      "title": "ExportKeywordPlanKeywordsResp",
+      "required": [
+        "download_url"
+      ]
+    },
     "GenerateContentResp": {
       "type": "object",
       "properties": {
@@ -1989,6 +2161,38 @@
         "language",
         "domain_rating",
         "company_description"
+      ]
+    },
+    "GenerateKeywordTrendReq": {
+      "type": "object",
+      "properties": {
+        "plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "group_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "sub_group_id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "GenerateKeywordTrendReq",
+      "required": [
+        "plan_id",
+        "group_id",
+        "sub_group_id"
+      ]
+    },
+    "GenerateKeywordTrendResp": {
+      "type": "object",
+      "properties": {
+        "task_id": {
+          "type": "string"
+        }
+      },
+      "title": "GenerateKeywordTrendResp",
+      "required": [
+        "task_id"
       ]
     },
     "GenerateParagraphReq": {
@@ -2271,6 +2475,10 @@
           "type": "integer",
           "format": "int32"
         },
+        "num_keywords": {
+          "type": "integer",
+          "format": "int32"
+        },
         "total_volume": {
           "type": "integer",
           "format": "int64"
@@ -2296,6 +2504,7 @@
         "status",
         "text",
         "total_keywords",
+        "num_keywords",
         "total_volume",
         "avg_difficulty",
         "avg_cost",
@@ -2308,7 +2517,7 @@
         "plan": {
           "$ref": "#/definitions/GetGeneratedPlanResp"
         },
-        "total_keywords": {
+        "num_keywords": {
           "type": "integer",
           "format": "int32"
         },
@@ -2344,7 +2553,7 @@
       "title": "GetGeneratedPlanKeywordsResp",
       "required": [
         "plan",
-        "total_keywords",
+        "num_keywords",
         "total_volume",
         "avg_difficulty",
         "avg_cost",
@@ -2526,6 +2735,10 @@
           "type": "integer",
           "format": "int32"
         },
+        "num_keywords": {
+          "type": "integer",
+          "format": "int32"
+        },
         "total_volume": {
           "type": "integer",
           "format": "int64"
@@ -2551,6 +2764,7 @@
         "status",
         "text",
         "total_keywords",
+        "num_keywords",
         "total_volume",
         "avg_difficulty",
         "avg_cost",
@@ -2663,6 +2877,59 @@
         "id",
         "status",
         "content"
+      ]
+    },
+    "GetKeywordTrendReq": {
+      "type": "object",
+      "properties": {
+        "plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "group_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "sub_group_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "task_id": {
+          "type": "string"
+        }
+      },
+      "title": "GetKeywordTrendReq",
+      "required": [
+        "plan_id",
+        "group_id",
+        "sub_group_id",
+        "task_id"
+      ]
+    },
+    "GetKeywordTrendResp": {
+      "type": "object",
+      "properties": {
+        "sub_group_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "avg_trend": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/KeywordTrend"
+          }
+        }
+      },
+      "title": "GetKeywordTrendResp",
+      "required": [
+        "sub_group_id",
+        "status",
+        "avg_trend",
+        "keywords"
       ]
     },
     "GetKeywordsByUserReq": {
@@ -3446,6 +3713,10 @@
           "type": "integer",
           "format": "int32"
         },
+        "num_keywords": {
+          "type": "integer",
+          "format": "int32"
+        },
         "total_volume": {
           "type": "integer",
           "format": "int64"
@@ -3475,6 +3746,7 @@
         "status",
         "text",
         "total_keywords",
+        "num_keywords",
         "total_volume",
         "avg_difficulty",
         "avg_cost",
@@ -3499,6 +3771,10 @@
           "type": "integer",
           "format": "int32"
         },
+        "num_keywords": {
+          "type": "integer",
+          "format": "int32"
+        },
         "total_volume": {
           "type": "integer",
           "format": "int64"
@@ -3518,9 +3794,27 @@
         "status",
         "text",
         "total_keywords",
+        "num_keywords",
         "total_volume",
         "avg_difficulty",
         "avg_cost"
+      ]
+    },
+    "KeywordTrend": {
+      "type": "object",
+      "properties": {
+        "keyword": {
+          "type": "string"
+        },
+        "trend": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "KeywordTrend",
+      "required": [
+        "keyword",
+        "trend"
       ]
     },
     "LikeReq": {
@@ -4032,8 +4326,7 @@
         "friendly",
         "toned_down",
         "for_everyone",
-        "emotional",
-        "tone"
+        "emotional"
       ]
     },
     "Topic": {
@@ -4057,10 +4350,6 @@
       "properties": {
         "id": {
           "$ref": "#/definitions/uint"
-        },
-        "userRole": {
-          "type": "integer",
-          "format": "int64"
         },
         "isActivated": {
           "type": "integer",
@@ -4116,7 +4405,6 @@
       "title": "UserInfo",
       "required": [
         "id",
-        "-",
         "-",
         "-",
         "username",

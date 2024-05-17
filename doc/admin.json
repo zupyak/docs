@@ -4,7 +4,7 @@
     "title": "",
     "version": ""
   },
-  "host": "zupyakapi.iir.ac.cn",
+  "host": "api-staging.zupyak.com",
   "schemes": [
     "http",
     "https"
@@ -769,12 +769,16 @@
     "CreateSubscriptionResp": {
       "type": "object",
       "properties": {
+        "uuid": {
+          "type": "string"
+        },
         "redirect_url": {
           "type": "string"
         }
       },
       "title": "CreateSubscriptionResp",
       "required": [
+        "uuid",
         "redirect_url"
       ]
     },
@@ -1712,7 +1716,7 @@
         "email": {
           "type": "string"
         },
-        "userRole": {
+        "source": {
           "type": "integer",
           "format": "int64"
         },
@@ -1784,7 +1788,7 @@
       "required": [
         "id",
         "email",
-        "-",
+        "source",
         "-",
         "is_activated",
         "is_blocked",

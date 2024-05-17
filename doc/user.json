@@ -4,7 +4,7 @@
     "title": "用户相关操作接口",
     "version": ""
   },
-  "host": "zupyakapi.iir.ac.cn",
+  "host": "api-staging.zupyak.com",
   "schemes": [
     "http",
     "https"
@@ -720,7 +720,7 @@
         "email": {
           "type": "string"
         },
-        "userRole": {
+        "source": {
           "type": "integer",
           "format": "int64"
         },
@@ -838,7 +838,7 @@
         "hash",
         "user_type",
         "email",
-        "-",
+        "source",
         "-",
         "is_activated",
         "-",

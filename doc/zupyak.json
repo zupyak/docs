@@ -11,7 +11,7 @@
   ],
   "swagger": "2.0",
   "info": {},
-  "host": "zupyakapi.iir.ac.cn",
+  "host": "api-staging.zupyak.com",
   "paths": {
     "/admin/config/industries": {
       "get": {
@@ -1710,6 +1710,51 @@
         }
       }
     },
+    "/posts/aigc/keywordplans/{id}/export": {
+      "get": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "ExportKeywordPlanKeywords",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "boolean",
+            "format": "boolean",
+            "default": "false",
+            "name": "saved",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "default": "v",
+            "name": "sort",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "default": "desc",
+            "name": "order",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ExportKeywordPlanKeywordsResp"
+            }
+          }
+        }
+      }
+    },
     "/posts/aigc/keywordplans/{plan_id}/group/{group_id}": {
       "get": {
         "tags": [
@@ -1871,6 +1916,92 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/GetGeneratedPlanSubGroupResp"
+            }
+          }
+        }
+      }
+    },
+    "/posts/aigc/keywordplans/{plan_id}/group/{group_id}/subgroup/{sub_group_id}/trends": {
+      "post": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "GenerateKeywordTrend",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "plan_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "group_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "sub_group_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GenerateKeywordTrendReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GenerateKeywordTrendResp"
+            }
+          }
+        }
+      }
+    },
+    "/posts/aigc/keywordplans/{plan_id}/group/{group_id}/subgroup/{sub_group_id}/trends/{task_id}": {
+      "get": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "GetKeywordTrend",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "plan_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "group_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "sub_group_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "task_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetKeywordTrendResp"
             }
           }
         }
@@ -4456,10 +4587,14 @@
       "type": "object",
       "title": "CreateSubscriptionResp",
       "required": [
+        "uuid",
         "redirect_url"
       ],
       "properties": {
         "redirect_url": {
+          "type": "string"
+        },
+        "uuid": {
           "type": "string"
         }
       }
@@ -4729,6 +4864,46 @@
         }
       }
     },
+    "ExportKeywordPlanKeywordsReq": {
+      "type": "object",
+      "title": "ExportKeywordPlanKeywordsReq",
+      "required": [
+        "id",
+        "saved",
+        "sort",
+        "order"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "order": {
+          "type": "string",
+          "default": "desc"
+        },
+        "saved": {
+          "type": "boolean",
+          "format": "boolean",
+          "default": "false"
+        },
+        "sort": {
+          "type": "string",
+          "default": "v"
+        }
+      }
+    },
+    "ExportKeywordPlanKeywordsResp": {
+      "type": "object",
+      "title": "ExportKeywordPlanKeywordsResp",
+      "required": [
+        "download_url"
+      ],
+      "properties": {
+        "download_url": {
+          "type": "string"
+        }
+      }
+    },
     "FanInfo": {
       "type": "object",
       "title": "FanInfo",
@@ -4935,6 +5110,38 @@
           "type": "integer",
           "format": "int32",
           "default": "1"
+        }
+      }
+    },
+    "GenerateKeywordTrendReq": {
+      "type": "object",
+      "title": "GenerateKeywordTrendReq",
+      "required": [
+        "plan_id",
+        "group_id",
+        "sub_group_id"
+      ],
+      "properties": {
+        "group_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "sub_group_id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
+    },
+    "GenerateKeywordTrendResp": {
+      "type": "object",
+      "title": "GenerateKeywordTrendResp",
+      "required": [
+        "task_id"
+      ],
+      "properties": {
+        "task_id": {
+          "type": "string"
         }
       }
     },
@@ -5356,6 +5563,7 @@
         "status",
         "text",
         "total_keywords",
+        "num_keywords",
         "total_volume",
         "avg_difficulty",
         "avg_cost",
@@ -5372,6 +5580,10 @@
         },
         "id": {
           "$ref": "#/definitions/uint"
+        },
+        "num_keywords": {
+          "type": "integer",
+          "format": "int32"
         },
         "status": {
           "type": "integer",
@@ -5401,7 +5613,7 @@
       "title": "GetGeneratedPlanKeywordsResp",
       "required": [
         "plan",
-        "total_keywords",
+        "num_keywords",
         "total_volume",
         "avg_difficulty",
         "avg_cost",
@@ -5430,12 +5642,12 @@
             "$ref": "#/definitions/HKeyword"
           }
         },
-        "plan": {
-          "$ref": "#/definitions/GetGeneratedPlanResp"
-        },
-        "total_keywords": {
+        "num_keywords": {
           "type": "integer",
           "format": "int32"
+        },
+        "plan": {
+          "$ref": "#/definitions/GetGeneratedPlanResp"
         },
         "total_volume": {
           "type": "integer",
@@ -5611,6 +5823,7 @@
         "status",
         "text",
         "total_keywords",
+        "num_keywords",
         "total_volume",
         "avg_difficulty",
         "avg_cost",
@@ -5633,6 +5846,10 @@
           "items": {
             "$ref": "#/definitions/RelatedKeyword"
           }
+        },
+        "num_keywords": {
+          "type": "integer",
+          "format": "int32"
         },
         "status": {
           "type": "integer",
@@ -5861,6 +6078,59 @@
         "size": {
           "type": "integer",
           "format": "int32"
+        }
+      }
+    },
+    "GetKeywordTrendReq": {
+      "type": "object",
+      "title": "GetKeywordTrendReq",
+      "required": [
+        "plan_id",
+        "group_id",
+        "sub_group_id",
+        "task_id"
+      ],
+      "properties": {
+        "group_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "sub_group_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "task_id": {
+          "type": "string"
+        }
+      }
+    },
+    "GetKeywordTrendResp": {
+      "type": "object",
+      "title": "GetKeywordTrendResp",
+      "required": [
+        "sub_group_id",
+        "status",
+        "avg_trend",
+        "keywords"
+      ],
+      "properties": {
+        "avg_trend": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/KeywordTrend"
+          }
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sub_group_id": {
+          "$ref": "#/definitions/uint"
         }
       }
     },
@@ -6873,7 +7143,7 @@
         "hash",
         "user_type",
         "email",
-        "-",
+        "source",
         "-",
         "is_activated",
         "-",
@@ -7013,12 +7283,12 @@
         "session": {
           "type": "string"
         },
-        "twitter": {
-          "type": "string"
-        },
-        "userRole": {
+        "source": {
           "type": "integer",
           "format": "int64"
+        },
+        "twitter": {
+          "type": "string"
         },
         "user_type": {
           "type": "integer",
@@ -7500,6 +7770,7 @@
         "status",
         "text",
         "total_keywords",
+        "num_keywords",
         "total_volume",
         "avg_difficulty",
         "avg_cost",
@@ -7517,6 +7788,10 @@
         },
         "id": {
           "$ref": "#/definitions/uint"
+        },
+        "num_keywords": {
+          "type": "integer",
+          "format": "int32"
         },
         "saved": {
           "type": "integer",
@@ -7553,6 +7828,7 @@
         "status",
         "text",
         "total_keywords",
+        "num_keywords",
         "total_volume",
         "avg_difficulty",
         "avg_cost"
@@ -7569,6 +7845,10 @@
         "id": {
           "$ref": "#/definitions/uint"
         },
+        "num_keywords": {
+          "type": "integer",
+          "format": "int32"
+        },
         "status": {
           "type": "integer",
           "format": "int32"
@@ -7583,6 +7863,23 @@
         "total_volume": {
           "type": "integer",
           "format": "int64"
+        }
+      }
+    },
+    "KeywordTrend": {
+      "type": "object",
+      "title": "KeywordTrend",
+      "required": [
+        "keyword",
+        "trend"
+      ],
+      "properties": {
+        "keyword": {
+          "type": "string"
+        },
+        "trend": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -8896,8 +9193,7 @@
         "friendly",
         "toned_down",
         "for_everyone",
-        "emotional",
-        "tone"
+        "emotional"
       ],
       "properties": {
         "emotional": {
@@ -9285,7 +9581,7 @@
       "required": [
         "id",
         "email",
-        "-",
+        "source",
         "-",
         "is_activated",
         "is_blocked",
@@ -9368,12 +9664,12 @@
         "location": {
           "type": "string"
         },
-        "twitter": {
-          "type": "string"
-        },
-        "userRole": {
+        "source": {
           "type": "integer",
           "format": "int64"
+        },
+        "twitter": {
+          "type": "string"
         },
         "username": {
           "type": "string"
