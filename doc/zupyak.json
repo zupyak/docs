@@ -2039,6 +2039,76 @@
         }
       }
     },
+    "/posts/aigc/keywordplans/{plan_id}/groups/{group_id}/retrievekeywords": {
+      "post": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "retrieveKeywordForGroup",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "plan_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "group_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RetrieveKeywordForGroupReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GenerateContentResp"
+            }
+          }
+        }
+      }
+    },
+    "/posts/aigc/keywordplans/{plan_id}/retrievekeywords": {
+      "post": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "retrieveKeywordForPlan",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "plan_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RetrieveKeywordForPlanReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GenerateContentResp"
+            }
+          }
+        }
+      }
+    },
     "/posts/aigc/keywordplans/{plan_id}/savedkeywords": {
       "get": {
         "tags": [
@@ -3104,6 +3174,60 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/DeletePostResp"
+            }
+          }
+        }
+      }
+    },
+    "/posts/{id}/extra": {
+      "get": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "getPostExtra",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/PostExtra"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "updatePostExtra",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PostExtra"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreatePostResp"
             }
           }
         }
@@ -8111,6 +8235,18 @@
         }
       }
     },
+    "PostExtra": {
+      "type": "object",
+      "title": "PostExtra",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "seo_keywords": {
+          "$ref": "#/definitions/SeoKeywords"
+        }
+      }
+    },
     "PostFans": {
       "type": "object",
       "title": "PostFans",
@@ -8628,6 +8764,34 @@
       "type": "object",
       "title": "ResetPassResp"
     },
+    "RetrieveKeywordForGroupReq": {
+      "type": "object",
+      "title": "RetrieveKeywordForGroupReq",
+      "required": [
+        "plan_id",
+        "group_id"
+      ],
+      "properties": {
+        "group_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "plan_id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
+    },
+    "RetrieveKeywordForPlanReq": {
+      "type": "object",
+      "title": "RetrieveKeywordForPlanReq",
+      "required": [
+        "plan_id"
+      ],
+      "properties": {
+        "plan_id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
+    },
     "SaveKeyword": {
       "type": "object",
       "title": "SaveKeyword",
@@ -8934,6 +9098,49 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/UserInfo"
+          }
+        }
+      }
+    },
+    "SeoKeyword": {
+      "type": "object",
+      "title": "SeoKeyword",
+      "required": [
+        "keyword",
+        "search_volume",
+        "difficulty",
+        "cost"
+      ],
+      "properties": {
+        "cost": {
+          "type": "number",
+          "format": "double",
+          "default": "0"
+        },
+        "difficulty": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keyword": {
+          "type": "string"
+        },
+        "search_volume": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "SeoKeywords": {
+      "type": "object",
+      "title": "SeoKeywords",
+      "properties": {
+        "primary": {
+          "$ref": "#/definitions/SeoKeyword"
+        },
+        "secondary": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SeoKeyword"
           }
         }
       }
