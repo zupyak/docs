@@ -772,6 +772,15 @@
         "uuid": {
           "type": "string"
         },
+        "user_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "from_plan": {
+          "$ref": "#/definitions/Plan"
+        },
+        "to_plan": {
+          "$ref": "#/definitions/Plan"
+        },
         "redirect_url": {
           "type": "string"
         }
@@ -779,6 +788,9 @@
       "title": "CreateSubscriptionResp",
       "required": [
         "uuid",
+        "user_id",
+        "from_plan",
+        "to_plan",
         "redirect_url"
       ]
     },

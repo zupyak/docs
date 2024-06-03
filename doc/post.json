@@ -68,6 +68,72 @@
         ]
       }
     },
+    "/posts/aigc/briefs": {
+      "post": {
+        "operationId": "generateBrief",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GenerateContentResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GenerateBriefReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/briefs/{id}": {
+      "get": {
+        "operationId": "getGeneratedBriefs",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetGeneratedBriefResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/files": {
+      "post": {
+        "operationId": "uploadFile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UploadFileResp"
+            }
+          }
+        },
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
     "/posts/aigc/ideas": {
       "post": {
         "operationId": "suggestIdea",
@@ -1987,6 +2053,22 @@
         "type"
       ]
     },
+    "Brief": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "brief": {
+          "type": "string"
+        }
+      },
+      "title": "Brief",
+      "required": [
+        "title",
+        "brief"
+      ]
+    },
     "CheckLikeExistReq": {
       "type": "object",
       "properties": {
@@ -2190,6 +2272,29 @@
         "download_url"
       ]
     },
+    "GenerateBriefReq": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "file_id": {
+          "type": "string"
+        },
+        "file_name": {
+          "type": "string"
+        },
+        "keyword": {
+          "type": "string"
+        }
+      },
+      "title": "GenerateBriefReq",
+      "required": [
+        "type",
+        "file_id",
+        "file_name"
+      ]
+    },
     "GenerateContentResp": {
       "type": "object",
       "properties": {
@@ -2252,6 +2357,9 @@
         "title": {
           "type": "string"
         },
+        "website": {
+          "type": "string"
+        },
         "type": {
           "type": "integer",
           "format": "int32",
@@ -2280,6 +2388,7 @@
       "title": "GenerateKeywordPlanReq",
       "required": [
         "title",
+        "website",
         "type",
         "region",
         "language",
@@ -2349,6 +2458,9 @@
           "type": "string"
         },
         "topic": {
+          "type": "string"
+        },
+        "brief": {
           "type": "string"
         },
         "audience": {
@@ -2453,6 +2565,30 @@
         }
       },
       "title": "GetFeaturedPostsReq"
+    },
+    "GetGeneratedBriefResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "briefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Brief"
+          }
+        }
+      },
+      "title": "GetGeneratedBriefResp",
+      "required": [
+        "id",
+        "status",
+        "briefs"
+      ]
     },
     "GetGeneratedContentReq": {
       "type": "object",
@@ -4417,6 +4553,9 @@
         "topic": {
           "type": "string"
         },
+        "brief": {
+          "type": "string"
+        },
         "language": {
           "type": "string"
         },
@@ -4553,6 +4692,22 @@
       "required": [
         "id",
         "text"
+      ]
+    },
+    "UploadFileResp": {
+      "type": "object",
+      "properties": {
+        "file_id": {
+          "type": "string"
+        },
+        "file_name": {
+          "type": "string"
+        }
+      },
+      "title": "UploadFileResp",
+      "required": [
+        "file_id",
+        "file_name"
       ]
     },
     "UserInfo": {

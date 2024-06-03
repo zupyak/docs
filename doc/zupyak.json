@@ -1419,6 +1419,72 @@
         }
       }
     },
+    "/posts/aigc/briefs": {
+      "post": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "generateBrief",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GenerateBriefReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GenerateContentResp"
+            }
+          }
+        }
+      }
+    },
+    "/posts/aigc/briefs/{id}": {
+      "get": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "getGeneratedBriefs",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetGeneratedBriefResp"
+            }
+          }
+        }
+      }
+    },
+    "/posts/aigc/files": {
+      "post": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "uploadFile",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UploadFileResp"
+            }
+          }
+        }
+      }
+    },
     "/posts/aigc/ideas": {
       "post": {
         "tags": [
@@ -4468,6 +4534,22 @@
         }
       }
     },
+    "Brief": {
+      "type": "object",
+      "title": "Brief",
+      "required": [
+        "title",
+        "brief"
+      ],
+      "properties": {
+        "brief": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
     "BusinessCategory": {
       "type": "object",
       "title": "BusinessCategory",
@@ -4712,11 +4794,23 @@
       "title": "CreateSubscriptionResp",
       "required": [
         "uuid",
+        "user_id",
+        "from_plan",
+        "to_plan",
         "redirect_url"
       ],
       "properties": {
+        "from_plan": {
+          "$ref": "#/definitions/Plan"
+        },
         "redirect_url": {
           "type": "string"
+        },
+        "to_plan": {
+          "$ref": "#/definitions/Plan"
+        },
+        "user_id": {
+          "$ref": "#/definitions/uint"
         },
         "uuid": {
           "type": "string"
@@ -5140,6 +5234,29 @@
       "type": "object",
       "title": "ForgotPassResp"
     },
+    "GenerateBriefReq": {
+      "type": "object",
+      "title": "GenerateBriefReq",
+      "required": [
+        "type",
+        "file_id",
+        "file_name"
+      ],
+      "properties": {
+        "file_id": {
+          "type": "string"
+        },
+        "file_name": {
+          "type": "string"
+        },
+        "keyword": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
     "GenerateContentResp": {
       "type": "object",
       "title": "GenerateContentResp",
@@ -5201,6 +5318,7 @@
       "title": "GenerateKeywordPlanReq",
       "required": [
         "title",
+        "website",
         "type",
         "region",
         "language",
@@ -5234,6 +5352,9 @@
           "type": "integer",
           "format": "int32",
           "default": "1"
+        },
+        "website": {
+          "type": "string"
         }
       }
     },
@@ -5303,6 +5424,9 @@
       ],
       "properties": {
         "audience": {
+          "type": "string"
+        },
+        "brief": {
           "type": "string"
         },
         "custom_instruction": {
@@ -5548,6 +5672,30 @@
           "items": {
             "$ref": "#/definitions/GetUserResp"
           }
+        }
+      }
+    },
+    "GetGeneratedBriefResp": {
+      "type": "object",
+      "title": "GetGeneratedBriefResp",
+      "required": [
+        "id",
+        "status",
+        "briefs"
+      ],
+      "properties": {
+        "briefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Brief"
+          }
+        },
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -9300,6 +9448,9 @@
         "language"
       ],
       "properties": {
+        "brief": {
+          "type": "string"
+        },
         "exclude": {
           "type": "array",
           "items": {
@@ -9740,6 +9891,22 @@
         "id": {
           "type": "integer",
           "format": "int64"
+        }
+      }
+    },
+    "UploadFileResp": {
+      "type": "object",
+      "title": "UploadFileResp",
+      "required": [
+        "file_id",
+        "file_name"
+      ],
+      "properties": {
+        "file_id": {
+          "type": "string"
+        },
+        "file_name": {
+          "type": "string"
         }
       }
     },
