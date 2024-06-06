@@ -5240,7 +5240,8 @@
       "required": [
         "type",
         "file_id",
-        "file_name"
+        "file_name",
+        "language"
       ],
       "properties": {
         "file_id": {
@@ -5251,6 +5252,12 @@
         },
         "keyword": {
           "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "tonality": {
+          "$ref": "#/definitions/Tonality"
         },
         "type": {
           "type": "string"

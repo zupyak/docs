@@ -2284,15 +2284,22 @@
         "file_name": {
           "type": "string"
         },
+        "language": {
+          "type": "string"
+        },
         "keyword": {
           "type": "string"
+        },
+        "tonality": {
+          "$ref": "#/definitions/Tonality"
         }
       },
       "title": "GenerateBriefReq",
       "required": [
         "type",
         "file_id",
-        "file_name"
+        "file_name",
+        "language"
       ]
     },
     "GenerateContentResp": {
