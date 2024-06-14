@@ -5239,12 +5239,13 @@
       "title": "GenerateBriefReq",
       "required": [
         "type",
-        "file_id",
-        "file_name",
         "language"
       ],
       "properties": {
         "file_id": {
+          "type": "string"
+        },
+        "file_instructions": {
           "type": "string"
         },
         "file_name": {
@@ -5258,6 +5259,9 @@
         },
         "tonality": {
           "$ref": "#/definitions/Tonality"
+        },
+        "topic": {
+          "type": "string"
         },
         "type": {
           "type": "string"
@@ -5437,6 +5441,15 @@
           "type": "string"
         },
         "custom_instruction": {
+          "type": "string"
+        },
+        "file_id": {
+          "type": "string"
+        },
+        "file_instructions": {
+          "type": "string"
+        },
+        "file_name": {
           "type": "string"
         },
         "keywords": {

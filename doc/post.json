@@ -2284,7 +2284,13 @@
         "file_name": {
           "type": "string"
         },
+        "file_instructions": {
+          "type": "string"
+        },
         "language": {
+          "type": "string"
+        },
+        "topic": {
           "type": "string"
         },
         "keyword": {
@@ -2297,8 +2303,6 @@
       "title": "GenerateBriefReq",
       "required": [
         "type",
-        "file_id",
-        "file_name",
         "language"
       ]
     },
@@ -2468,6 +2472,15 @@
           "type": "string"
         },
         "brief": {
+          "type": "string"
+        },
+        "file_id": {
+          "type": "string"
+        },
+        "file_name": {
+          "type": "string"
+        },
+        "file_instructions": {
           "type": "string"
         },
         "audience": {
