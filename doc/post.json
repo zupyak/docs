@@ -988,6 +988,62 @@
         ]
       }
     },
+    "/posts/aigc/keywordtranslations": {
+      "post": {
+        "operationId": "translateKeywords",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GenerateContentResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TranslateKeywordsReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/keywordtranslations/{id}": {
+      "get": {
+        "operationId": "getKeywordTranslations",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetKeywordTranslationsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
     "/posts/aigc/mindmaps": {
       "post": {
         "operationId": "suggestMindMap",
@@ -1078,6 +1134,56 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/GetGeneratedParagraphResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/posttranslations": {
+      "post": {
+        "operationId": "translatePost",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GenerateContentResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TranslatePostReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/posttranslations/{id}": {
+      "get": {
+        "operationId": "getPostTranslations",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetPostTranslationsResp"
             }
           }
         },
@@ -3159,6 +3265,27 @@
         "content"
       ]
     },
+    "GetKeywordTranslationsResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "keywords": {
+          "$ref": "#/definitions/mapstring[]Translation"
+        }
+      },
+      "title": "GetKeywordTranslationsResp",
+      "required": [
+        "id",
+        "status",
+        "keywords"
+      ]
+    },
     "GetKeywordTrendReq": {
       "type": "object",
       "properties": {
@@ -3272,6 +3399,27 @@
       "title": "GetPostReq",
       "required": [
         "id"
+      ]
+    },
+    "GetPostTranslationsResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "post_id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "GetPostTranslationsResp",
+      "required": [
+        "id",
+        "status",
+        "post_id"
       ]
     },
     "GetPostsByUserReq": {
@@ -4712,6 +4860,72 @@
       "required": [
         "id",
         "text"
+      ]
+    },
+    "TranslateKeywordsReq": {
+      "type": "object",
+      "properties": {
+        "language": {
+          "type": "string"
+        },
+        "primary": {
+          "type": "string"
+        },
+        "secondary": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "TranslateKeywordsReq",
+      "required": [
+        "language",
+        "primary",
+        "secondary"
+      ]
+    },
+    "TranslatePostReq": {
+      "type": "object",
+      "properties": {
+        "post_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "seo_keywords": {
+          "$ref": "#/definitions/SeoKeywords"
+        }
+      },
+      "title": "TranslatePostReq",
+      "required": [
+        "title",
+        "content",
+        "language",
+        "seo_keywords"
+      ]
+    },
+    "Translation": {
+      "type": "object",
+      "properties": {
+        "keyword": {
+          "$ref": "#/definitions/SeoKeyword"
+        },
+        "reword": {
+          "type": "string"
+        }
+      },
+      "title": "Translation",
+      "required": [
+        "keyword",
+        "reword"
       ]
     },
     "UploadFileResp": {

@@ -2311,6 +2311,62 @@
         }
       }
     },
+    "/posts/aigc/keywordtranslations": {
+      "post": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "translateKeywords",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TranslateKeywordsReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GenerateContentResp"
+            }
+          }
+        }
+      }
+    },
+    "/posts/aigc/keywordtranslations/{id}": {
+      "get": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "getKeywordTranslations",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "region",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetKeywordTranslationsResp"
+            }
+          }
+        }
+      }
+    },
     "/posts/aigc/mindmaps": {
       "post": {
         "tags": [
@@ -2412,6 +2468,56 @@
             "description": "A successful response.",
             "schema": {
               "$ref": "#/definitions/GetGeneratedParagraphResp"
+            }
+          }
+        }
+      }
+    },
+    "/posts/aigc/posttranslations": {
+      "post": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "translatePost",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TranslatePostReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GenerateContentResp"
+            }
+          }
+        }
+      }
+    },
+    "/posts/aigc/posttranslations/{id}": {
+      "get": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "getPostTranslations",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetPostTranslationsResp"
             }
           }
         }
@@ -6373,6 +6479,27 @@
         }
       }
     },
+    "GetKeywordTranslationsResp": {
+      "type": "object",
+      "title": "GetKeywordTranslationsResp",
+      "required": [
+        "id",
+        "status",
+        "keywords"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "keywords": {
+          "$ref": "#/definitions/mapstring%5B%5DTranslation"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
     "GetKeywordTrendReq": {
       "type": "object",
       "title": "GetKeywordTrendReq",
@@ -6782,6 +6909,27 @@
       "properties": {
         "id": {
           "$ref": "#/definitions/uint"
+        }
+      }
+    },
+    "GetPostTranslationsResp": {
+      "type": "object",
+      "title": "GetPostTranslationsResp",
+      "required": [
+        "id",
+        "status",
+        "post_id"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "post_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -9607,6 +9755,72 @@
           "$ref": "#/definitions/uint"
         },
         "text": {
+          "type": "string"
+        }
+      }
+    },
+    "TranslateKeywordsReq": {
+      "type": "object",
+      "title": "TranslateKeywordsReq",
+      "required": [
+        "language",
+        "primary",
+        "secondary"
+      ],
+      "properties": {
+        "language": {
+          "type": "string"
+        },
+        "primary": {
+          "type": "string"
+        },
+        "secondary": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "TranslatePostReq": {
+      "type": "object",
+      "title": "TranslatePostReq",
+      "required": [
+        "title",
+        "content",
+        "language",
+        "seo_keywords"
+      ],
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "post_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "seo_keywords": {
+          "$ref": "#/definitions/SeoKeywords"
+        },
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "Translation": {
+      "type": "object",
+      "title": "Translation",
+      "required": [
+        "keyword",
+        "reword"
+      ],
+      "properties": {
+        "keyword": {
+          "$ref": "#/definitions/SeoKeyword"
+        },
+        "reword": {
           "type": "string"
         }
       }
