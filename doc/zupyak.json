@@ -5537,7 +5537,8 @@
         "type",
         "topic",
         "keywords",
-        "length"
+        "length",
+        "src"
       ],
       "properties": {
         "audience": {
@@ -5571,6 +5572,10 @@
           "type": "integer",
           "format": "int32",
           "default": "0"
+        },
+        "src": {
+          "type": "string",
+          "default": "AIWRITER"
         },
         "tonality": {
           "$ref": "#/definitions/Tonality"

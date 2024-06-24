@@ -2611,6 +2611,10 @@
         },
         "tonality": {
           "$ref": "#/definitions/Tonality"
+        },
+        "src": {
+          "type": "string",
+          "default": "AIWRITER"
         }
       },
       "title": "GeneratePostReq",
@@ -2618,7 +2622,8 @@
         "type",
         "topic",
         "keywords",
-        "length"
+        "length",
+        "src"
       ]
     },
     "GenerateSummaryReq": {
