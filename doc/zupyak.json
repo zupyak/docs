@@ -1475,6 +1475,16 @@
           "post-api"
         ],
         "operationId": "uploadFile",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UploadFileReq"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -10130,6 +10140,18 @@
         "id": {
           "type": "integer",
           "format": "int64"
+        }
+      }
+    },
+    "UploadFileReq": {
+      "type": "object",
+      "title": "UploadFileReq",
+      "required": [
+        "url"
+      ],
+      "properties": {
+        "url": {
+          "type": "string"
         }
       }
     },

@@ -129,6 +129,16 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UploadFileReq"
+            }
+          }
+        ],
         "tags": [
           "post-api"
         ]
@@ -4931,6 +4941,18 @@
       "required": [
         "keyword",
         "reword"
+      ]
+    },
+    "UploadFileReq": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      },
+      "title": "UploadFileReq",
+      "required": [
+        "url"
       ]
     },
     "UploadFileResp": {
