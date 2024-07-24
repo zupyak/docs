@@ -129,16 +129,6 @@
             }
           }
         },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/UploadFileReq"
-            }
-          }
-        ],
         "tags": [
           "post-api"
         ]
@@ -2414,12 +2404,17 @@
         },
         "tonality": {
           "$ref": "#/definitions/Tonality"
+        },
+        "src": {
+          "type": "string",
+          "default": "AIWRITER"
         }
       },
       "title": "GenerateBriefReq",
       "required": [
         "type",
-        "language"
+        "language",
+        "src"
       ]
     },
     "GenerateContentResp": {
@@ -4747,11 +4742,16 @@
           "items": {
             "type": "string"
           }
+        },
+        "src": {
+          "type": "string",
+          "default": "AIWRITER"
         }
       },
       "title": "SuggestKeywordReq",
       "required": [
-        "language"
+        "language",
+        "src"
       ]
     },
     "SuggestMindMapReq": {
@@ -4941,18 +4941,6 @@
       "required": [
         "keyword",
         "reword"
-      ]
-    },
-    "UploadFileReq": {
-      "type": "object",
-      "properties": {
-        "url": {
-          "type": "string"
-        }
-      },
-      "title": "UploadFileReq",
-      "required": [
-        "url"
       ]
     },
     "UploadFileResp": {

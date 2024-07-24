@@ -1475,16 +1475,6 @@
           "post-api"
         ],
         "operationId": "uploadFile",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/UploadFileReq"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -5355,7 +5345,8 @@
       "title": "GenerateBriefReq",
       "required": [
         "type",
-        "language"
+        "language",
+        "src"
       ],
       "properties": {
         "file_id": {
@@ -5372,6 +5363,10 @@
         },
         "language": {
           "type": "string"
+        },
+        "src": {
+          "type": "string",
+          "default": "AIWRITER"
         },
         "tonality": {
           "$ref": "#/definitions/Tonality"
@@ -9628,7 +9623,8 @@
       "type": "object",
       "title": "SuggestKeywordReq",
       "required": [
-        "language"
+        "language",
+        "src"
       ],
       "properties": {
         "brief": {
@@ -9642,6 +9638,10 @@
         },
         "language": {
           "type": "string"
+        },
+        "src": {
+          "type": "string",
+          "default": "AIWRITER"
         },
         "topic": {
           "type": "string"
@@ -10140,18 +10140,6 @@
         "id": {
           "type": "integer",
           "format": "int64"
-        }
-      }
-    },
-    "UploadFileReq": {
-      "type": "object",
-      "title": "UploadFileReq",
-      "required": [
-        "url"
-      ],
-      "properties": {
-        "url": {
-          "type": "string"
         }
       }
     },
