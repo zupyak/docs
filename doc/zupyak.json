@@ -1475,6 +1475,16 @@
           "post-api"
         ],
         "operationId": "uploadFile",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UploadFileReq"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "A successful response.",
@@ -4767,6 +4777,24 @@
         }
       }
     },
+    "Coupon": {
+      "type": "object",
+      "title": "Coupon",
+      "required": [
+        "applied",
+        "duration_in_months"
+      ],
+      "properties": {
+        "applied": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "duration_in_months": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
     "CreateIndustryReq": {
       "type": "object",
       "title": "CreateIndustryReq",
@@ -7271,6 +7299,7 @@
         "uuid",
         "user_id",
         "plan",
+        "coupon",
         "status",
         "closed_at",
         "redirect_url"
@@ -7279,6 +7308,9 @@
         "closed_at": {
           "type": "integer",
           "format": "int64"
+        },
+        "coupon": {
+          "$ref": "#/definitions/Coupon"
         },
         "plan": {
           "$ref": "#/definitions/Plan"
@@ -10140,6 +10172,23 @@
         "id": {
           "type": "integer",
           "format": "int64"
+        }
+      }
+    },
+    "UploadFileReq": {
+      "type": "object",
+      "title": "UploadFileReq",
+      "required": [
+        "url",
+        "src"
+      ],
+      "properties": {
+        "src": {
+          "type": "string",
+          "default": "AIWRITER"
+        },
+        "url": {
+          "type": "string"
         }
       }
     },

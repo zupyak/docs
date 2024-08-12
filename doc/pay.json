@@ -399,6 +399,24 @@
         "redirect_url"
       ]
     },
+    "Coupon": {
+      "type": "object",
+      "properties": {
+        "applied": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "duration_in_months": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Coupon",
+      "required": [
+        "applied",
+        "duration_in_months"
+      ]
+    },
     "CreateOrderReq": {
       "type": "object",
       "properties": {
@@ -719,6 +737,9 @@
         "plan": {
           "$ref": "#/definitions/Plan"
         },
+        "coupon": {
+          "$ref": "#/definitions/Coupon"
+        },
         "status": {
           "type": "integer",
           "format": "int32"
@@ -736,6 +757,7 @@
         "uuid",
         "user_id",
         "plan",
+        "coupon",
         "status",
         "closed_at",
         "redirect_url"
