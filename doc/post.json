@@ -118,6 +118,525 @@
         ]
       }
     },
+    "/posts/aigc/contentplans": {
+      "get": {
+        "operationId": "getContentPlans",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetContentPlansResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": true,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "archived",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "format": "boolean"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      },
+      "post": {
+        "operationId": "createContentPlan",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ContentPlan"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateContentPlanReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/contentplans/{id}": {
+      "get": {
+        "operationId": "getContentPlan",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ContentPlan"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      },
+      "put": {
+        "operationId": "updateContentPlan",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ContentPlan"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateContentPlanReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/contentplans/{id}/start": {
+      "post": {
+        "operationId": "startContentPlan",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/StartContentPlanResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StartContentPlanReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/contentplans/{plan_id}/clusters": {
+      "get": {
+        "operationId": "getContentPlanClusters",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetContentPlanClustersResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/contentplans/{plan_id}/clusters/{cluster_id}/topics": {
+      "get": {
+        "operationId": "getContentPlanTopics",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetContentPlanTopicsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cluster_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "default": "v"
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "default": "desc"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/contentplans/{plan_id}/clusters/{cluster_id}/topics/{topic_id}": {
+      "put": {
+        "operationId": "updateContentPlanTopic",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateContentPlanTopicResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cluster_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "topic_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateContentPlanTopicReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/contentplans/{plan_id}/clusters/{cluster_id}/topics/{topic_id}/keywords": {
+      "get": {
+        "operationId": "getContentPlanKeywords",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetContentPlanKeywordsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cluster_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "topic_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/contentplans/{plan_id}/clusters/{cluster_id}/topics/{topic_id}/keywords/{keyword_id}": {
+      "put": {
+        "operationId": "updateContentPlanKeyword",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateContentPlanKeywordResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cluster_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "topic_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "keyword_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateContentPlanKeywordReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/contentplans/{plan_id}/clusters/{cluster_id}/topics/{topic_id}/keywords/{keyword_id}/urls": {
+      "get": {
+        "operationId": "getContentPlanRankingURLs",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetContentPlanRankingURLsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cluster_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "topic_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "keyword_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/contentplans/{plan_id}/topics": {
+      "get": {
+        "operationId": "getContentPlanDeprioritizedTopics",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetContentPlanTopicsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "default": "v"
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "default": "desc"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/domaininfo": {
+      "post": {
+        "operationId": "createDomainInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainInfo"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateDomainInfoReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/domaininfo/{id}": {
+      "get": {
+        "operationId": "getDomainInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DomainInfo"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
     "/posts/aigc/files": {
       "post": {
         "operationId": "uploadFile",
@@ -2216,6 +2735,316 @@
         "exists"
       ]
     },
+    "ContentPlan": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        },
+        "market": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "website": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "competitors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "strength": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "company_description": {
+          "type": "string"
+        },
+        "products": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "topic_count": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "covered_topic_count": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "total_volume": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "covered_volume": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ContentPlan",
+      "required": [
+        "id",
+        "status",
+        "name",
+        "market",
+        "language",
+        "website",
+        "keywords",
+        "competitors",
+        "strength",
+        "company_description",
+        "products",
+        "created_at",
+        "updated_at",
+        "topic_count",
+        "covered_topic_count",
+        "total_volume",
+        "covered_volume"
+      ]
+    },
+    "ContentPlanCluster": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "content_plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        },
+        "num_keywords": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "total_volume": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "avg_difficulty": {
+          "type": "number",
+          "format": "double"
+        },
+        "avg_cost": {
+          "type": "number",
+          "format": "double"
+        },
+        "topic_count": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "covered_topic_count": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "covered_volume": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ContentPlanCluster",
+      "required": [
+        "id",
+        "content_plan_id",
+        "type",
+        "name",
+        "num_keywords",
+        "total_volume",
+        "avg_difficulty",
+        "avg_cost",
+        "topic_count",
+        "covered_topic_count",
+        "covered_volume"
+      ]
+    },
+    "ContentPlanKeyword": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "content_plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "cluster_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "topic_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        },
+        "deselected": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "region_queries_count": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "difficulty": {
+          "type": "number",
+          "format": "double"
+        },
+        "cost": {
+          "type": "number",
+          "format": "double"
+        },
+        "ranking": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "ContentPlanKeyword",
+      "required": [
+        "id",
+        "content_plan_id",
+        "cluster_id",
+        "topic_id",
+        "type",
+        "name",
+        "deselected",
+        "region_queries_count",
+        "difficulty",
+        "cost",
+        "ranking"
+      ]
+    },
+    "ContentPlanTopic": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "content_plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "cluster_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "cluster_name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        },
+        "ranking": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "deprioritized": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "num_keywords": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "total_volume": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "avg_difficulty": {
+          "type": "number",
+          "format": "double"
+        },
+        "avg_cost": {
+          "type": "number",
+          "format": "double"
+        }
+      },
+      "title": "ContentPlanTopic",
+      "required": [
+        "id",
+        "content_plan_id",
+        "cluster_id",
+        "cluster_name",
+        "type",
+        "name",
+        "ranking",
+        "deprioritized",
+        "num_keywords",
+        "total_volume",
+        "avg_difficulty",
+        "avg_cost"
+      ]
+    },
+    "CreateContentPlanReq": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "market": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        }
+      },
+      "title": "CreateContentPlanReq",
+      "required": [
+        "name",
+        "market",
+        "language"
+      ]
+    },
+    "CreateDomainInfoReq": {
+      "type": "object",
+      "properties": {
+        "website": {
+          "type": "string"
+        },
+        "market": {
+          "type": "string"
+        }
+      },
+      "title": "CreateDomainInfoReq",
+      "required": [
+        "website",
+        "market"
+      ]
+    },
     "CreatePostResp": {
       "type": "object",
       "properties": {
@@ -2346,6 +3175,52 @@
       "title": "DeleteTopicResp",
       "required": [
         "id"
+      ]
+    },
+    "DomainInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "website": {
+          "type": "string"
+        },
+        "market": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "strength": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "traffic": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "competitors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "DomainInfo",
+      "required": [
+        "id",
+        "status",
+        "website",
+        "market",
+        "description",
+        "strength",
+        "traffic",
+        "competitors"
       ]
     },
     "ExportKeywordPlanKeywordsReq": {
@@ -2665,6 +3540,282 @@
         "content",
         "language",
         "type"
+      ]
+    },
+    "GetContentPlanClustersReq": {
+      "type": "object",
+      "properties": {
+        "plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "GetContentPlanClustersReq",
+      "required": [
+        "plan_id"
+      ]
+    },
+    "GetContentPlanClustersResp": {
+      "type": "object",
+      "properties": {
+        "clusters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ContentPlanCluster"
+          }
+        }
+      },
+      "title": "GetContentPlanClustersResp",
+      "required": [
+        "clusters"
+      ]
+    },
+    "GetContentPlanDeprioritizedTopicsReq": {
+      "type": "object",
+      "properties": {
+        "plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sort": {
+          "type": "string",
+          "default": "v"
+        },
+        "order": {
+          "type": "string",
+          "default": "desc"
+        }
+      },
+      "title": "GetContentPlanDeprioritizedTopicsReq",
+      "required": [
+        "plan_id",
+        "sort",
+        "order"
+      ]
+    },
+    "GetContentPlanKeywordsReq": {
+      "type": "object",
+      "properties": {
+        "plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "cluster_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "topic_id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "GetContentPlanKeywordsReq",
+      "required": [
+        "plan_id",
+        "cluster_id",
+        "topic_id"
+      ]
+    },
+    "GetContentPlanKeywordsResp": {
+      "type": "object",
+      "properties": {
+        "keywords": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ContentPlanKeyword"
+          }
+        }
+      },
+      "title": "GetContentPlanKeywordsResp",
+      "required": [
+        "keywords"
+      ]
+    },
+    "GetContentPlanRankingURLsReq": {
+      "type": "object",
+      "properties": {
+        "plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "cluster_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "topic_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "keyword_id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "GetContentPlanRankingURLsReq",
+      "required": [
+        "plan_id",
+        "cluster_id",
+        "topic_id",
+        "keyword_id"
+      ]
+    },
+    "GetContentPlanRankingURLsResp": {
+      "type": "object",
+      "properties": {
+        "ranking_urls": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RankingURL"
+          }
+        }
+      },
+      "title": "GetContentPlanRankingURLsResp",
+      "required": [
+        "ranking_urls"
+      ]
+    },
+    "GetContentPlanReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "GetContentPlanReq",
+      "required": [
+        "id"
+      ]
+    },
+    "GetContentPlanTopicsReq": {
+      "type": "object",
+      "properties": {
+        "plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "cluster_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sort": {
+          "type": "string",
+          "default": "v"
+        },
+        "order": {
+          "type": "string",
+          "default": "desc"
+        }
+      },
+      "title": "GetContentPlanTopicsReq",
+      "required": [
+        "plan_id",
+        "sort",
+        "order"
+      ]
+    },
+    "GetContentPlanTopicsResp": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "topics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ContentPlanTopic"
+          }
+        }
+      },
+      "title": "GetContentPlanTopicsResp",
+      "required": [
+        "count",
+        "from",
+        "size",
+        "topics"
+      ]
+    },
+    "GetContentPlansReq": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "archived": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "GetContentPlansReq",
+      "required": [
+        "user_id"
+      ]
+    },
+    "GetContentPlansResp": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "plans": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ContentPlan"
+          }
+        }
+      },
+      "title": "GetContentPlansResp",
+      "required": [
+        "count",
+        "from",
+        "size",
+        "plans"
+      ]
+    },
+    "GetDomainInfoReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "GetDomainInfoReq",
+      "required": [
+        "id"
       ]
     },
     "GetFansBatchReq": {
@@ -4434,6 +5585,23 @@
       },
       "title": "PostInfo"
     },
+    "RankingURL": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "ranking": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "RankingURL",
+      "required": [
+        "url",
+        "ranking"
+      ]
+    },
     "RelatedKeyword": {
       "type": "object",
       "properties": {
@@ -4670,6 +5838,30 @@
         }
       },
       "title": "SeoKeywords"
+    },
+    "StartContentPlanReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "StartContentPlanReq",
+      "required": [
+        "id"
+      ]
+    },
+    "StartContentPlanResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "StartContentPlanResp",
+      "required": [
+        "id"
+      ]
     },
     "SubScore": {
       "type": "object",
@@ -4951,6 +6143,122 @@
       "required": [
         "keyword",
         "reword"
+      ]
+    },
+    "UpdateContentPlanKeywordReq": {
+      "type": "object",
+      "properties": {
+        "plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "cluster_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "topic_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "keyword_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "operation": {
+          "type": "string"
+        }
+      },
+      "title": "UpdateContentPlanKeywordReq",
+      "required": [
+        "plan_id",
+        "cluster_id",
+        "topic_id",
+        "keyword_id",
+        "operation"
+      ]
+    },
+    "UpdateContentPlanKeywordResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "UpdateContentPlanKeywordResp",
+      "required": [
+        "id"
+      ]
+    },
+    "UpdateContentPlanReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "website": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "competitors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "strength": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "company_description": {
+          "type": "string"
+        },
+        "products": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "UpdateContentPlanReq",
+      "required": [
+        "id"
+      ]
+    },
+    "UpdateContentPlanTopicReq": {
+      "type": "object",
+      "properties": {
+        "plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "cluster_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "topic_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "operation": {
+          "type": "string"
+        }
+      },
+      "title": "UpdateContentPlanTopicReq",
+      "required": [
+        "plan_id",
+        "cluster_id",
+        "topic_id",
+        "operation"
+      ]
+    },
+    "UpdateContentPlanTopicResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "UpdateContentPlanTopicResp",
+      "required": [
+        "id"
       ]
     },
     "UploadFileReq": {
