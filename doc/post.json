@@ -188,6 +188,132 @@
         ]
       }
     },
+    "/posts/aigc/contentplans/articles": {
+      "get": {
+        "operationId": "getContentPlanArticles",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetContentPlanArticlesResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "plan_ids",
+            "in": "query",
+            "required": false,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "archived",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "default": "1"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "default": "u"
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "default": "desc"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/contentplans/articles/{article_id}": {
+      "put": {
+        "operationId": "updateContentPlanArticle",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateContentPlanArticleResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "article_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateContentPlanArticleReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/contentplans/facets": {
+      "get": {
+        "operationId": "getContentPlanFacets",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetContentPlanFacetsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "archived",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "default": "1"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
     "/posts/aigc/contentplans/{id}": {
       "get": {
         "operationId": "getContentPlan",
@@ -1905,45 +2031,6 @@
         ]
       }
     },
-    "/posts/featured": {
-      "get": {
-        "operationId": "getFeaturedPosts",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/GetPostsResp"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "type",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "from",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "size",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          }
-        ],
-        "tags": [
-          "post-api"
-        ]
-      }
-    },
     "/posts/import": {
       "get": {
         "operationId": "importContent",
@@ -2444,51 +2531,6 @@
         ]
       }
     },
-    "/posts/user/{id}/likes": {
-      "get": {
-        "operationId": "getPostsByUserLikes",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/GetPostsResp"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "from",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "size",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          },
-          {
-            "name": "published",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32"
-          }
-        ],
-        "tags": [
-          "post-api"
-        ]
-      }
-    },
     "/posts/{id}": {
       "get": {
         "operationId": "getPost",
@@ -2828,6 +2870,74 @@
         "covered_volume"
       ]
     },
+    "ContentPlanArticle": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "market": {
+          "type": "string"
+        },
+        "domain": {
+          "type": "string"
+        },
+        "cluster_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "topic_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "topic": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "published_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "published_url": {
+          "type": "string"
+        }
+      },
+      "title": "ContentPlanArticle",
+      "required": [
+        "id",
+        "plan_id",
+        "market",
+        "domain",
+        "cluster_id",
+        "topic_id",
+        "topic",
+        "title",
+        "content",
+        "status",
+        "created_at",
+        "updated_at",
+        "published_at",
+        "published_url"
+      ]
+    },
     "ContentPlanCluster": {
       "type": "object",
       "properties": {
@@ -2886,6 +2996,22 @@
         "topic_count",
         "covered_topic_count",
         "covered_volume"
+      ]
+    },
+    "ContentPlanFacet": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "ContentPlanFacet",
+      "required": [
+        "id",
+        "name"
       ]
     },
     "ContentPlanKeyword": {
@@ -3542,6 +3668,81 @@
         "type"
       ]
     },
+    "GetContentPlanArticlesReq": {
+      "type": "object",
+      "properties": {
+        "plan_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uint"
+          }
+        },
+        "archived": {
+          "type": "integer",
+          "format": "int32",
+          "default": "1"
+        },
+        "status": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sort": {
+          "type": "string",
+          "default": "u"
+        },
+        "order": {
+          "type": "string",
+          "default": "desc"
+        }
+      },
+      "title": "GetContentPlanArticlesReq",
+      "required": [
+        "archived",
+        "sort",
+        "order"
+      ]
+    },
+    "GetContentPlanArticlesResp": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "articles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ContentPlanArticle"
+          }
+        }
+      },
+      "title": "GetContentPlanArticlesResp",
+      "required": [
+        "count",
+        "from",
+        "size",
+        "articles"
+      ]
+    },
     "GetContentPlanClustersReq": {
       "type": "object",
       "properties": {
@@ -3601,6 +3802,70 @@
         "plan_id",
         "sort",
         "order"
+      ]
+    },
+    "GetContentPlanFacetsReq": {
+      "type": "object",
+      "properties": {
+        "archived": {
+          "type": "integer",
+          "format": "int32",
+          "default": "1"
+        }
+      },
+      "title": "GetContentPlanFacetsReq",
+      "required": [
+        "archived"
+      ]
+    },
+    "GetContentPlanFacetsResp": {
+      "type": "object",
+      "properties": {
+        "markets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "content_types": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "updated_dates": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "published_dates": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "content_plans": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ContentPlanFacet"
+          }
+        }
+      },
+      "title": "GetContentPlanFacetsResp",
+      "required": [
+        "markets",
+        "domains",
+        "content_types",
+        "updated_dates",
+        "published_dates",
+        "content_plans"
       ]
     },
     "GetContentPlanKeywordsReq": {
@@ -3844,24 +4109,6 @@
       "required": [
         "posts"
       ]
-    },
-    "GetFeaturedPostsReq": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "from": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "size": {
-          "type": "integer",
-          "format": "int32"
-        }
-      },
-      "title": "GetFeaturedPostsReq"
     },
     "GetGeneratedBriefResp": {
       "type": "object",
@@ -5573,14 +5820,6 @@
         "published_at": {
           "type": "integer",
           "format": "int64"
-        },
-        "pin_status": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "pinned_at": {
-          "type": "integer",
-          "format": "int64"
         }
       },
       "title": "PostInfo"
@@ -6143,6 +6382,39 @@
       "required": [
         "keyword",
         "reword"
+      ]
+    },
+    "UpdateContentPlanArticleReq": {
+      "type": "object",
+      "properties": {
+        "article_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "published_url": {
+          "type": "string"
+        }
+      },
+      "title": "UpdateContentPlanArticleReq",
+      "required": [
+        "article_id",
+        "status",
+        "published_url"
+      ]
+    },
+    "UpdateContentPlanArticleResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "UpdateContentPlanArticleResp",
+      "required": [
+        "id"
       ]
     },
     "UpdateContentPlanKeywordReq": {

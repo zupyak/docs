@@ -355,14 +355,6 @@
             "default": "2"
           },
           {
-            "name": "is_pinned",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32",
-            "default": "2"
-          },
-          {
             "name": "has_image",
             "in": "query",
             "required": false,
@@ -1127,11 +1119,6 @@
           "format": "int32",
           "default": "2"
         },
-        "is_pinned": {
-          "type": "integer",
-          "format": "int32",
-          "default": "2"
-        },
         "has_image": {
           "type": "integer",
           "format": "int32",
@@ -1158,7 +1145,6 @@
       "required": [
         "is_deleted",
         "is_published",
-        "is_pinned",
         "has_image",
         "in_english"
       ]
@@ -1554,10 +1540,6 @@
           "type": "integer",
           "format": "int64"
         },
-        "pin_status": {
-          "type": "integer",
-          "format": "int64"
-        },
         "created_at": {
           "type": "integer",
           "format": "int64"
@@ -1571,10 +1553,6 @@
           "format": "int64"
         },
         "published_at": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "pinned_at": {
           "type": "integer",
           "format": "int64"
         }
