@@ -94,6 +94,31 @@
         ]
       }
     },
+    "/pay/companycredits/{company_id}": {
+      "get": {
+        "summary": "Get company credits",
+        "operationId": "getCompanyCredits",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetCompanyCreditsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "pay-api"
+        ]
+      }
+    },
     "/pay/invoices": {
       "get": {
         "operationId": "getInvoices",
@@ -258,7 +283,7 @@
             "type": "string"
           },
           {
-            "name": "user_id",
+            "name": "company_id",
             "in": "query",
             "required": false,
             "type": "invalid",
@@ -318,6 +343,70 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/UpdateSubscriptionReq"
+            }
+          }
+        ],
+        "tags": [
+          "pay-api"
+        ]
+      }
+    },
+    "/pay/subscriptions/{uuid}/cancel": {
+      "put": {
+        "operationId": "cancelSubscription",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CancelSubscriptionResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CancelSubscriptionReq"
+            }
+          }
+        ],
+        "tags": [
+          "pay-api"
+        ]
+      }
+    },
+    "/pay/subscriptions/{uuid}/resume": {
+      "put": {
+        "operationId": "resumeSubscription",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ResumeSubscriptionResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ResumeSubscriptionReq"
             }
           }
         ],
@@ -399,6 +488,22 @@
         "redirect_url"
       ]
     },
+    "CancelSubscriptionReq": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "title": "CancelSubscriptionReq",
+      "required": [
+        "uuid"
+      ]
+    },
+    "CancelSubscriptionResp": {
+      "type": "object",
+      "title": "CancelSubscriptionResp"
+    },
     "Coupon": {
       "type": "object",
       "properties": {
@@ -465,12 +570,23 @@
         },
         "plan_id": {
           "$ref": "#/definitions/uint"
+        },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "usage_credits": {
+          "$ref": "#/definitions/uint"
         }
       },
       "title": "CreateSubscriptionReq",
       "required": [
         "user_id",
-        "plan_id"
+        "required",
+        "plan_id",
+        "required",
+        "company_id",
+        "required",
+        "usage_credits"
       ]
     },
     "CreateSubscriptionResp": {
@@ -531,6 +647,51 @@
         "card_expiry_year",
         "card_expiry_month",
         "ccv"
+      ]
+    },
+    "GetCompanyCreditsReq": {
+      "type": "object",
+      "properties": {
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "GetCompanyCreditsReq",
+      "required": [
+        "company_id"
+      ]
+    },
+    "GetCompanyCreditsResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total_usage_credits": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "remaining_usage_credits": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total_bonus_credits": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "remaining_bonus_credits": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetCompanyCreditsResp",
+      "required": [
+        "id",
+        "total_usage_credits",
+        "remaining_usage_credits",
+        "total_bonus_credits",
+        "remaining_bonus_credits"
       ]
     },
     "GetInvoicesReq": {
@@ -719,7 +880,7 @@
         "uuid": {
           "type": "string"
         },
-        "user_id": {
+        "company_id": {
           "$ref": "#/definitions/uint"
         }
       },
@@ -750,6 +911,22 @@
         },
         "redirect_url": {
           "type": "string"
+        },
+        "period_start_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "period_end_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "next_billing_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "next_billing_amount": {
+          "type": "integer",
+          "format": "int64"
         }
       },
       "title": "GetSubscriptionResp",
@@ -760,7 +937,11 @@
         "coupon",
         "status",
         "closed_at",
-        "redirect_url"
+        "redirect_url",
+        "period_start_at",
+        "period_end_at",
+        "next_billing_at",
+        "next_billing_amount"
       ]
     },
     "Invoice": {
@@ -858,6 +1039,22 @@
         "price"
       ]
     },
+    "ResumeSubscriptionReq": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "title": "ResumeSubscriptionReq",
+      "required": [
+        "uuid"
+      ]
+    },
+    "ResumeSubscriptionResp": {
+      "type": "object",
+      "title": "ResumeSubscriptionResp"
+    },
     "StripeEvent": {
       "type": "object",
       "title": "StripeEvent"
@@ -872,13 +1069,16 @@
         "uuid": {
           "type": "string"
         },
-        "plan_id": {
-          "$ref": "#/definitions/uint"
+        "usage_credits": {
+          "type": "integer",
+          "format": "int32"
         }
       },
       "title": "UpdateSubscriptionReq",
       "required": [
-        "uuid"
+        "uuid",
+        "usage_credits",
+        "required"
       ]
     },
     "UpdateSubscriptionResp": {
@@ -886,11 +1086,15 @@
       "properties": {
         "uuid": {
           "type": "string"
+        },
+        "redirect_url": {
+          "type": "string"
         }
       },
       "title": "UpdateSubscriptionResp",
       "required": [
-        "uuid"
+        "uuid",
+        "redirect_url"
       ]
     }
   },

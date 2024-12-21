@@ -211,6 +211,31 @@
         ]
       }
     },
+    "/users/invitations/{invitation_uuid}": {
+      "get": {
+        "summary": "Get invitation",
+        "operationId": "getInvitation",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetInvitationResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "invitation_uuid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      }
+    },
     "/users/meta": {
       "get": {
         "operationId": "getMeta",
@@ -472,6 +497,1009 @@
           "user-api"
         ]
       }
+    },
+    "/users/{id}/companies": {
+      "get": {
+        "summary": "Get paginated companies",
+        "operationId": "getCompanies",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetCompaniesResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "min=0",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "default": "0"
+          },
+          {
+            "name": "min=1",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "default": "20"
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      },
+      "post": {
+        "summary": "Create company",
+        "operationId": "createCompany",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreateCompanyResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateCompanyReq"
+            }
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      }
+    },
+    "/users/{id}/companies/{company_id}": {
+      "get": {
+        "summary": "Get company",
+        "operationId": "getCompany",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetCompanyResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      },
+      "delete": {
+        "summary": "Delete company",
+        "operationId": "deleteCompany",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeleteCompanyResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteCompanyReq"
+            }
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      },
+      "put": {
+        "summary": "Update company",
+        "operationId": "updateCompany",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateCompanyResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateCompanyReq"
+            }
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      }
+    },
+    "/users/{id}/companies/{company_id}/companyusers": {
+      "get": {
+        "summary": "Get company users",
+        "operationId": "getCompanyUsers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetCompanyUsersResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "min=0",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "default": "0"
+          },
+          {
+            "name": "min=1",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "default": "20"
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      },
+      "post": {
+        "summary": "Invite users to company",
+        "operationId": "inviteCompanyUsers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/InviteCompanyUserResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/InviteCompanyUserReq"
+            }
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      }
+    },
+    "/users/{id}/companies/{company_id}/companyusers/{target_user_id}": {
+      "delete": {
+        "summary": "Delete user from company",
+        "operationId": "deleteCompanyUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeleteCompanyUserResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "target_user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteCompanyUserReq"
+            }
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      },
+      "put": {
+        "summary": "Update company user's role",
+        "operationId": "updateCompanyUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateCompanyUserResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "target_user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateCompanyUserReq"
+            }
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      }
+    },
+    "/users/{id}/companies/{company_id}/companyusers/{target_user_id}/folders": {
+      "put": {
+        "summary": "Update company user's folder and role",
+        "operationId": "updateUserFolders",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateUserFoldersResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "target_user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateUserFoldersReq"
+            }
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      }
+    },
+    "/users/{id}/companies/{company_id}/folders": {
+      "get": {
+        "summary": "Get paginated folders",
+        "operationId": "getFolders",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetFoldersResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "min=0",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "default": "0"
+          },
+          {
+            "name": "min=1",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "default": "20"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "default": "created_at"
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "default": "desc"
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      },
+      "post": {
+        "summary": "Create folder",
+        "operationId": "createFolder",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreateFolderResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateFolderReq"
+            }
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      }
+    },
+    "/users/{id}/companies/{company_id}/folders/{folder_id}": {
+      "get": {
+        "summary": "Get folder",
+        "operationId": "getFolder",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetFolderResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "folder_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      },
+      "delete": {
+        "summary": "Delete folder",
+        "operationId": "deleteFolder",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeleteFolderResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "folder_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteFolderReq"
+            }
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      },
+      "put": {
+        "summary": "Update folder",
+        "operationId": "updateFolder",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateFolderResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "folder_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateFolderReq"
+            }
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      }
+    },
+    "/users/{id}/companies/{company_id}/folders/{folder_id}/folderusers": {
+      "get": {
+        "summary": "Get folder users",
+        "operationId": "getFolderUsers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetFolderUsersResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "folder_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "min=0",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "default": "0"
+          },
+          {
+            "name": "min=1",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "default": "20"
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      },
+      "post": {
+        "summary": "Invite users to folder",
+        "operationId": "inviteFolderUsers",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/InviteFolderUserResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "folder_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/InviteFolderUserReq"
+            }
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      }
+    },
+    "/users/{id}/companies/{company_id}/folders/{folder_id}/folderusers/{target_user_id}": {
+      "delete": {
+        "summary": "Delete user from folder",
+        "operationId": "deleteFolderUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/DeleteFolderUserResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "folder_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "target_user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteFolderUserReq"
+            }
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      },
+      "put": {
+        "summary": "Update folder user's role",
+        "operationId": "updateFolderUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateFolderUserResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "folder_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "target_user_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateFolderUserReq"
+            }
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      }
+    },
+    "/users/{id}/companies/{company_id}/invitations": {
+      "get": {
+        "summary": "Get pending users",
+        "operationId": "getInvitations",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetInvitationsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "min=0",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "default": "0"
+          },
+          {
+            "name": "min=1",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "default": "20"
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      }
+    },
+    "/users/{id}/companies/{company_id}/invitations/{invitation_id}": {
+      "delete": {
+        "summary": "Delete pending user",
+        "operationId": "revokeInvitation",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/RevokeInvitationResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "invitation_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RevokeInvitationReq"
+            }
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      },
+      "put": {
+        "summary": "Update pending user",
+        "operationId": "updateInvitation",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateInvitationResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "invitation_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateInvitationReq"
+            }
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      }
+    },
+    "/users/{id}/switchcompany/{company_id}": {
+      "put": {
+        "summary": "Switch company",
+        "operationId": "switchCompany",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/SwitchCompanyResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SwitchCompanyReq"
+            }
+          }
+        ],
+        "tags": [
+          "user-api"
+        ]
+      }
     }
   },
   "definitions": {
@@ -489,7 +1517,353 @@
     },
     "ActivateResp": {
       "type": "object",
-      "title": "ActivateResp"
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "email": {
+          "type": "string"
+        }
+      },
+      "title": "ActivateResp",
+      "required": [
+        "id",
+        "email"
+      ]
+    },
+    "Company": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "name": {
+          "type": "string"
+        },
+        "logo": {
+          "type": "string"
+        },
+        "industry": {
+          "$ref": "#/definitions/Industry"
+        },
+        "employees": {
+          "type": "string"
+        },
+        "domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "goals": {
+          "type": "string"
+        },
+        "vat_number": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "zipcode": {
+          "type": "string"
+        },
+        "contact_email": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "Company",
+      "required": [
+        "id",
+        "name",
+        "logo",
+        "industry",
+        "employees",
+        "domains",
+        "goals",
+        "vat_number",
+        "address",
+        "city",
+        "country",
+        "zipcode",
+        "contact_email",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    "CompanyUserInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "full_name": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "company_role": {
+          "type": "string"
+        },
+        "last_login_time": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "folders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserFolder"
+          }
+        }
+      },
+      "title": "CompanyUserInfo",
+      "required": [
+        "id",
+        "full_name",
+        "avatar",
+        "email",
+        "company_role",
+        "last_login_time",
+        "folders"
+      ]
+    },
+    "CreateCompanyReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "name": {
+          "type": "string"
+        },
+        "logo": {
+          "type": "string"
+        },
+        "industry_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "employees": {
+          "type": "string"
+        },
+        "domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "goals": {
+          "type": "string"
+        }
+      },
+      "title": "CreateCompanyReq",
+      "required": [
+        "id",
+        "name",
+        "required",
+        "omitempty"
+      ]
+    },
+    "CreateCompanyResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "CreateCompanyResp",
+      "required": [
+        "id"
+      ]
+    },
+    "CreateFolderReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "title": "CreateFolderReq",
+      "required": [
+        "id",
+        "company_id",
+        "name",
+        "required",
+        "omitempty"
+      ]
+    },
+    "CreateFolderResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "CreateFolderResp",
+      "required": [
+        "id"
+      ]
+    },
+    "DeleteCompanyReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "DeleteCompanyReq",
+      "required": [
+        "id",
+        "company_id"
+      ]
+    },
+    "DeleteCompanyResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "DeleteCompanyResp",
+      "required": [
+        "id"
+      ]
+    },
+    "DeleteCompanyUserReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "target_user_id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "DeleteCompanyUserReq",
+      "required": [
+        "id",
+        "company_id",
+        "target_user_id"
+      ]
+    },
+    "DeleteCompanyUserResp": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "DeleteCompanyUserResp",
+      "required": [
+        "user_id"
+      ]
+    },
+    "DeleteFolderReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "DeleteFolderReq",
+      "required": [
+        "id",
+        "company_id",
+        "folder_id"
+      ]
+    },
+    "DeleteFolderResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "DeleteFolderResp",
+      "required": [
+        "id"
+      ]
+    },
+    "DeleteFolderUserReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "target_user_id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "DeleteFolderUserReq",
+      "required": [
+        "id",
+        "company_id",
+        "folder_id",
+        "target_user_id"
+      ]
+    },
+    "DeleteFolderUserResp": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "DeleteFolderUserResp",
+      "required": [
+        "user_id"
+      ]
     },
     "DeleteUserReq": {
       "type": "object",
@@ -517,6 +1891,89 @@
         "id"
       ]
     },
+    "Folder": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "Folder",
+      "required": [
+        "id",
+        "name",
+        "description",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    "FolderRole": {
+      "type": "object",
+      "properties": {
+        "folder_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "role": {
+          "type": "string"
+        }
+      },
+      "title": "FolderRole",
+      "required": [
+        "folder_id",
+        "required",
+        "role"
+      ]
+    },
+    "FolderUserInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "full_name": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "folder_role": {
+          "type": "string"
+        },
+        "last_login_time": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "FolderUserInfo",
+      "required": [
+        "id",
+        "full_name",
+        "avatar",
+        "email",
+        "folder_role",
+        "last_login_time"
+      ]
+    },
     "ForgotPassReq": {
       "type": "object",
       "properties": {
@@ -532,6 +1989,222 @@
     "ForgotPassResp": {
       "type": "object",
       "title": "ForgotPassResp"
+    },
+    "GetCompaniesReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "name": {
+          "type": "string"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32",
+          "default": "0"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32",
+          "default": "20"
+        }
+      },
+      "title": "GetCompaniesReq",
+      "required": [
+        "id",
+        "from",
+        "min=0",
+        "size",
+        "min=1"
+      ]
+    },
+    "GetCompaniesResp": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "companies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Company"
+          }
+        }
+      },
+      "title": "GetCompaniesResp",
+      "required": [
+        "count",
+        "from",
+        "size",
+        "companies"
+      ]
+    },
+    "GetCompanyReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "GetCompanyReq",
+      "required": [
+        "id",
+        "company_id"
+      ]
+    },
+    "GetCompanyResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "name": {
+          "type": "string"
+        },
+        "logo": {
+          "type": "string"
+        },
+        "industry": {
+          "$ref": "#/definitions/Industry"
+        },
+        "employees": {
+          "type": "string"
+        },
+        "domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "goals": {
+          "type": "string"
+        },
+        "vat_number": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "zipcode": {
+          "type": "string"
+        },
+        "contact_email": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "free_trial_ended_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetCompanyResp",
+      "required": [
+        "id",
+        "name",
+        "logo",
+        "industry",
+        "employees",
+        "domains",
+        "goals",
+        "vat_number",
+        "address",
+        "city",
+        "country",
+        "zipcode",
+        "contact_email",
+        "created_at",
+        "updated_at",
+        "free_trial_ended_at"
+      ]
+    },
+    "GetCompanyUsersReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "keyword": {
+          "type": "string"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32",
+          "default": "0"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32",
+          "default": "20"
+        }
+      },
+      "title": "GetCompanyUsersReq",
+      "required": [
+        "id",
+        "company_id",
+        "from",
+        "min=0",
+        "size",
+        "min=1"
+      ]
+    },
+    "GetCompanyUsersResp": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CompanyUserInfo"
+          }
+        }
+      },
+      "title": "GetCompanyUsersResp",
+      "required": [
+        "count",
+        "from",
+        "size",
+        "users"
+      ]
     },
     "GetFeaturedUsersReq": {
       "type": "object",
@@ -575,6 +2248,282 @@
         "from",
         "size",
         "users"
+      ]
+    },
+    "GetFolderReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "GetFolderReq",
+      "required": [
+        "id",
+        "company_id",
+        "folder_id"
+      ]
+    },
+    "GetFolderResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetFolderResp",
+      "required": [
+        "id",
+        "name",
+        "description",
+        "created_at",
+        "updated_at"
+      ]
+    },
+    "GetFolderUsersReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32",
+          "default": "0"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32",
+          "default": "20"
+        }
+      },
+      "title": "GetFolderUsersReq",
+      "required": [
+        "id",
+        "company_id",
+        "folder_id",
+        "from",
+        "min=0",
+        "size",
+        "min=1"
+      ]
+    },
+    "GetFolderUsersResp": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FolderUserInfo"
+          }
+        }
+      },
+      "title": "GetFolderUsersResp",
+      "required": [
+        "count",
+        "from",
+        "size",
+        "users"
+      ]
+    },
+    "GetFoldersReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "name": {
+          "type": "string"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32",
+          "default": "0"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32",
+          "default": "20"
+        },
+        "sort": {
+          "type": "string",
+          "default": "created_at"
+        },
+        "order": {
+          "type": "string",
+          "default": "desc"
+        }
+      },
+      "title": "GetFoldersReq",
+      "required": [
+        "id",
+        "company_id",
+        "from",
+        "min=0",
+        "size",
+        "min=1",
+        "sort",
+        "order"
+      ]
+    },
+    "GetFoldersResp": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "folders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Folder"
+          }
+        }
+      },
+      "title": "GetFoldersResp",
+      "required": [
+        "count",
+        "from",
+        "size",
+        "folders"
+      ]
+    },
+    "GetInvitationReq": {
+      "type": "object",
+      "properties": {
+        "invitation_uuid": {
+          "type": "string"
+        }
+      },
+      "title": "GetInvitationReq",
+      "required": [
+        "invitation_uuid"
+      ]
+    },
+    "GetInvitationResp": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "company": {
+          "$ref": "#/definitions/InvitationCompanyInfo"
+        }
+      },
+      "title": "GetInvitationResp",
+      "required": [
+        "email",
+        "company"
+      ]
+    },
+    "GetInvitationsReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32",
+          "default": "0"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32",
+          "default": "20"
+        }
+      },
+      "title": "GetInvitationsReq",
+      "required": [
+        "id",
+        "company_id",
+        "from",
+        "min=0",
+        "size",
+        "min=1"
+      ]
+    },
+    "GetInvitationsResp": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "invitations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/InvitationInfo"
+          }
+        }
+      },
+      "title": "GetInvitationsResp",
+      "required": [
+        "count",
+        "from",
+        "size",
+        "invitations"
       ]
     },
     "GetMetaReq": {
@@ -830,6 +2779,21 @@
         },
         "session": {
           "type": "string"
+        },
+        "selected_company": {
+          "$ref": "#/definitions/SelectedCompany"
+        },
+        "language": {
+          "type": "string"
+        },
+        "intended_use": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "role": {
+          "type": "string"
         }
       },
       "title": "GetUserResp",
@@ -870,7 +2834,11 @@
         "followee_cnt",
         "-",
         "premium",
-        "session"
+        "session",
+        "selected_company",
+        "language",
+        "intended_use",
+        "role"
       ]
     },
     "Industry": {
@@ -899,6 +2867,179 @@
       },
       "title": "Industry"
     },
+    "InvitationCompanyInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "total_user": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/InvitationCompanyUserInfo"
+          }
+        }
+      },
+      "title": "InvitationCompanyInfo",
+      "required": [
+        "id",
+        "name",
+        "total_user",
+        "users"
+      ]
+    },
+    "InvitationCompanyUserInfo": {
+      "type": "object",
+      "properties": {
+        "full_name": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        }
+      },
+      "title": "InvitationCompanyUserInfo",
+      "required": [
+        "full_name",
+        "avatar"
+      ]
+    },
+    "InvitationInfo": {
+      "type": "object",
+      "properties": {
+        "invitation_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "email": {
+          "type": "string"
+        },
+        "company_role": {
+          "type": "string"
+        },
+        "folders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserFolder"
+          }
+        },
+        "invite_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "InvitationInfo",
+      "required": [
+        "invitation_id",
+        "email",
+        "company_role",
+        "folders",
+        "invite_at"
+      ]
+    },
+    "InviteCompanyUserReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "emails": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "role": {
+          "type": "string"
+        },
+        "folders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FolderRole"
+          }
+        }
+      },
+      "title": "InviteCompanyUserReq",
+      "required": [
+        "id",
+        "company_id",
+        "emails",
+        "required",
+        "role",
+        "required",
+        "folders"
+      ]
+    },
+    "InviteCompanyUserResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "InviteCompanyUserResp",
+      "required": [
+        "id"
+      ]
+    },
+    "InviteFolderUserReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "user_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uint"
+          }
+        },
+        "role": {
+          "type": "string"
+        }
+      },
+      "title": "InviteFolderUserReq",
+      "required": [
+        "id",
+        "company_id",
+        "folder_id",
+        "user_ids",
+        "required",
+        "role",
+        "required"
+      ]
+    },
+    "InviteFolderUserResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "InviteFolderUserResp",
+      "required": [
+        "id"
+      ]
+    },
     "LoginReq": {
       "type": "object",
       "properties": {
@@ -920,6 +3061,9 @@
       "type": "object",
       "properties": {
         "id_token": {
+          "type": "string"
+        },
+        "invitation_uuid": {
           "type": "string"
         }
       },
@@ -972,6 +3116,63 @@
       "type": "object",
       "title": "ResetPassResp"
     },
+    "RevokeInvitationReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "invitation_id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "RevokeInvitationReq",
+      "required": [
+        "id",
+        "company_id",
+        "invitation_id"
+      ]
+    },
+    "RevokeInvitationResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "RevokeInvitationResp",
+      "required": [
+        "id"
+      ]
+    },
+    "SelectedCompany": {
+      "type": "object",
+      "properties": {
+        "company_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "role": {
+          "type": "string"
+        },
+        "folder_roles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FolderRole"
+          }
+        }
+      },
+      "title": "SelectedCompany",
+      "required": [
+        "company_id",
+        "role",
+        "folder_roles"
+      ]
+    },
     "SignupBusinessDirectoryReq": {
       "type": "object",
       "properties": {
@@ -1011,44 +3212,324 @@
         "userid": {
           "type": "integer",
           "format": "int64"
+        },
+        "verified": {
+          "type": "boolean",
+          "format": "boolean"
         }
       },
       "title": "SignupReply",
       "required": [
-        "userid"
+        "userid",
+        "verified"
       ]
     },
     "SignupReq": {
       "type": "object",
       "properties": {
-        "full_name": {
-          "type": "string"
-        },
         "email": {
           "type": "string"
         },
         "password": {
           "type": "string"
-        },
-        "user_type": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "company": {
-          "type": "string"
-        },
-        "website": {
-          "type": "string"
         }
       },
       "title": "SignupReq",
       "required": [
-        "full_name",
-        "required",
         "email",
-        "password",
-        "user_type",
-        "required_if=UserType 2"
+        "required",
+        "password"
+      ]
+    },
+    "SwitchCompanyReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "SwitchCompanyReq",
+      "required": [
+        "id",
+        "company_id"
+      ]
+    },
+    "SwitchCompanyResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "SwitchCompanyResp",
+      "required": [
+        "id"
+      ]
+    },
+    "UpdateCompanyReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "name": {
+          "type": "string",
+          "default": "zupyak_default_string_values"
+        },
+        "logo": {
+          "type": "string"
+        },
+        "industry_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "employees": {
+          "type": "string",
+          "default": "zupyak_default_string_values"
+        },
+        "domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "goals": {
+          "type": "string",
+          "default": "zupyak_default_string_values"
+        }
+      },
+      "title": "UpdateCompanyReq",
+      "required": [
+        "id",
+        "company_id",
+        "name",
+        "omitempty",
+        "employees",
+        "goals"
+      ]
+    },
+    "UpdateCompanyResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "UpdateCompanyResp",
+      "required": [
+        "id"
+      ]
+    },
+    "UpdateCompanyUserReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "target_user_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "role": {
+          "type": "string"
+        }
+      },
+      "title": "UpdateCompanyUserReq",
+      "required": [
+        "id",
+        "company_id",
+        "target_user_id",
+        "role",
+        "required"
+      ]
+    },
+    "UpdateCompanyUserResp": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "UpdateCompanyUserResp",
+      "required": [
+        "user_id"
+      ]
+    },
+    "UpdateFolderReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "title": "UpdateFolderReq",
+      "required": [
+        "id",
+        "company_id",
+        "folder_id",
+        "omitempty"
+      ]
+    },
+    "UpdateFolderResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "UpdateFolderResp",
+      "required": [
+        "id"
+      ]
+    },
+    "UpdateFolderUserReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "target_user_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "role": {
+          "type": "string"
+        }
+      },
+      "title": "UpdateFolderUserReq",
+      "required": [
+        "id",
+        "company_id",
+        "folder_id",
+        "target_user_id",
+        "role",
+        "required"
+      ]
+    },
+    "UpdateFolderUserResp": {
+      "type": "object",
+      "properties": {
+        "target_user_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "UpdateFolderUserResp",
+      "required": [
+        "target_user_id"
+      ]
+    },
+    "UpdateInvitationReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "invitation_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "role": {
+          "type": "string"
+        },
+        "folders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserFolderInfo"
+          }
+        }
+      },
+      "title": "UpdateInvitationReq",
+      "required": [
+        "id",
+        "company_id",
+        "invitation_id",
+        "role",
+        "omitempty"
+      ]
+    },
+    "UpdateInvitationResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "UpdateInvitationResp",
+      "required": [
+        "id"
+      ]
+    },
+    "UpdateUserFoldersReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "target_user_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folders": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserFolderInfo"
+          }
+        }
+      },
+      "title": "UpdateUserFoldersReq",
+      "required": [
+        "id",
+        "company_id",
+        "target_user_id",
+        "folders",
+        "required"
+      ]
+    },
+    "UpdateUserFoldersResp": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "UpdateUserFoldersResp",
+      "required": [
+        "user_id"
       ]
     },
     "UpdateUserReq": {
@@ -1094,9 +3575,6 @@
         "website": {
           "type": "string",
           "default": "zupyak_default_string_values"
-        },
-        "full_name": {
-          "type": "string"
         },
         "twitter": {
           "type": "string",
@@ -1144,6 +3622,24 @@
         "list_me": {
           "type": "integer",
           "format": "int64"
+        },
+        "language": {
+          "type": "string",
+          "default": "zupyak_default_string_values"
+        },
+        "intended_use": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "role": {
+          "type": "string",
+          "default": "zupyak_default_string_values"
+        },
+        "finished_onboarding": {
+          "type": "boolean",
+          "format": "boolean"
         }
       },
       "title": "UpdateUserReq",
@@ -1165,7 +3661,6 @@
         "location",
         "website",
         "website",
-        "full_name",
         "twitter",
         "twitter",
         "facebook",
@@ -1184,7 +3679,9 @@
         "-",
         "-",
         "-",
-        "-"
+        "-",
+        "language",
+        "role"
       ]
     },
     "UpdateUserResp": {
@@ -1198,6 +3695,44 @@
       "title": "UpdateUserResp",
       "required": [
         "id"
+      ]
+    },
+    "UserFolder": {
+      "type": "object",
+      "properties": {
+        "folder_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "folder_name": {
+          "type": "string"
+        },
+        "folder_role": {
+          "type": "string"
+        }
+      },
+      "title": "UserFolder",
+      "required": [
+        "folder_id",
+        "folder_name",
+        "folder_role"
+      ]
+    },
+    "UserFolderInfo": {
+      "type": "object",
+      "properties": {
+        "folder_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "role": {
+          "type": "string"
+        }
+      },
+      "title": "UserFolderInfo",
+      "required": [
+        "folder_id",
+        "required",
+        "role"
       ]
     }
   },

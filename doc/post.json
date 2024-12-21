@@ -131,7 +131,14 @@
         },
         "parameters": [
           {
-            "name": "user_id",
+            "name": "company_id",
+            "in": "query",
+            "required": true,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "folder_id",
             "in": "query",
             "required": true,
             "type": "invalid",
@@ -143,6 +150,25 @@
             "required": false,
             "type": "boolean",
             "format": "boolean"
+          },
+          {
+            "name": "markets",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "domains",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
           },
           {
             "name": "from",
@@ -157,6 +183,20 @@
             "required": false,
             "type": "integer",
             "format": "int32"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "default": "a"
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "default": "desc"
           }
         ],
         "tags": [
@@ -201,6 +241,20 @@
         },
         "parameters": [
           {
+            "name": "company_id",
+            "in": "query",
+            "required": true,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "folder_id",
+            "in": "query",
+            "required": true,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
             "name": "plan_ids",
             "in": "query",
             "required": false,
@@ -211,9 +265,8 @@
             "name": "archived",
             "in": "query",
             "required": false,
-            "type": "integer",
-            "format": "int32",
-            "default": "1"
+            "type": "boolean",
+            "format": "boolean"
           },
           {
             "name": "status",
@@ -301,12 +354,25 @@
         },
         "parameters": [
           {
+            "name": "company_id",
+            "in": "query",
+            "required": true,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "folder_id",
+            "in": "query",
+            "required": true,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
             "name": "archived",
             "in": "query",
             "required": false,
-            "type": "integer",
-            "format": "int32",
-            "default": "1"
+            "type": "boolean",
+            "format": "boolean"
           }
         ],
         "tags": [
@@ -619,7 +685,7 @@
         ]
       }
     },
-    "/posts/aigc/contentplans/{plan_id}/clusters/{cluster_id}/topics/{topic_id}/keywords/{keyword_id}/urls": {
+    "/posts/aigc/contentplans/{plan_id}/clusters/{cluster_id}/topics/{topic_id}/urls": {
       "get": {
         "operationId": "getContentPlanRankingURLs",
         "responses": {
@@ -645,12 +711,6 @@
           },
           {
             "name": "topic_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "keyword_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -706,6 +766,56 @@
             "required": true,
             "type": "string",
             "default": "desc"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/contenttypes": {
+      "post": {
+        "operationId": "generateContentType",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GenerateContentResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GenerateContentTypeReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/contenttypes/{id}": {
+      "get": {
+        "operationId": "getGeneratedContentTypes",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetGeneratedContentTypeResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
           }
         ],
         "tags": [
@@ -929,6 +1039,20 @@
         "parameters": [
           {
             "name": "user_id",
+            "in": "query",
+            "required": true,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "company_id",
+            "in": "query",
+            "required": true,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "folder_id",
             "in": "query",
             "required": true,
             "type": "invalid",
@@ -2005,6 +2129,64 @@
         ]
       }
     },
+    "/posts/contentsettings": {
+      "post": {
+        "operationId": "createContentSetting",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreateContentSettingResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateContentSettingReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/contentsettings/{id}": {
+      "put": {
+        "operationId": "updateContentSetting",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateContentSettingResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateContentSettingReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
     "/posts/fans": {
       "post": {
         "operationId": "getFansBatch",
@@ -2069,6 +2251,20 @@
         "parameters": [
           {
             "name": "user_id",
+            "in": "query",
+            "required": true,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "company_id",
+            "in": "query",
+            "required": true,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "folder_id",
             "in": "query",
             "required": true,
             "type": "invalid",
@@ -2411,6 +2607,20 @@
             "format": "UNKNOWN"
           },
           {
+            "name": "company_id",
+            "in": "query",
+            "required": true,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "folder_id",
+            "in": "query",
+            "required": true,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
             "name": "from",
             "in": "query",
             "required": false,
@@ -2503,6 +2713,20 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "company_id",
+            "in": "query",
+            "required": true,
+            "type": "invalid",
+            "format": "UNKNOWN"
+          },
+          {
+            "name": "folder_id",
+            "in": "query",
+            "required": true,
+            "type": "invalid",
+            "format": "UNKNOWN"
           },
           {
             "name": "from",
@@ -2783,6 +3007,44 @@
         "id": {
           "$ref": "#/definitions/uint"
         },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "creator": {
+          "$ref": "#/definitions/UserInfo"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "editor": {
+          "$ref": "#/definitions/UserInfo"
+        },
+        "edited_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "viewer": {
+          "$ref": "#/definitions/UserInfo"
+        },
+        "viewed_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "refresher": {
+          "$ref": "#/definitions/UserInfo"
+        },
+        "refreshed_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "archived": {
+          "type": "boolean",
+          "format": "boolean"
+        },
         "status": {
           "type": "integer",
           "format": "int32"
@@ -2824,34 +3086,34 @@
             "type": "string"
           }
         },
-        "created_at": {
-          "type": "integer",
-          "format": "int64"
-        },
         "updated_at": {
           "type": "integer",
           "format": "int64"
         },
-        "topic_count": {
-          "type": "integer",
-          "format": "int32"
+        "plan_statistics": {
+          "$ref": "#/definitions/Statistics"
         },
-        "covered_topic_count": {
-          "type": "integer",
-          "format": "int32"
+        "blue_ocean_statistics": {
+          "$ref": "#/definitions/Statistics"
         },
-        "total_volume": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "covered_volume": {
-          "type": "integer",
-          "format": "int64"
+        "red_ocean_statistics": {
+          "$ref": "#/definitions/Statistics"
         }
       },
       "title": "ContentPlan",
       "required": [
         "id",
+        "company_id",
+        "folder_id",
+        "creator",
+        "created_at",
+        "editor",
+        "edited_at",
+        "viewer",
+        "viewed_at",
+        "refresher",
+        "refreshed_at",
+        "archived",
         "status",
         "name",
         "market",
@@ -2862,12 +3124,10 @@
         "strength",
         "company_description",
         "products",
-        "created_at",
         "updated_at",
-        "topic_count",
-        "covered_topic_count",
-        "total_volume",
-        "covered_volume"
+        "plan_statistics",
+        "blue_ocean_statistics",
+        "red_ocean_statistics"
       ]
     },
     "ContentPlanArticle": {
@@ -2954,13 +3214,9 @@
         "name": {
           "type": "string"
         },
-        "num_keywords": {
+        "keywords_count": {
           "type": "integer",
           "format": "int32"
-        },
-        "total_volume": {
-          "type": "integer",
-          "format": "int64"
         },
         "avg_difficulty": {
           "type": "number",
@@ -2978,9 +3234,25 @@
           "type": "integer",
           "format": "int32"
         },
+        "topic_coverage": {
+          "type": "number",
+          "format": "double"
+        },
+        "total_volume": {
+          "type": "integer",
+          "format": "int64"
+        },
         "covered_volume": {
           "type": "integer",
           "format": "int64"
+        },
+        "volume_coverage": {
+          "type": "number",
+          "format": "double"
+        },
+        "published_content": {
+          "type": "integer",
+          "format": "int32"
         }
       },
       "title": "ContentPlanCluster",
@@ -2989,13 +3261,16 @@
         "content_plan_id",
         "type",
         "name",
-        "num_keywords",
-        "total_volume",
+        "keywords_count",
         "avg_difficulty",
         "avg_cost",
         "topic_count",
         "covered_topic_count",
-        "covered_volume"
+        "topic_coverage",
+        "total_volume",
+        "covered_volume",
+        "volume_coverage",
+        "published_content"
       ]
     },
     "ContentPlanFacet": {
@@ -3036,6 +3311,10 @@
         "name": {
           "type": "string"
         },
+        "main_keyword": {
+          "type": "boolean",
+          "format": "boolean"
+        },
         "deselected": {
           "type": "boolean",
           "format": "boolean"
@@ -3065,6 +3344,7 @@
         "topic_id",
         "type",
         "name",
+        "main_keyword",
         "deselected",
         "region_queries_count",
         "difficulty",
@@ -3102,7 +3382,7 @@
           "type": "boolean",
           "format": "boolean"
         },
-        "num_keywords": {
+        "keywords_count": {
           "type": "integer",
           "format": "int32"
         },
@@ -3129,7 +3409,7 @@
         "name",
         "ranking",
         "deprioritized",
-        "num_keywords",
+        "keywords_count",
         "total_volume",
         "avg_difficulty",
         "avg_cost"
@@ -3138,6 +3418,12 @@
     "CreateContentPlanReq": {
       "type": "object",
       "properties": {
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
+          "$ref": "#/definitions/uint"
+        },
         "name": {
           "type": "string"
         },
@@ -3150,9 +3436,60 @@
       },
       "title": "CreateContentPlanReq",
       "required": [
+        "company_id",
+        "folder_id",
         "name",
         "market",
         "language"
+      ]
+    },
+    "CreateContentSettingReq": {
+      "type": "object",
+      "properties": {
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "content_plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "topic_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "primary_keyword": {
+          "type": "string"
+        },
+        "secondary_keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "CreateContentSettingReq",
+      "required": [
+        "company_id",
+        "required",
+        "folder_id",
+        "required",
+        "content_plan_id",
+        "required",
+        "topic_id",
+        "required"
+      ]
+    },
+    "CreateContentSettingResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "CreateContentSettingResp",
+      "required": [
+        "id"
       ]
     },
     "CreateDomainInfoReq": {
@@ -3322,6 +3659,15 @@
         "description": {
           "type": "string"
         },
+        "industry": {
+          "type": "string"
+        },
+        "products": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "strength": {
           "type": "integer",
           "format": "int32"
@@ -3344,6 +3690,8 @@
         "website",
         "market",
         "description",
+        "industry",
+        "products",
         "strength",
         "traffic",
         "competitors"
@@ -3392,6 +3740,12 @@
     "GenerateBriefReq": {
       "type": "object",
       "properties": {
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
+          "$ref": "#/definitions/uint"
+        },
         "type": {
           "type": "string"
         },
@@ -3410,8 +3764,11 @@
         "topic": {
           "type": "string"
         },
-        "keyword": {
-          "type": "string"
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "tonality": {
           "$ref": "#/definitions/Tonality"
@@ -3423,6 +3780,10 @@
       },
       "title": "GenerateBriefReq",
       "required": [
+        "company_id",
+        "required",
+        "folder_id",
+        "required",
         "type",
         "language",
         "src"
@@ -3438,6 +3799,34 @@
       "title": "GenerateContentResp",
       "required": [
         "id"
+      ]
+    },
+    "GenerateContentTypeReq": {
+      "type": "object",
+      "properties": {
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "content_plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "topic": {
+          "type": "string"
+        }
+      },
+      "title": "GenerateContentTypeReq",
+      "required": [
+        "company_id",
+        "required",
+        "folder_id",
+        "required",
+        "content_plan_id",
+        "required",
+        "topic",
+        "required"
       ]
     },
     "GenerateImageReq": {
@@ -3487,6 +3876,12 @@
     "GenerateKeywordPlanReq": {
       "type": "object",
       "properties": {
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
+          "$ref": "#/definitions/uint"
+        },
         "title": {
           "type": "string"
         },
@@ -3520,6 +3915,8 @@
       },
       "title": "GenerateKeywordPlanReq",
       "required": [
+        "company_id",
+        "folder_id",
         "title",
         "website",
         "type",
@@ -3587,6 +3984,12 @@
     "GeneratePostReq": {
       "type": "object",
       "properties": {
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
+          "$ref": "#/definitions/uint"
+        },
         "type": {
           "type": "string"
         },
@@ -3635,9 +4038,12 @@
       },
       "title": "GeneratePostReq",
       "required": [
+        "company_id",
+        "required",
+        "folder_id",
+        "required",
         "type",
         "topic",
-        "keywords",
         "length",
         "src"
       ]
@@ -3671,6 +4077,12 @@
     "GetContentPlanArticlesReq": {
       "type": "object",
       "properties": {
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
+          "$ref": "#/definitions/uint"
+        },
         "plan_ids": {
           "type": "array",
           "items": {
@@ -3678,9 +4090,8 @@
           }
         },
         "archived": {
-          "type": "integer",
-          "format": "int32",
-          "default": "1"
+          "type": "boolean",
+          "format": "boolean"
         },
         "status": {
           "type": "array",
@@ -3708,7 +4119,8 @@
       },
       "title": "GetContentPlanArticlesReq",
       "required": [
-        "archived",
+        "company_id",
+        "folder_id",
         "sort",
         "order"
       ]
@@ -3807,15 +4219,21 @@
     "GetContentPlanFacetsReq": {
       "type": "object",
       "properties": {
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
+          "$ref": "#/definitions/uint"
+        },
         "archived": {
-          "type": "integer",
-          "format": "int32",
-          "default": "1"
+          "type": "boolean",
+          "format": "boolean"
         }
       },
       "title": "GetContentPlanFacetsReq",
       "required": [
-        "archived"
+        "company_id",
+        "folder_id"
       ]
     },
     "GetContentPlanFacetsResp": {
@@ -3832,40 +4250,12 @@
           "items": {
             "type": "string"
           }
-        },
-        "content_types": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "updated_dates": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "published_dates": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "content_plans": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ContentPlanFacet"
-          }
         }
       },
       "title": "GetContentPlanFacetsResp",
       "required": [
         "markets",
-        "domains",
-        "content_types",
-        "updated_dates",
-        "published_dates",
-        "content_plans"
+        "domains"
       ]
     },
     "GetContentPlanKeywordsReq": {
@@ -3914,17 +4304,13 @@
         },
         "topic_id": {
           "$ref": "#/definitions/uint"
-        },
-        "keyword_id": {
-          "$ref": "#/definitions/uint"
         }
       },
       "title": "GetContentPlanRankingURLsReq",
       "required": [
         "plan_id",
         "cluster_id",
-        "topic_id",
-        "keyword_id"
+        "topic_id"
       ]
     },
     "GetContentPlanRankingURLsResp": {
@@ -4020,12 +4406,34 @@
     "GetContentPlansReq": {
       "type": "object",
       "properties": {
-        "user_id": {
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
           "$ref": "#/definitions/uint"
         },
         "archived": {
           "type": "boolean",
           "format": "boolean"
+        },
+        "markets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "domains": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
         },
         "from": {
           "type": "integer",
@@ -4034,11 +4442,22 @@
         "size": {
           "type": "integer",
           "format": "int32"
+        },
+        "sort": {
+          "type": "string",
+          "default": "a"
+        },
+        "order": {
+          "type": "string",
+          "default": "desc"
         }
       },
       "title": "GetContentPlansReq",
       "required": [
-        "user_id"
+        "company_id",
+        "folder_id",
+        "sort",
+        "order"
       ]
     },
     "GetContentPlansResp": {
@@ -4144,6 +4563,32 @@
       "title": "GetGeneratedContentReq",
       "required": [
         "id"
+      ]
+    },
+    "GetGeneratedContentTypeResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "content_type": {
+          "type": "string"
+        },
+        "length": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "GetGeneratedContentTypeResp",
+      "required": [
+        "id",
+        "status",
+        "content_type",
+        "length"
       ]
     },
     "GetGeneratedImageResp": {
@@ -4581,6 +5026,12 @@
         "user_id": {
           "$ref": "#/definitions/uint"
         },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
+          "$ref": "#/definitions/uint"
+        },
         "from": {
           "type": "integer",
           "format": "int32"
@@ -4592,7 +5043,9 @@
       },
       "title": "GetGeneratedPlansReq",
       "required": [
-        "user_id"
+        "user_id",
+        "company_id",
+        "folder_id"
       ]
     },
     "GetGeneratedPlansResp": {
@@ -4647,10 +5100,13 @@
           "type": "integer",
           "format": "int32"
         },
-        "title": {
+        "content": {
           "type": "string"
         },
-        "content": {
+        "meta_title": {
+          "type": "string"
+        },
+        "meta_description": {
           "type": "string"
         }
       },
@@ -4658,8 +5114,9 @@
       "required": [
         "id",
         "status",
-        "title",
-        "content"
+        "content",
+        "meta_title",
+        "meta_description"
       ]
     },
     "GetGeneratedSummaryResp": {
@@ -4763,6 +5220,12 @@
         "user_id": {
           "$ref": "#/definitions/uint"
         },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
+          "$ref": "#/definitions/uint"
+        },
         "from": {
           "type": "integer",
           "format": "int32"
@@ -4774,7 +5237,9 @@
       },
       "title": "GetKeywordsByUserReq",
       "required": [
-        "user_id"
+        "user_id",
+        "company_id",
+        "folder_id"
       ]
     },
     "GetKeywordsByUserResp": {
@@ -4846,6 +5311,12 @@
         "id": {
           "$ref": "#/definitions/uint"
         },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
+          "$ref": "#/definitions/uint"
+        },
         "from": {
           "type": "integer",
           "format": "int32"
@@ -4861,7 +5332,9 @@
       },
       "title": "GetPostsByUserReq",
       "required": [
-        "id"
+        "id",
+        "company_id",
+        "folder_id"
       ]
     },
     "GetPostsResp": {
@@ -5173,6 +5646,12 @@
         "user_id": {
           "$ref": "#/definitions/uint"
         },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
+          "$ref": "#/definitions/uint"
+        },
         "from": {
           "type": "integer",
           "format": "int32"
@@ -5184,7 +5663,9 @@
       },
       "title": "GetTopicsByUserReq",
       "required": [
-        "user_id"
+        "user_id",
+        "company_id",
+        "folder_id"
       ]
     },
     "GetTopicsByUserResp": {
@@ -5683,6 +6164,41 @@
       "type": "object",
       "title": "LikeResp"
     },
+    "Outline": {
+      "type": "object",
+      "properties": {
+        "h2": {
+          "$ref": "#/definitions/OutlineH2"
+        },
+        "context_file_id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "Outline",
+      "required": [
+        "h2",
+        "required"
+      ]
+    },
+    "OutlineH2": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "h3": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "OutlineH2",
+      "required": [
+        "content",
+        "required"
+      ]
+    },
     "PostExtra": {
       "type": "object",
       "properties": {
@@ -5719,6 +6235,12 @@
       "type": "object",
       "properties": {
         "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
           "$ref": "#/definitions/uint"
         },
         "title": {
@@ -5820,9 +6342,29 @@
         "published_at": {
           "type": "integer",
           "format": "int64"
+        },
+        "published_url": {
+          "type": "string"
+        },
+        "meta_title": {
+          "type": "string"
+        },
+        "meta_description": {
+          "type": "string"
+        },
+        "content_status": {
+          "type": "integer",
+          "format": "int32",
+          "default": "1"
+        },
+        "content_setting_id": {
+          "$ref": "#/definitions/uint"
         }
       },
-      "title": "PostInfo"
+      "title": "PostInfo",
+      "required": [
+        "content_status"
+      ]
     },
     "RankingURL": {
       "type": "object",
@@ -5935,6 +6477,12 @@
     "SaveKeywordReq": {
       "type": "object",
       "properties": {
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
+          "$ref": "#/definitions/uint"
+        },
         "aigc_id": {
           "$ref": "#/definitions/uint"
         },
@@ -5955,6 +6503,8 @@
       },
       "title": "SaveKeywordReq",
       "required": [
+        "company_id",
+        "folder_id",
         "aigc_id",
         "topic",
         "keyword",
@@ -6010,6 +6560,12 @@
     "SaveTopicReq": {
       "type": "object",
       "properties": {
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
+          "$ref": "#/definitions/uint"
+        },
         "aigc_id": {
           "$ref": "#/definitions/uint"
         },
@@ -6019,6 +6575,8 @@
       },
       "title": "SaveTopicReq",
       "required": [
+        "company_id",
+        "folder_id",
         "aigc_id",
         "topic"
       ]
@@ -6100,6 +6658,49 @@
       "title": "StartContentPlanResp",
       "required": [
         "id"
+      ]
+    },
+    "Statistics": {
+      "type": "object",
+      "properties": {
+        "topic_count": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "covered_topic_count": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "topic_coverage": {
+          "type": "number",
+          "format": "double"
+        },
+        "total_volume": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "covered_volume": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "volume_coverage": {
+          "type": "number",
+          "format": "double"
+        },
+        "published_content": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Statistics",
+      "required": [
+        "topic_count",
+        "covered_topic_count",
+        "topic_coverage",
+        "total_volume",
+        "covered_volume",
+        "volume_coverage",
+        "published_content"
       ]
     },
     "SubScore": {
@@ -6463,6 +7064,12 @@
         "id": {
           "$ref": "#/definitions/uint"
         },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
+          "$ref": "#/definitions/uint"
+        },
         "website": {
           "type": "string"
         },
@@ -6494,7 +7101,9 @@
       },
       "title": "UpdateContentPlanReq",
       "required": [
-        "id"
+        "id",
+        "company_id",
+        "folder_id"
       ]
     },
     "UpdateContentPlanTopicReq": {
@@ -6533,37 +7142,100 @@
         "id"
       ]
     },
+    "UpdateContentSettingReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "content_type": {
+          "type": "string"
+        },
+        "length": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "title": {
+          "type": "string"
+        },
+        "brand_profile_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "context_file_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "outline": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Outline"
+          }
+        }
+      },
+      "title": "UpdateContentSettingReq",
+      "required": [
+        "id",
+        "company_id",
+        "required",
+        "folder_id",
+        "required"
+      ]
+    },
+    "UpdateContentSettingResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "UpdateContentSettingResp",
+      "required": [
+        "id"
+      ]
+    },
     "UploadFileReq": {
       "type": "object",
       "properties": {
-        "url": {
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "file_name": {
           "type": "string"
         },
-        "src": {
-          "type": "string",
-          "default": "AIWRITER"
+        "url": {
+          "type": "string"
         }
       },
       "title": "UploadFileReq",
       "required": [
+        "company_id",
+        "required",
+        "folder_id",
+        "required",
+        "file_name",
+        "required",
         "url",
-        "src"
+        "required"
       ]
     },
     "UploadFileResp": {
       "type": "object",
       "properties": {
         "file_id": {
-          "type": "string"
-        },
-        "file_name": {
-          "type": "string"
+          "$ref": "#/definitions/uint"
         }
       },
       "title": "UploadFileResp",
       "required": [
-        "file_id",
-        "file_name"
+        "file_id"
       ]
     },
     "UserInfo": {

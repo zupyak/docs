@@ -748,14 +748,28 @@
         "user_id": {
           "$ref": "#/definitions/uint"
         },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
         "product_id": {
           "$ref": "#/definitions/uint"
+        },
+        "usage_credits": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "caas_credits": {
+          "type": "integer",
+          "format": "int64"
         }
       },
       "title": "CreateSubscriptionReq",
       "required": [
         "user_id",
-        "product_id"
+        "company_id",
+        "product_id",
+        "usage_credits",
+        "caas_credits"
       ]
     },
     "CreateSubscriptionResp": {
@@ -765,6 +779,9 @@
           "type": "string"
         },
         "user_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "company_id": {
           "$ref": "#/definitions/uint"
         },
         "from_plan": {
@@ -781,6 +798,7 @@
       "required": [
         "uuid",
         "user_id",
+        "company_id",
         "from_plan",
         "to_plan",
         "redirect_url"
