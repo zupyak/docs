@@ -721,6 +721,45 @@
         ]
       }
     },
+    "/posts/aigc/contentplans/{plan_id}/tasks": {
+      "get": {
+        "operationId": "getContentPlanTasks",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetContentPlanTasksResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "default": "2"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
     "/posts/aigc/contentplans/{plan_id}/topics": {
       "get": {
         "operationId": "getContentPlanDeprioritizedTopics",
@@ -2029,6 +2068,56 @@
         ]
       }
     },
+    "/posts/aigc/tonalities": {
+      "post": {
+        "operationId": "generateTonality",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GenerateContentResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GenerateTonalityReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/tonalities/{id}": {
+      "get": {
+        "operationId": "getGeneratedTonality",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetGeneratedTonalityResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
     "/posts/aigc/topics": {
       "post": {
         "operationId": "suggestTopic",
@@ -2156,6 +2245,28 @@
       }
     },
     "/posts/contentsettings/{id}": {
+      "get": {
+        "operationId": "getContentSetting",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetContentSettingResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      },
       "put": {
         "operationId": "updateContentSetting",
         "responses": {
@@ -3080,6 +3191,12 @@
         "company_description": {
           "type": "string"
         },
+        "industries": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "products": {
           "type": "array",
           "items": {
@@ -3123,6 +3240,7 @@
         "competitors",
         "strength",
         "company_description",
+        "industries",
         "products",
         "updated_at",
         "plan_statistics",
@@ -3250,7 +3368,15 @@
           "type": "number",
           "format": "double"
         },
+        "created_content": {
+          "type": "integer",
+          "format": "int32"
+        },
         "published_content": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "top_keywords_count": {
           "type": "integer",
           "format": "int32"
         }
@@ -3270,7 +3396,9 @@
         "total_volume",
         "covered_volume",
         "volume_coverage",
-        "published_content"
+        "created_content",
+        "published_content",
+        "top_keywords_count"
       ]
     },
     "ContentPlanFacet": {
@@ -3352,6 +3480,67 @@
         "ranking"
       ]
     },
+    "ContentPlanTask": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "content_plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "cluster_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "topic_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "ranking": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ranking_url": {
+          "type": "string"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "text": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "finished_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ContentPlanTask",
+      "required": [
+        "id",
+        "content_plan_id",
+        "cluster_id",
+        "topic_id",
+        "ranking",
+        "ranking_url",
+        "type",
+        "text",
+        "status",
+        "created_at",
+        "updated_at"
+      ]
+    },
     "ContentPlanTopic": {
       "type": "object",
       "properties": {
@@ -3375,6 +3564,20 @@
           "type": "string"
         },
         "ranking": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ranking_url": {
+          "type": "string"
+        },
+        "article_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "published": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "priority": {
           "type": "integer",
           "format": "int32"
         },
@@ -3408,11 +3611,63 @@
         "type",
         "name",
         "ranking",
+        "ranking_url",
+        "article_id",
+        "published",
+        "priority",
         "deprioritized",
         "keywords_count",
         "total_volume",
         "avg_difficulty",
         "avg_cost"
+      ]
+    },
+    "ContentSettingContentPlanInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "name": {
+          "type": "string"
+        },
+        "market": {
+          "type": "string"
+        },
+        "website": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        }
+      },
+      "title": "ContentSettingContentPlanInfo",
+      "required": [
+        "id",
+        "name",
+        "market",
+        "website",
+        "language"
+      ]
+    },
+    "ContextFile": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "file_name": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "title": "ContextFile",
+      "required": [
+        "id",
+        "file_name",
+        "url"
       ]
     },
     "CreateContentPlanReq": {
@@ -3749,33 +4004,26 @@
         "type": {
           "type": "string"
         },
-        "file_id": {
-          "type": "string"
+        "content_plan_id": {
+          "$ref": "#/definitions/uint"
         },
-        "file_name": {
-          "type": "string"
-        },
-        "file_instructions": {
-          "type": "string"
-        },
-        "language": {
-          "type": "string"
+        "brand_profile_id": {
+          "$ref": "#/definitions/uint"
         },
         "topic": {
           "type": "string"
         },
-        "keywords": {
+        "primary_keyword": {
+          "type": "string"
+        },
+        "secondary_keywords": {
           "type": "array",
           "items": {
             "type": "string"
           }
         },
-        "tonality": {
-          "$ref": "#/definitions/Tonality"
-        },
-        "src": {
-          "type": "string",
-          "default": "AIWRITER"
+        "file_id": {
+          "$ref": "#/definitions/uint"
         }
       },
       "title": "GenerateBriefReq",
@@ -3785,8 +4033,13 @@
         "folder_id",
         "required",
         "type",
-        "language",
-        "src"
+        "required",
+        "content_plan_id",
+        "required",
+        "brand_profile_id",
+        "required",
+        "topic",
+        "required"
       ]
     },
     "GenerateContentResp": {
@@ -3815,6 +4068,15 @@
         },
         "topic": {
           "type": "string"
+        },
+        "primary_keyword": {
+          "type": "string"
+        },
+        "secondary_keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "title": "GenerateContentTypeReq",
@@ -3854,6 +4116,12 @@
     "GenerateInsightReq": {
       "type": "object",
       "properties": {
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
+          "$ref": "#/definitions/uint"
+        },
         "title": {
           "type": "string"
         },
@@ -3869,8 +4137,12 @@
       },
       "title": "GenerateInsightReq",
       "required": [
+        "company_id",
+        "required",
+        "folder_id",
+        "required",
         "title",
-        "content"
+        "required"
       ]
     },
     "GenerateKeywordPlanReq": {
@@ -4072,6 +4344,34 @@
         "content",
         "language",
         "type"
+      ]
+    },
+    "GenerateTonalityReq": {
+      "type": "object",
+      "properties": {
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "context_file_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "tone_file_id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "GenerateTonalityReq",
+      "required": [
+        "company_id",
+        "required",
+        "folder_id",
+        "required",
+        "context_file_id",
+        "required",
+        "tone_file_id",
+        "required"
       ]
     },
     "GetContentPlanArticlesReq": {
@@ -4340,6 +4640,43 @@
         "id"
       ]
     },
+    "GetContentPlanTasksReq": {
+      "type": "object",
+      "properties": {
+        "plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32",
+          "default": "2"
+        }
+      },
+      "title": "GetContentPlanTasksReq",
+      "required": [
+        "plan_id",
+        "size"
+      ]
+    },
+    "GetContentPlanTasksResp": {
+      "type": "object",
+      "properties": {
+        "tasks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ContentPlanTask"
+          }
+        }
+      },
+      "title": "GetContentPlanTasksResp",
+      "required": [
+        "tasks"
+      ]
+    },
     "GetContentPlanTopicsReq": {
       "type": "object",
       "properties": {
@@ -4490,6 +4827,77 @@
         "plans"
       ]
     },
+    "GetContentSettingReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "GetContentSettingReq",
+      "required": [
+        "id"
+      ]
+    },
+    "GetContentSettingResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "content_plan": {
+          "$ref": "#/definitions/ContentSettingContentPlanInfo"
+        },
+        "topic": {
+          "type": "string"
+        },
+        "primary_keyword": {
+          "type": "string"
+        },
+        "secondary_keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "content_type": {
+          "type": "string"
+        },
+        "length": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "title": {
+          "type": "string"
+        },
+        "brand_profile_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "context_file": {
+          "$ref": "#/definitions/ContextFile"
+        },
+        "outline": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Outline"
+          }
+        }
+      },
+      "title": "GetContentSettingResp",
+      "required": [
+        "id",
+        "content_plan",
+        "topic",
+        "primary_keyword",
+        "secondary_keywords",
+        "content_type",
+        "length",
+        "title",
+        "brand_profile_id",
+        "context_file",
+        "outline"
+      ]
+    },
     "GetDomainInfoReq": {
       "type": "object",
       "properties": {
@@ -4539,6 +4947,12 @@
           "type": "integer",
           "format": "int32"
         },
+        "search_intent": {
+          "type": "string"
+        },
+        "suggestion_rationale": {
+          "type": "string"
+        },
         "briefs": {
           "type": "array",
           "items": {
@@ -4550,6 +4964,8 @@
       "required": [
         "id",
         "status",
+        "search_intent",
+        "suggestion_rationale",
         "briefs"
       ]
     },
@@ -5138,6 +5554,39 @@
         "id",
         "status",
         "content"
+      ]
+    },
+    "GetGeneratedTonalityReq": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "GetGeneratedTonalityReq",
+      "required": [
+        "id"
+      ]
+    },
+    "GetGeneratedTonalityResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "tonality": {
+          "type": "string"
+        }
+      },
+      "title": "GetGeneratedTonalityResp",
+      "required": [
+        "id",
+        "status",
+        "tonality"
       ]
     },
     "GetKeywordTranslationsResp": {
@@ -5767,6 +6216,25 @@
         "keywords"
       ]
     },
+    "H2": {
+      "type": "object",
+      "properties": {
+        "header": {
+          "type": "string"
+        },
+        "h3": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "H2",
+      "required": [
+        "header",
+        "required"
+      ]
+    },
     "HKeyword": {
       "type": "object",
       "properties": {
@@ -6168,34 +6636,15 @@
       "type": "object",
       "properties": {
         "h2": {
-          "$ref": "#/definitions/OutlineH2"
+          "$ref": "#/definitions/H2"
         },
-        "context_file_id": {
-          "$ref": "#/definitions/uint"
+        "additional_context": {
+          "type": "string"
         }
       },
       "title": "Outline",
       "required": [
         "h2",
-        "required"
-      ]
-    },
-    "OutlineH2": {
-      "type": "object",
-      "properties": {
-        "content": {
-          "type": "string"
-        },
-        "h3": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "title": "OutlineH2",
-      "required": [
-        "content",
         "required"
       ]
     },
@@ -6687,7 +7136,15 @@
           "type": "number",
           "format": "double"
         },
+        "created_content": {
+          "type": "integer",
+          "format": "int32"
+        },
         "published_content": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "top_keywords_count": {
           "type": "integer",
           "format": "int32"
         }
@@ -6700,7 +7157,9 @@
         "total_volume",
         "covered_volume",
         "volume_coverage",
-        "published_content"
+        "created_content",
+        "published_content",
+        "top_keywords_count"
       ]
     },
     "SubScore": {
@@ -7092,11 +7551,21 @@
         "company_description": {
           "type": "string"
         },
+        "industries": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "products": {
           "type": "array",
           "items": {
             "type": "string"
           }
+        },
+        "archived": {
+          "type": "integer",
+          "format": "int32"
         }
       },
       "title": "UpdateContentPlanReq",

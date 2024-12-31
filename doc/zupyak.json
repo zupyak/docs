@@ -2139,6 +2139,43 @@
         }
       }
     },
+    "/posts/aigc/contentplans/{plan_id}/tasks": {
+      "get": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "getContentPlanTasks",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "plan_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "name": "type",
+            "in": "query"
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "default": "2",
+            "name": "size",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetContentPlanTasksResp"
+            }
+          }
+        }
+      }
+    },
     "/posts/aigc/contentplans/{plan_id}/topics": {
       "get": {
         "tags": [
@@ -3417,6 +3454,56 @@
         }
       }
     },
+    "/posts/aigc/tonalities": {
+      "post": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "generateTonality",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GenerateTonalityReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GenerateContentResp"
+            }
+          }
+        }
+      }
+    },
+    "/posts/aigc/tonalities/{id}": {
+      "get": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "getGeneratedTonality",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetGeneratedTonalityResp"
+            }
+          }
+        }
+      }
+    },
     "/posts/aigc/topics": {
       "post": {
         "tags": [
@@ -3544,6 +3631,28 @@
       }
     },
     "/posts/contentsettings/{id}": {
+      "get": {
+        "tags": [
+          "post-api"
+        ],
+        "operationId": "getContentSetting",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetContentSettingResp"
+            }
+          }
+        }
+      },
       "put": {
         "tags": [
           "post-api"
@@ -5603,6 +5712,182 @@
         }
       }
     },
+    "/users/{id}/companies/{company_id}/brandprofiles": {
+      "get": {
+        "tags": [
+          "user-api"
+        ],
+        "summary": "Get brand profiles",
+        "operationId": "getBrandProfiles",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "company_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "default": "0",
+            "name": "min=0",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "integer",
+            "format": "int32",
+            "default": "20",
+            "name": "min=1",
+            "in": "query",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "name",
+            "in": "query"
+          },
+          {
+            "type": "string",
+            "default": "all",
+            "name": "created_by",
+            "in": "query",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetBrandProfilesResp"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "user-api"
+        ],
+        "summary": "Create brand profile",
+        "operationId": "createBrandProfile",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "company_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateBrandProfileReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CreateBrandProfileResp"
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}/companies/{company_id}/brandprofiles/{brand_profile_id}": {
+      "get": {
+        "tags": [
+          "user-api"
+        ],
+        "summary": "Get brand profile",
+        "operationId": "getBrandProfile",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "company_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "brand_profile_id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetBrandProfileResp"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "user-api"
+        ],
+        "summary": "Update brand profile",
+        "operationId": "updateBrandProfile",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "company_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "type": "string",
+            "name": "brand_profile_id",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateBrandProfileReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateBrandProfileResp"
+            }
+          }
+        }
+      }
+    },
     "/users/{id}/companies/{company_id}/companyusers": {
       "get": {
         "tags": [
@@ -6544,6 +6829,68 @@
         }
       }
     },
+    "BrandProfile": {
+      "type": "object",
+      "title": "BrandProfile",
+      "required": [
+        "id",
+        "name",
+        "purpose",
+        "audience",
+        "instruction",
+        "type",
+        "tonality",
+        "emotions",
+        "context_file",
+        "tone_file",
+        "is_default",
+        "created_at"
+      ],
+      "properties": {
+        "audience": {
+          "type": "string"
+        },
+        "context_file": {
+          "$ref": "#/definitions/ContextFile"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "emotions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "instruction": {
+          "type": "string"
+        },
+        "is_default": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "purpose": {
+          "type": "string"
+        },
+        "tonality": {
+          "$ref": "#/definitions/Tonality"
+        },
+        "tone_file": {
+          "$ref": "#/definitions/ContextFile"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
     "Brief": {
       "type": "object",
       "title": "Brief",
@@ -6826,6 +7173,7 @@
         "competitors",
         "strength",
         "company_description",
+        "industries",
         "products",
         "updated_at",
         "plan_statistics",
@@ -6871,6 +7219,12 @@
         },
         "id": {
           "$ref": "#/definitions/uint"
+        },
+        "industries": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "keywords": {
           "type": "array",
@@ -7015,7 +7369,9 @@
         "total_volume",
         "covered_volume",
         "volume_coverage",
-        "published_content"
+        "created_content",
+        "published_content",
+        "top_keywords_count"
       ],
       "properties": {
         "avg_cost": {
@@ -7037,6 +7393,10 @@
           "type": "integer",
           "format": "int64"
         },
+        "created_content": {
+          "type": "integer",
+          "format": "int32"
+        },
         "id": {
           "$ref": "#/definitions/uint"
         },
@@ -7048,6 +7408,10 @@
           "type": "string"
         },
         "published_content": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "top_keywords_count": {
           "type": "integer",
           "format": "int32"
         },
@@ -7152,6 +7516,67 @@
         }
       }
     },
+    "ContentPlanTask": {
+      "type": "object",
+      "title": "ContentPlanTask",
+      "required": [
+        "id",
+        "content_plan_id",
+        "cluster_id",
+        "topic_id",
+        "ranking",
+        "ranking_url",
+        "type",
+        "text",
+        "status",
+        "created_at",
+        "updated_at"
+      ],
+      "properties": {
+        "cluster_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "content_plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "finished_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "ranking": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ranking_url": {
+          "type": "string"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "text": {
+          "type": "string"
+        },
+        "topic_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
     "ContentPlanTopic": {
       "type": "object",
       "title": "ContentPlanTopic",
@@ -7163,6 +7588,10 @@
         "type",
         "name",
         "ranking",
+        "ranking_url",
+        "article_id",
+        "published",
+        "priority",
         "deprioritized",
         "keywords_count",
         "total_volume",
@@ -7170,6 +7599,9 @@
         "avg_cost"
       ],
       "properties": {
+        "article_id": {
+          "$ref": "#/definitions/uint"
+        },
         "avg_cost": {
           "type": "number",
           "format": "double"
@@ -7201,9 +7633,20 @@
         "name": {
           "type": "string"
         },
+        "priority": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "published": {
+          "type": "boolean",
+          "format": "boolean"
+        },
         "ranking": {
           "type": "integer",
           "format": "int32"
+        },
+        "ranking_url": {
+          "type": "string"
         },
         "total_volume": {
           "type": "integer",
@@ -7212,6 +7655,54 @@
         "type": {
           "type": "integer",
           "format": "int32"
+        }
+      }
+    },
+    "ContentSettingContentPlanInfo": {
+      "type": "object",
+      "title": "ContentSettingContentPlanInfo",
+      "required": [
+        "id",
+        "name",
+        "market",
+        "website",
+        "language"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "language": {
+          "type": "string"
+        },
+        "market": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "website": {
+          "type": "string"
+        }
+      }
+    },
+    "ContextFile": {
+      "type": "object",
+      "title": "ContextFile",
+      "required": [
+        "id",
+        "file_name",
+        "url"
+      ],
+      "properties": {
+        "file_name": {
+          "type": "string"
+        },
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "url": {
+          "type": "string"
         }
       }
     },
@@ -7230,6 +7721,78 @@
         "duration_in_months": {
           "type": "integer",
           "format": "int32"
+        }
+      }
+    },
+    "CreateBrandProfileReq": {
+      "type": "object",
+      "title": "CreateBrandProfileReq",
+      "required": [
+        "id",
+        "company_id",
+        "name",
+        "required",
+        "purpose",
+        "audience",
+        "omitempty",
+        "type",
+        "required",
+        "is_default"
+      ],
+      "properties": {
+        "audience": {
+          "type": "string"
+        },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "context_file_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "emotions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "instruction": {
+          "type": "string"
+        },
+        "is_default": {
+          "type": "boolean",
+          "format": "boolean",
+          "default": "false"
+        },
+        "name": {
+          "type": "string"
+        },
+        "purpose": {
+          "type": "string"
+        },
+        "tonality": {
+          "$ref": "#/definitions/Tonality"
+        },
+        "tone_file_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "CreateBrandProfileResp": {
+      "type": "object",
+      "title": "CreateBrandProfileResp",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
@@ -8285,40 +8848,38 @@
         "folder_id",
         "required",
         "type",
-        "language",
-        "src"
+        "required",
+        "content_plan_id",
+        "required",
+        "brand_profile_id",
+        "required",
+        "topic",
+        "required"
       ],
       "properties": {
+        "brand_profile_id": {
+          "$ref": "#/definitions/uint"
+        },
         "company_id": {
           "$ref": "#/definitions/uint"
         },
+        "content_plan_id": {
+          "$ref": "#/definitions/uint"
+        },
         "file_id": {
-          "type": "string"
-        },
-        "file_instructions": {
-          "type": "string"
-        },
-        "file_name": {
-          "type": "string"
+          "$ref": "#/definitions/uint"
         },
         "folder_id": {
           "$ref": "#/definitions/uint"
         },
-        "keywords": {
+        "primary_keyword": {
+          "type": "string"
+        },
+        "secondary_keywords": {
           "type": "array",
           "items": {
             "type": "string"
           }
-        },
-        "language": {
-          "type": "string"
-        },
-        "src": {
-          "type": "string",
-          "default": "AIWRITER"
-        },
-        "tonality": {
-          "$ref": "#/definitions/Tonality"
         },
         "topic": {
           "type": "string"
@@ -8363,6 +8924,15 @@
         "folder_id": {
           "$ref": "#/definitions/uint"
         },
+        "primary_keyword": {
+          "type": "string"
+        },
+        "secondary_keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "topic": {
           "type": "string"
         }
@@ -8394,12 +8964,22 @@
       "type": "object",
       "title": "GenerateInsightReq",
       "required": [
+        "company_id",
+        "required",
+        "folder_id",
+        "required",
         "title",
-        "content"
+        "required"
       ],
       "properties": {
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
         "content": {
           "type": "string"
+        },
+        "folder_id": {
+          "$ref": "#/definitions/uint"
         },
         "keywords": {
           "type": "array",
@@ -8613,6 +9193,34 @@
         }
       }
     },
+    "GenerateTonalityReq": {
+      "type": "object",
+      "title": "GenerateTonalityReq",
+      "required": [
+        "company_id",
+        "required",
+        "folder_id",
+        "required",
+        "context_file_id",
+        "required",
+        "tone_file_id",
+        "required"
+      ],
+      "properties": {
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "context_file_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "tone_file_id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
+    },
     "GetApplyReq": {
       "type": "object",
       "title": "GetApplyReq",
@@ -8644,6 +9252,156 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/UserBusinessApply"
+          }
+        },
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "GetBrandProfileReq": {
+      "type": "object",
+      "title": "GetBrandProfileReq",
+      "required": [
+        "id",
+        "company_id",
+        "brand_profile_id"
+      ],
+      "properties": {
+        "brand_profile_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
+    },
+    "GetBrandProfileResp": {
+      "type": "object",
+      "title": "GetBrandProfileResp",
+      "required": [
+        "id",
+        "name",
+        "purpose",
+        "audience",
+        "instruction",
+        "type",
+        "tonality",
+        "emotions",
+        "context_file",
+        "tone_file",
+        "is_default",
+        "created_at"
+      ],
+      "properties": {
+        "audience": {
+          "type": "string"
+        },
+        "context_file": {
+          "$ref": "#/definitions/ContextFile"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "emotions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "instruction": {
+          "type": "string"
+        },
+        "is_default": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "name": {
+          "type": "string"
+        },
+        "purpose": {
+          "type": "string"
+        },
+        "tonality": {
+          "$ref": "#/definitions/Tonality"
+        },
+        "tone_file": {
+          "$ref": "#/definitions/ContextFile"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "GetBrandProfilesReq": {
+      "type": "object",
+      "title": "GetBrandProfilesReq",
+      "required": [
+        "id",
+        "company_id",
+        "from",
+        "min=0",
+        "size",
+        "min=1",
+        "created_by"
+      ],
+      "properties": {
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "created_by": {
+          "type": "string",
+          "default": "all"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32",
+          "default": "0"
+        },
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "name": {
+          "type": "string"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32",
+          "default": "20"
+        }
+      }
+    },
+    "GetBrandProfilesResp": {
+      "type": "object",
+      "title": "GetBrandProfilesResp",
+      "required": [
+        "count",
+        "from",
+        "size",
+        "brand_profiles"
+      ],
+      "properties": {
+        "brand_profiles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BrandProfile"
           }
         },
         "count": {
@@ -9229,6 +9987,43 @@
         }
       }
     },
+    "GetContentPlanTasksReq": {
+      "type": "object",
+      "title": "GetContentPlanTasksReq",
+      "required": [
+        "plan_id",
+        "size"
+      ],
+      "properties": {
+        "plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32",
+          "default": "2"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "GetContentPlanTasksResp": {
+      "type": "object",
+      "title": "GetContentPlanTasksResp",
+      "required": [
+        "tasks"
+      ],
+      "properties": {
+        "tasks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ContentPlanTask"
+          }
+        }
+      }
+    },
     "GetContentPlanTopicsReq": {
       "type": "object",
       "title": "GetContentPlanTopicsReq",
@@ -9376,6 +10171,77 @@
         "size": {
           "type": "integer",
           "format": "int32"
+        }
+      }
+    },
+    "GetContentSettingReq": {
+      "type": "object",
+      "title": "GetContentSettingReq",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
+    },
+    "GetContentSettingResp": {
+      "type": "object",
+      "title": "GetContentSettingResp",
+      "required": [
+        "id",
+        "content_plan",
+        "topic",
+        "primary_keyword",
+        "secondary_keywords",
+        "content_type",
+        "length",
+        "title",
+        "brand_profile_id",
+        "context_file",
+        "outline"
+      ],
+      "properties": {
+        "brand_profile_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "content_plan": {
+          "$ref": "#/definitions/ContentSettingContentPlanInfo"
+        },
+        "content_type": {
+          "type": "string"
+        },
+        "context_file": {
+          "$ref": "#/definitions/ContextFile"
+        },
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "length": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "outline": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Outline"
+          }
+        },
+        "primary_keyword": {
+          "type": "string"
+        },
+        "secondary_keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "title": {
+          "type": "string"
+        },
+        "topic": {
+          "type": "string"
         }
       }
     },
@@ -9670,6 +10536,8 @@
       "required": [
         "id",
         "status",
+        "search_intent",
+        "suggestion_rationale",
         "briefs"
       ],
       "properties": {
@@ -9682,9 +10550,15 @@
         "id": {
           "$ref": "#/definitions/uint"
         },
+        "search_intent": {
+          "type": "string"
+        },
         "status": {
           "type": "integer",
           "format": "int32"
+        },
+        "suggestion_rationale": {
+          "type": "string"
         }
       }
     },
@@ -10272,6 +11146,39 @@
         "status": {
           "type": "integer",
           "format": "int32"
+        }
+      }
+    },
+    "GetGeneratedTonalityReq": {
+      "type": "object",
+      "title": "GetGeneratedTonalityReq",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
+    },
+    "GetGeneratedTonalityResp": {
+      "type": "object",
+      "title": "GetGeneratedTonalityResp",
+      "required": [
+        "id",
+        "status",
+        "tonality"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "tonality": {
+          "type": "string"
         }
       }
     },
@@ -11912,6 +12819,25 @@
         }
       }
     },
+    "H2": {
+      "type": "object",
+      "title": "H2",
+      "required": [
+        "header",
+        "required"
+      ],
+      "properties": {
+        "h3": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "header": {
+          "type": "string"
+        }
+      }
+    },
     "HKeyword": {
       "type": "object",
       "title": "HKeyword",
@@ -12745,30 +13671,11 @@
         "required"
       ],
       "properties": {
-        "context_file_id": {
-          "$ref": "#/definitions/uint"
-        },
-        "h2": {
-          "$ref": "#/definitions/OutlineH2"
-        }
-      }
-    },
-    "OutlineH2": {
-      "type": "object",
-      "title": "OutlineH2",
-      "required": [
-        "content",
-        "required"
-      ],
-      "properties": {
-        "content": {
+        "additional_context": {
           "type": "string"
         },
-        "h3": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+        "h2": {
+          "$ref": "#/definitions/H2"
         }
       }
     },
@@ -13922,7 +14829,9 @@
         "total_volume",
         "covered_volume",
         "volume_coverage",
-        "published_content"
+        "created_content",
+        "published_content",
+        "top_keywords_count"
       ],
       "properties": {
         "covered_topic_count": {
@@ -13933,7 +14842,15 @@
           "type": "integer",
           "format": "int64"
         },
+        "created_content": {
+          "type": "integer",
+          "format": "int32"
+        },
         "published_content": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "top_keywords_count": {
           "type": "integer",
           "format": "int32"
         },
@@ -14300,6 +15217,73 @@
       "type": "object",
       "title": "UpdateApplyResp"
     },
+    "UpdateBrandProfileReq": {
+      "type": "object",
+      "title": "UpdateBrandProfileReq",
+      "required": [
+        "id",
+        "company_id",
+        "brand_profile_id",
+        "omitempty",
+        "is_default"
+      ],
+      "properties": {
+        "audience": {
+          "type": "string"
+        },
+        "brand_profile_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "context_file_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "emotions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "instruction": {
+          "type": "string"
+        },
+        "is_default": {
+          "type": "boolean",
+          "format": "boolean",
+          "default": "false"
+        },
+        "name": {
+          "type": "string"
+        },
+        "purpose": {
+          "type": "string"
+        },
+        "tonality": {
+          "$ref": "#/definitions/Tonality"
+        },
+        "tone_file_id": {
+          "$ref": "#/definitions/uint"
+        }
+      }
+    },
+    "UpdateBrandProfileResp": {
+      "type": "object",
+      "title": "UpdateBrandProfileResp",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
     "UpdateCompanyReq": {
       "type": "object",
       "title": "UpdateCompanyReq",
@@ -14477,6 +15461,10 @@
         "folder_id"
       ],
       "properties": {
+        "archived": {
+          "type": "integer",
+          "format": "int32"
+        },
         "company_description": {
           "type": "string"
         },
@@ -14494,6 +15482,12 @@
         },
         "id": {
           "$ref": "#/definitions/uint"
+        },
+        "industries": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "keywords": {
           "type": "array",
