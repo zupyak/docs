@@ -497,6 +497,44 @@
         ]
       }
     },
+    "/posts/aigc/contentplans/{plan_id}/clusters/{cluster_id}/fetch": {
+      "post": {
+        "operationId": "fetchMoreTopics",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/FetchMoreTopicsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cluster_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FetchMoreTopicsReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
     "/posts/aigc/contentplans/{plan_id}/clusters/{cluster_id}/topics": {
       "get": {
         "operationId": "getContentPlanTopics",
@@ -540,7 +578,7 @@
             "in": "query",
             "required": true,
             "type": "string",
-            "default": "v"
+            "default": "p"
           },
           {
             "name": "order",
@@ -721,6 +759,36 @@
         ]
       }
     },
+    "/posts/aigc/contentplans/{plan_id}/operations/{operation_id}": {
+      "get": {
+        "operationId": "getContentPlanOperation",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetContentPlanOperationResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "operation_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
     "/posts/aigc/contentplans/{plan_id}/tasks": {
       "get": {
         "operationId": "getContentPlanTasks",
@@ -797,7 +865,7 @@
             "in": "query",
             "required": true,
             "type": "string",
-            "default": "v"
+            "default": "p"
           },
           {
             "name": "order",
@@ -1909,6 +1977,56 @@
           {
             "name": "region",
             "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/outlines": {
+      "post": {
+        "operationId": "generateOutline",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GenerateContentResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GenerateOutlineReq"
+            }
+          }
+        ],
+        "tags": [
+          "post-api"
+        ]
+      }
+    },
+    "/posts/aigc/outlines/{id}": {
+      "get": {
+        "operationId": "getGeneratedOutline",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetGeneratedOutlineResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
             "required": true,
             "type": "string"
           }
@@ -3065,6 +3183,34 @@
         "type"
       ]
     },
+    "BrandTonality": {
+      "type": "object",
+      "properties": {
+        "friendly": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "toned_down": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "for_everyone": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "emotional": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "BrandTonality",
+      "required": [
+        "friendly",
+        "toned_down",
+        "for_everyone",
+        "emotional"
+      ]
+    },
     "Brief": {
       "type": "object",
       "properties": {
@@ -3992,6 +4138,34 @@
         "download_url"
       ]
     },
+    "FetchMoreTopicsReq": {
+      "type": "object",
+      "properties": {
+        "plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "cluster_id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "FetchMoreTopicsReq",
+      "required": [
+        "plan_id",
+        "cluster_id"
+      ]
+    },
+    "FetchMoreTopicsResp": {
+      "type": "object",
+      "properties": {
+        "operation_id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "FetchMoreTopicsResp",
+      "required": [
+        "operation_id"
+      ]
+    },
     "GenerateBriefReq": {
       "type": "object",
       "properties": {
@@ -4230,6 +4404,66 @@
         "task_id"
       ]
     },
+    "GenerateOutlineReq": {
+      "type": "object",
+      "properties": {
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "type": {
+          "type": "string"
+        },
+        "content_plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "brand_profile_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "topic": {
+          "type": "string"
+        },
+        "primary_keyword": {
+          "type": "string"
+        },
+        "secondary_keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "file_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "title": {
+          "type": "string"
+        },
+        "brief": {
+          "type": "string"
+        }
+      },
+      "title": "GenerateOutlineReq",
+      "required": [
+        "company_id",
+        "required",
+        "folder_id",
+        "required",
+        "type",
+        "required",
+        "content_plan_id",
+        "required",
+        "brand_profile_id",
+        "required",
+        "topic",
+        "required",
+        "title",
+        "required",
+        "brief",
+        "required"
+      ]
+    },
     "GenerateParagraphReq": {
       "type": "object",
       "properties": {
@@ -4268,20 +4502,14 @@
         "topic": {
           "type": "string"
         },
+        "title": {
+          "type": "string"
+        },
         "brief": {
           "type": "string"
         },
         "file_id": {
-          "type": "string"
-        },
-        "file_name": {
-          "type": "string"
-        },
-        "file_instructions": {
-          "type": "string"
-        },
-        "audience": {
-          "type": "string"
+          "$ref": "#/definitions/uint"
         },
         "keywords": {
           "type": "array",
@@ -4297,15 +4525,18 @@
         "language": {
           "type": "string"
         },
-        "custom_instruction": {
-          "type": "string"
+        "outline": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Outline"
+          }
         },
-        "tonality": {
-          "$ref": "#/definitions/Tonality"
+        "brand_profile_id": {
+          "$ref": "#/definitions/uint"
         },
         "src": {
           "type": "string",
-          "default": "AIWRITER"
+          "default": "CONTENT_CREATOR"
         }
       },
       "title": "GeneratePostReq",
@@ -4316,6 +4547,7 @@
         "required",
         "type",
         "topic",
+        "title",
         "length",
         "src"
       ]
@@ -4323,6 +4555,12 @@
     "GenerateSummaryReq": {
       "type": "object",
       "properties": {
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "folder_id": {
+          "$ref": "#/definitions/uint"
+        },
         "content": {
           "type": "string"
         },
@@ -4341,6 +4579,8 @@
       },
       "title": "GenerateSummaryReq",
       "required": [
+        "company_id",
+        "folder_id",
         "content",
         "language",
         "type"
@@ -4358,8 +4598,11 @@
         "context_file_id": {
           "$ref": "#/definitions/uint"
         },
-        "tone_file_id": {
-          "$ref": "#/definitions/uint"
+        "tone_file_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/uint"
+          }
         }
       },
       "title": "GenerateTonalityReq",
@@ -4369,9 +4612,26 @@
         "folder_id",
         "required",
         "context_file_id",
-        "required",
-        "tone_file_id",
         "required"
+      ]
+    },
+    "GeneratedOutline": {
+      "type": "object",
+      "properties": {
+        "h2": {
+          "type": "string"
+        },
+        "h3": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "GeneratedOutline",
+      "required": [
+        "h2",
+        "h3"
       ]
     },
     "GetContentPlanArticlesReq": {
@@ -4502,7 +4762,7 @@
         },
         "sort": {
           "type": "string",
-          "default": "v"
+          "default": "p"
         },
         "order": {
           "type": "string",
@@ -4591,6 +4851,57 @@
       "title": "GetContentPlanKeywordsResp",
       "required": [
         "keywords"
+      ]
+    },
+    "GetContentPlanOperationReq": {
+      "type": "object",
+      "properties": {
+        "plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "operation_id": {
+          "$ref": "#/definitions/uint"
+        }
+      },
+      "title": "GetContentPlanOperationReq",
+      "required": [
+        "plan_id",
+        "operation_id"
+      ]
+    },
+    "GetContentPlanOperationResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "cluster_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "updated_at": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "GetContentPlanOperationResp",
+      "required": [
+        "id",
+        "plan_id",
+        "cluster_id",
+        "status",
+        "created_at",
+        "updated_at"
       ]
     },
     "GetContentPlanRankingURLsReq": {
@@ -4696,7 +5007,7 @@
         },
         "sort": {
           "type": "string",
-          "default": "v"
+          "default": "p"
         },
         "order": {
           "type": "string",
@@ -5050,6 +5361,30 @@
         "id",
         "status",
         "insight"
+      ]
+    },
+    "GetGeneratedOutlineResp": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "outline": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/GeneratedOutline"
+          }
+        }
+      },
+      "title": "GetGeneratedOutlineResp",
+      "required": [
+        "id",
+        "status",
+        "outline"
       ]
     },
     "GetGeneratedParagraphResp": {
@@ -5579,7 +5914,7 @@
           "format": "int32"
         },
         "tonality": {
-          "type": "string"
+          "$ref": "#/definitions/BrandTonality"
         }
       },
       "title": "GetGeneratedTonalityResp",
@@ -6216,25 +6551,6 @@
         "keywords"
       ]
     },
-    "H2": {
-      "type": "object",
-      "properties": {
-        "header": {
-          "type": "string"
-        },
-        "h3": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "title": "H2",
-      "required": [
-        "header",
-        "required"
-      ]
-    },
     "HKeyword": {
       "type": "object",
       "properties": {
@@ -6636,7 +6952,13 @@
       "type": "object",
       "properties": {
         "h2": {
-          "$ref": "#/definitions/H2"
+          "type": "string"
+        },
+        "h3": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "additional_context": {
           "type": "string"
@@ -7528,6 +7850,15 @@
         },
         "folder_id": {
           "$ref": "#/definitions/uint"
+        },
+        "name": {
+          "type": "string"
+        },
+        "market": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
         },
         "website": {
           "type": "string"

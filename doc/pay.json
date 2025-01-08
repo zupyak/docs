@@ -16,6 +16,31 @@
     "application/json"
   ],
   "paths": {
+    "/pay/actioncredits": {
+      "get": {
+        "summary": "Get action credits",
+        "operationId": "getActionCredits",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetActionCreditsResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "action",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "pay-api"
+        ]
+      }
+    },
     "/pay/appsumo/token": {
       "post": {
         "operationId": "appsumoLogin",
@@ -87,6 +112,67 @@
             "schema": {
               "$ref": "#/definitions/StripeEvent"
             }
+          }
+        ],
+        "tags": [
+          "pay-api"
+        ]
+      }
+    },
+    "/pay/companies/{company_id}/credithistories": {
+      "get": {
+        "summary": "Get credit histories",
+        "operationId": "getCreditHistories",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/GetCreditsHistoriesResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "action",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "min=0",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "default": "0"
+          },
+          {
+            "name": "min=1",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int32",
+            "default": "20"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "default": "created_at"
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "default": "desc"
           }
         ],
         "tags": [
@@ -232,6 +318,39 @@
             "type": "integer",
             "format": "int32",
             "default": "2"
+          }
+        ],
+        "tags": [
+          "pay-api"
+        ]
+      }
+    },
+    "/pay/plans/{plan_id}/calculateprice": {
+      "post": {
+        "summary": "Calculate price",
+        "operationId": "calculatePrice",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/CalculatePriceResp"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CalculatePriceReq"
+            }
           }
         ],
         "tags": [
@@ -417,6 +536,23 @@
     }
   },
   "definitions": {
+    "ActionCredits": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string"
+        },
+        "credits": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "ActionCredits",
+      "required": [
+        "action",
+        "credits"
+      ]
+    },
     "AppsumoEvent": {
       "type": "object",
       "properties": {
@@ -486,6 +622,36 @@
       "required": [
         "message",
         "redirect_url"
+      ]
+    },
+    "CalculatePriceReq": {
+      "type": "object",
+      "properties": {
+        "plan_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "credits": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "CalculatePriceReq",
+      "required": [
+        "plan_id",
+        "credits"
+      ]
+    },
+    "CalculatePriceResp": {
+      "type": "object",
+      "properties": {
+        "price": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "CalculatePriceResp",
+      "required": [
+        "price"
       ]
     },
     "CancelSubscriptionReq": {
@@ -649,6 +815,75 @@
         "ccv"
       ]
     },
+    "CreditHistory": {
+      "type": "object",
+      "properties": {
+        "created_at": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "action": {
+          "type": "string"
+        },
+        "operator": {
+          "$ref": "#/definitions/UserInfo"
+        },
+        "credits": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "CreditHistory",
+      "required": [
+        "created_at",
+        "action",
+        "operator",
+        "credits"
+      ]
+    },
+    "Feature": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "Feature",
+      "required": [
+        "description",
+        "items"
+      ]
+    },
+    "GetActionCreditsReq": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string"
+        }
+      },
+      "title": "GetActionCreditsReq"
+    },
+    "GetActionCreditsResp": {
+      "type": "object",
+      "properties": {
+        "action_credits": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ActionCredits"
+          }
+        }
+      },
+      "title": "GetActionCreditsResp",
+      "required": [
+        "action_credits"
+      ]
+    },
     "GetCompanyCreditsReq": {
       "type": "object",
       "properties": {
@@ -692,6 +927,75 @@
         "remaining_usage_credits",
         "total_bonus_credits",
         "remaining_bonus_credits"
+      ]
+    },
+    "GetCreditsHistoriesReq": {
+      "type": "object",
+      "properties": {
+        "company_id": {
+          "$ref": "#/definitions/uint"
+        },
+        "action": {
+          "type": "string"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32",
+          "default": "0"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32",
+          "default": "20"
+        },
+        "sort": {
+          "type": "string",
+          "default": "created_at"
+        },
+        "order": {
+          "type": "string",
+          "default": "desc"
+        }
+      },
+      "title": "GetCreditsHistoriesReq",
+      "required": [
+        "company_id",
+        "from",
+        "min=0",
+        "size",
+        "min=1",
+        "sort",
+        "order"
+      ]
+    },
+    "GetCreditsHistoriesResp": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "credit_histories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CreditHistory"
+          }
+        }
+      },
+      "title": "GetCreditsHistoriesResp",
+      "required": [
+        "count",
+        "from",
+        "size",
+        "credit_histories"
       ]
     },
     "GetInvoicesReq": {
@@ -927,6 +1231,10 @@
         "next_billing_amount": {
           "type": "integer",
           "format": "int64"
+        },
+        "credits": {
+          "type": "integer",
+          "format": "int64"
         }
       },
       "title": "GetSubscriptionResp",
@@ -941,7 +1249,8 @@
         "period_start_at",
         "period_end_at",
         "next_billing_at",
-        "next_billing_amount"
+        "next_billing_amount",
+        "credits"
       ]
     },
     "Invoice": {
@@ -1001,6 +1310,9 @@
         "price": {
           "type": "integer",
           "format": "int32"
+        },
+        "feature": {
+          "$ref": "#/definitions/Feature"
         }
       },
       "title": "Plan",
@@ -1011,7 +1323,8 @@
         "billing_period",
         "name",
         "description",
-        "price"
+        "price",
+        "feature"
       ]
     },
     "Product": {
@@ -1095,6 +1408,30 @@
       "required": [
         "uuid",
         "redirect_url"
+      ]
+    },
+    "UserInfo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/definitions/uint"
+        },
+        "full_name": {
+          "type": "string"
+        },
+        "avatar": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      },
+      "title": "UserInfo",
+      "required": [
+        "id",
+        "full_name",
+        "avatar",
+        "email"
       ]
     }
   },
